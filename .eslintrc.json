@@ -1,0 +1,105 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "parser": "@typescript-eslint/parser",
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/vue3-recommended"
+    ],
+    "rules": {
+        // 结尾分号
+        "semi": [
+            "warn",
+            "always"
+        ],
+        // 使用双引号
+        "quotes": [
+            "warn",
+            "double"
+        ],
+        // 未知变量
+        "no-unused-vars": "off",
+        // 
+        "no-trailing-spaces": "off",
+        // 未定义
+        "no-undef": "off",
+        // 空的代码块
+        "no-empty": "warn",
+        // 函数与括号是否空格
+        "space-before-function-paren": "off",
+        // 数组总是新行
+        "array-bracket-newline": [
+            "warn",
+            "consistent"
+        ],
+        // vue html标签一行属性数量
+        "vue/max-attributes-per-line": [
+            "error",
+            {
+                "singleline": 5,
+                "multiline": 5
+            }
+        ],
+        // vue html标签第一行是否换行
+        "vue/first-attribute-linebreak": [
+            "error",
+            {
+                "singleline": "ignore",
+                "multiline": "ignore"
+            }
+        ],
+        // vue html标签自动 />
+        "vue/html-self-closing": [
+            "error",
+            {
+                "html": {
+                    "void": "never",
+                    "normal": "never",
+                    "component": "never"
+                },
+                "svg": "always",
+                "math": "always"
+            }
+        ],
+        // vue 属性对其标签
+        "vue/html-indent": [
+            "error",
+            "tab",
+            {
+                "alignAttributesVertically": false
+            }
+        ],
+        // vue结束标签是否新行
+        "vue/html-closing-bracket-newline": [
+            "error",
+            {
+                "singleline": "never",
+                "multiline": "never"
+            }
+        ],
+        // vue子元素是否新行
+        "vue/singleline-html-element-content-newline": "off",
+        // 没使用变量
+        "vue/no-unused-vars": "off",
+        // 验证属性名
+        "vue/valid-attribute-name": "off",
+        // 空标签
+        "vue/no-lone-template": "off",
+        // vue组件名称
+        "vue/multi-word-component-names": "off",
+        // defindeProps解构
+        "vue/no-setup-props-destructure": "off"
+    }
+}
