@@ -27,7 +27,7 @@ export default defineStore("main", {
   getters: {
     // 要缓存的路由名
     nameList(): string[] {
-      return ["keep-alive", ...this.keepAlive.map(item => String(item.name))];
+      return ["vrouter", ...this.keepAlive.map(item => String(item.name))];
     }
 
   }

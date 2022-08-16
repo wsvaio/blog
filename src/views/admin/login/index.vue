@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { useRequest } from "vue-request";
+import copyright from "@/routes/admin/components/copyright/index.vue";
 const router = useRouter();
 
 const loginFormRef = $ref<T>();
 const form = reactive<T>({});
+const auth = authStore();
 const rules = {
   username: [{ required: true, message: "账号不能为空", trigger: "blur" }],
   password: [
@@ -11,15 +13,17 @@ const rules = {
     { min: 1, max: 16, message: "密码长度为1-16位", trigger: "blur" }
   ]
 };
-function handleLogin() {
-  loginFormRef.validate(valid => {
-    if (!valid) return;
-    router.push({ name: "home" });
-  });
-}
+const handleLogin = async () => {
+  await loginFormRef.validate();
 
 
-const { run, loading } = useRequest(Promise.resolve("hh"), {
+  await auth.login(form);
+
+  router.push({ name: "admin" });
+};
+
+
+const { run, loading } = useRequest(async () => {}, {
   onSuccess(data) {
 
   },
@@ -66,7 +70,7 @@ const { run, loading } = useRequest(Promise.resolve("hh"), {
 
 
 	<div>
-		<Copyright></Copyright>
+		<copyright></copyright>
 	</div>
 </template>
 

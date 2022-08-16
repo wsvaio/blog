@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import { adminMap } from "@/routes";
+import { adminRoutes } from "@/routes";
 
 import RootNav from "../root-nav/index.vue";
 
@@ -26,7 +26,7 @@ const active = computed(() => {
 
 		<el-menu background-color="#001529" text-color="#eee" active-text-color="#fff"
 			:default-active="active" :collapse="state.isCollapse">
-			<root-nav :list="adminMap"></root-nav>
+			<root-nav :list="adminRoutes"></root-nav>
 		</el-menu>
 
 		<div class="fold" @click="changeCollapse">

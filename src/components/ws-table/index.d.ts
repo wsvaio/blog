@@ -1,1 +1,0 @@
-type context = { params: object, checkList: object[], drawer: { show: boolean, title: string, slot: string, size: string; }, form: object; };

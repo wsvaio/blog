@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import BreadCrumb from "../bread-crumb/index.vue";
-import { assign } from "wsvaio";
+import { merge } from "wsvaio";
 import { useRequest } from "vue-request";
 const router = useRouter();
 const { toggle, isFullscreen } = useFullscreen();
@@ -41,7 +41,7 @@ const { run, loading } = useRequest(Promise.resolve("hh"), {
 </script>
 
 <template>
-	<el-dialog v-model="dialog" title="修改密码" width="500px" @close="assign(form, {})" @open="formRef?.clearValidate()">
+	<el-dialog v-model="dialog" title="修改密码" width="500px" @close="merge(form, {}, {del: true})" @open="formRef?.clearValidate()">
 		<el-form ref="formRef" v-loading="loading" :model="form" :rules="rules" label-position="top"
 			:disabled="loading">
 			<el-form-item label="旧密码" prop="admin_password_old">

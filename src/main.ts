@@ -1,9 +1,8 @@
-import RouterView from "@/routes/router-view/index.vue";
-import { createApp } from "vue";
-const app = createApp(RouterView);
+import App from "@/routes/App.vue";
+const app = createApp(App);
 
 const modules = import.meta.glob<true, string, T>("@/modules/*/index.ts", { eager: true });
-for await (const module of Object.values(modules)) module?.default && module.default(app);
+for (const module of Object.values(modules)) module?.default && module.default(app);
 
 
 

@@ -3,3 +3,14 @@ html {
 
 	/* font-size: calc(100vw / 7.5); */
 }
+
+
+
+
+:root {
+	--my-color: #00ff00;
+}
+
+.black {
+	--my-color: #ff0000;
+}

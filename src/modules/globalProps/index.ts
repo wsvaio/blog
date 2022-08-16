@@ -3,7 +3,7 @@ import { App } from "vue";
 import * as $apis from "@/apis";
 import * as $utils from "@/utils";
 
-declare module '@vue/runtime-core' {
+declare module "@vue/runtime-core" {
   export interface ComponentCustomProperties {
     $apis: typeof $apis;
     $utils: typeof $utils;

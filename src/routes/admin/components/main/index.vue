@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import KeepAlive from "@/routes/keep-alive/index.vue";
 const { nameList } = $(mainStore());
 
 </script>

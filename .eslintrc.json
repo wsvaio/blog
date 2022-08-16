@@ -36,7 +36,7 @@
         // 未定义
         "no-undef": "off",
         // 空的代码块
-        "no-empty": "warn",
+        "no-empty": "off",
         // 函数与括号是否空格
         "space-before-function-paren": "off",
         // 数组总是新行
@@ -100,6 +100,10 @@
         // vue组件名称
         "vue/multi-word-component-names": "off",
         // defindeProps解构
-        "vue/no-setup-props-destructure": "off"
+        "vue/no-setup-props-destructure": "off",
+        "vue/valid-template-root": "off",
+        "vue/valid-v-for": "off",
+        "vue/require-v-for-key": "off",
+        "vue/no-v-html": "off"
     }
 }

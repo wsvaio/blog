@@ -2,11 +2,11 @@
 import { usePagination, useRequest } from "vue-request";
 import { FormInstance, PaginationProps, DrawerProps, FormProps, DialogProps } from "element-plus";
 import { TableProps } from "element-plus/es/components/table/src/table/defaults";
-import { debounce, assign } from "wsvaio";
+import { debounce, merge } from "wsvaio";
 
 const { action, submit: _submit = async () => { },
 	listKey = "items", currentKey = "page", pageSizeKey = "pageSize",
-	totalKey = "count", totalPageKey = "pageCount",
+	totalKey = "count", totalPageKey = "max_page",
 
 	form: _form = {},
 	drawer: _drawer = {},
@@ -37,10 +37,10 @@ const formProps = reactive<Read<Partial<FormProps>> & obj>({});
 const form = reactive<obj>({});
 
 function close() {
-	assign(form, {});
-	Object.assign(drawer, { show: false, slot: "", ..._drawer });
-	Object.assign(dialog, { show: false, slot: "", ..._dialog });
-	Object.assign(formProps, _form);
+	merge(form, {}, {del: true});
+	merge(drawer, { show: false, slot: "", ..._drawer });
+	merge(dialog, { show: false, slot: "", ..._dialog });
+	merge(formProps, _form);
 	ruleFormRef?.clearValidate();
 }
 
@@ -78,7 +78,7 @@ const { run: submit, loading: submiting } = $(useRequest(async (title="") => {
 	}
 }));
 
-const ctx = { params, checkList, drawer, dialog, form, formProps };
+const ctx = { params, checkList, drawer, dialog, form, formProps, submit };
 defineExpose(ctx);
 
 </script>
@@ -98,7 +98,7 @@ defineExpose(ctx);
 		</el-table>
 
 		<el-pagination v-model:currentPage="current" v-model:page-size="pageSize" m="t-25px" :total="total"
-			:page-sizes="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]" layout="total, sizes, prev, pager, next, jumper, ->, slot"
+			:page-sizes="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 1000]" layout="total, sizes, prev, pager, next, jumper, ->, slot"
 			:="$props.pagination"></el-pagination>
 
 		<el-drawer v-model="drawer.show" :="drawerProps" :before-close="done => submiting || done()" @closed="close">
@@ -108,7 +108,9 @@ defineExpose(ctx);
 			<template #footer>
 				<slot :name="`${drawer.slot}-footer`" :="ctx" :loading="loading" :submiting="submiting">
 					<el-button @click="drawer.show = false">取消</el-button>
-					<el-button type="primary" @click="submit()">确定</el-button>
+					<el-button type="primary" @click="submit()">
+						<slot :name="`${drawer.slot}-submit-text`" :="ctx" :loading="loading" :submiting="submiting">确定</slot>
+					</el-button>
 				</slot>
 			</template>
 		</el-drawer>
@@ -120,7 +122,9 @@ defineExpose(ctx);
 			<template #footer>
 				<slot :name="`${dialog.slot}-footer`" :="ctx" :loading="loading" :submiting="submiting">
 					<el-button @click="dialog.show = false">取消</el-button>
-					<el-button type="primary" @click="submit()">确定</el-button>
+					<el-button type="primary" @click="submit()">
+						<slot :name="`${dialog.slot}-submit-text`" :="ctx" :loading="loading" :submiting="submiting">确定</slot>
+					</el-button>
 				</slot>
 			</template>
 		</el-dialog>

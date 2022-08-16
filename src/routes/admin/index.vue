@@ -3,7 +3,7 @@ import Aside from "./components/aside/index.vue";
 import Header from "./components/header/index.vue";
 import Main from "./components/main/index.vue";
 import Tab from "./components/tab/index.vue";
-
+import copyright from "./components/copyright/index.vue";
 
 
 </script>
