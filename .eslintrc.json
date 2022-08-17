@@ -104,6 +104,7 @@
         "vue/valid-template-root": "off",
         "vue/valid-v-for": "off",
         "vue/require-v-for-key": "off",
-        "vue/no-v-html": "off"
+        "vue/no-v-html": "off",
+        "vue/valid-v-slot": "off"
     }
 }

@@ -1,0 +1,35 @@
+
+/* xxl */
+:root {
+	--html-font-size: 100PX;
+}
+/* xl */
+@media (max-width: 1400PX) {
+	:root {
+		--html-font-size: 150PX;
+	}
+}
+/* lg */
+@media (max-width: 1200PX) {
+	:root {
+		--html-font-size: 200PX;
+	}
+}
+/* md */
+@media (max-width: 992PX) {
+	:root {
+		--html-font-size: 250PX;
+	}
+}
+/* sm */
+@media (max-width: 768PX) {
+	:root {
+		--html-font-size: 300PX;
+	}
+}
+/* xs */
+@media (max-width: 576PX) {
+	:root {
+		--html-font-size: 350PX;
+	}
+}

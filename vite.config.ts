@@ -24,16 +24,16 @@ export default defineConfig(({ mode, command }) => {
       }
     },
 
-    // css: {
-    //   postcss: {
-    //     plugins: [
-    //       pxtorem({
-    //         rootValue: 50,
-    //         propList: ['*'],
-    //       })
-    //     ]
-    //   }
-    // },
+    css: {
+      postcss: {
+        plugins: [
+          pxtorem({
+            rootValue: 100,
+            propList: ["*"],
+          })
+        ]
+      }
+    },
 
     server: {
       proxy: {
@@ -42,11 +42,7 @@ export default defineConfig(({ mode, command }) => {
           changeOrigin: true,
           rewrite: path => path.replace(/^\/api/, "")
         },
-        "/workshop": {
-          target: "https://irsfactoryqa.zj.gov.cn",
-          changeOrigin: true,
-          
-        }
+
 
       }
 

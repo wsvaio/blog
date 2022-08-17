@@ -1,16 +1,8 @@
 html {
-	font-size: 16px;
-
-	/* font-size: calc(100vw / 7.5); */
+	font-size: var(--html-font-size);
 }
 
+body {
 
-
-
-:root {
-	--my-color: #00ff00;
 }
 
-.black {
-	--my-color: #ff0000;
-}

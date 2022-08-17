@@ -28,14 +28,11 @@ onBeforeUnmount(() => editorRef && editorRef.destroy());
 <template tag="div" class="about">
 	<vtable :action="query => $apis.moreTag({ query })" :submit="submit" :border="true">
 		<template #top="{ dialog, submit: sbt, checkList, params }">
-			<n-input v-model:value="params.key" w="!250px" :color="'blue'"></n-input>
-			<n-button m="l-auto" type="primary" @click="merge(dialog, { title: '添加', slot: 'add' })">添加</n-button>
-			<n-popconfirm @positive-click="sbt('删除')">
-				你确定要删除吗？
-				<template #trigger>
-					<n-button type="error" :disabled="checkList.length <= 0" :title="checkList.length <= 0 ? '请选择删除项' : ''">删除</n-button>
-				</template>
-			</n-popconfirm>
+			<div w="250px"><el-input v-model="params.key"></el-input></div>
+			<el-button m="l-auto" type="primary" @click="merge(dialog, { title: '添加', slot: 'add' })">添加</el-button>
+			<el-popconfirm #reference title="您确定要删除吗？" @confirm="sbt('删除')">
+				<el-button type="danger" :disabled="checkList.length <= 0" :title="checkList.length <= 0 ? '请选择删除项' : ''">删除</el-button>
+			</el-popconfirm>
 		</template>
 
 
@@ -45,7 +42,7 @@ onBeforeUnmount(() => editorRef && editorRef.destroy());
 			<el-table-column sortable prop="name" label="标签名"></el-table-column>
 			<el-table-column sortable prop="updated_at" label="修改日期" #="{ row }">{{ dateFormat(row.created_at) }}</el-table-column>
 			<el-table-column sortable prop="created_at" label="创建日期" #="{ row }">{{ dateFormat(row.updated_at) }}</el-table-column>
-			<el-table-column label="操作" #="{ row }">
+			<el-table-column sortable prop="_id" label="操作" #="{ row }">
 				<el-link type="primary" @click="merge(dialog, { title: '修改', slot: 'add' }), merge(form, row)">修改</el-link>
 			</el-table-column>
 		</template>

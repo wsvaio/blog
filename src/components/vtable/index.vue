@@ -85,7 +85,7 @@ defineExpose(ctx);
 
 <template>
 	<el-form ref="ruleFormRef" :model="form" :="{ ..._form, ...formProps }" :disabled="submiting || loading">
-		<div flex="~ wrap gap-x-12px gap-y-6px" class="items-center">
+		<div flex="~ wrap gap-x-12px gap-y-6px" items="center" class="vtable-top">
 			<slot name="top" :="ctx" :loading="loading" :submiting="submiting"></slot>
 		</div>
 
@@ -130,3 +130,11 @@ defineExpose(ctx);
 		</el-dialog>
 	</el-form>
 </template>
+
+<style lang="less">
+.vtable-top {
+	.el-button+.el-button {
+		margin-left: 0;
+	}
+}
+</style>
