@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model article {
+  id      Int      @id @default(autoincrement())
+  title   String   @unique
+  content String   @default("")
+  views   Int      @default(0) // 阅读次数
+  commons common[]
+  tags    tag[]
+  type    type     @relation(fields: [typeId], references: [id])
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  typeId Int
+}
+
+model common {
+  id      Int    @id @default(autoincrement())
+  content String @default("")
+  user    user   @relation(fields: [userId], references: [id])
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  article   article? @relation(fields: [articleId], references: [id])
+  articleId Int?
+  userId    Int
+}
+
+model user {
+  id     Int      @id @default(autoincrement())
+  avatar String
+  name   String
+  email  String
+  common common[]
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
+model tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  article   article? @relation(fields: [articleId], references: [id])
+  articleId Int?
+}
+
+model type {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  article article[]
+}
+
+model file {
+  id       Int      @id @default(autoincrement())
+  name     String
+  data     Bytes
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}

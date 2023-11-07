@@ -1,0 +1,41 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "commit": "czg",
+    "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
+    "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "lint-staged": "lint-staged",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@wsvaio/commitlint-config": "^0.0.7",
+    "@wsvaio/eslint-config": "^0.0.7",
+    "@wsvaio/stylelint-config": "^0.0.7",
+    "commitlint": "^18.2.0",
+    "czg": "^1.7.1",
+    "eslint": "^8.53.0",
+    "less": "^4.2.0",
+    "lint-staged": "^15.0.2",
+    "nuxt": "^3.8.0",
+    "prettier": "^3.0.3",
+    "prisma": "^5.5.2",
+    "simple-git-hooks": "^2.9.0",
+    "stylelint": "^15.11.0",
+    "vue": "^3.3.6",
+    "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@prisma/client": "5.5.2",
+    "unocss": "^0.57.2"
+  }
+}

@@ -1,0 +1,8 @@
+node_modules
+dist
+
+*.min.*
+* copy*
+
+auto-import.d.ts
+auto-components.d.ts
