@@ -1,0 +1,63 @@
+.use-message {
+  --duration: 2s;
+
+  position: fixed;
+  z-index: 999;
+  left: 50%;
+  padding: 0.5em 0.85em;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 10%);
+  line-height: 1;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: use-message var(--duration, 2s) both;
+}
+
+.use-message--primary {
+  color: #fff;
+  background: var(--primary-color, #ff69b4);
+}
+
+.use-message--success {
+  color: #fff;
+  background: #1cae74;
+}
+
+.use-message--warning {
+  color: #fff;
+  background: #faad14;
+}
+
+.use-message--danger {
+  color: #fff;
+  background: #ef4444;
+}
+
+.use-message--info {
+  color: #fff;
+  background: #096dd9;
+}
+
+@keyframes use-message {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-16px);
+  }
+
+  12% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-12px);
+  }
+}
