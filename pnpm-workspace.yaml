@@ -1,0 +1,6 @@
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  vue-demi: true
+minimumReleaseAgeExclude:
+  - '@iconify/json@2.2.490'

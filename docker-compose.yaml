@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:18.4
+    container_name: blog-postgres
+    # restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 123456
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data/postgres_data:/var/lib/postgresql
+    command:
+      # ALTER TABLE tb_menu ADD INDEX idx_is_disabled_order_no(is_disabled, order_no);
+    # healthcheck:
+    #   test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pRoot@2024"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 3
+    #   start_period: 30s
+
+  redis:
+    image: redis:7.0
+    container_name: blog-redis
+    # restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: Asia/Shanghai
+    command:
+      - --requirepass 123456
+    volumes:
+      - ./data/redis_data:/data
+    # healthcheck:
+    #   test: ["CMD", "redis-cli", "ping"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 3
+    #   start_period: 10s
+
+  blog:
+    image: blog:latest
+    container_name: blog
+    # restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      TZ: Asia/Shanghai
+      DATABASE_URL: postgresql://postgres:123456@192.168.139.3:5432/blog
+      EMAIL_PASS: qnajwzuhywswbgbb
+    volumes:
+      - ./data/blog_data:/app/data
+    depends_on:
+      - postgres
+      - redis
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
