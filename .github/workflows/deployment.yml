@@ -1,0 +1,37 @@
+name: Build And Push Docker Image
+on:
+  push:
+    branches: [main]
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: cloudws
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          build-args: DATABASE_URL=${{ secrets.DATABASE_URL }}
+          push: true
+          tags: |
+            registry.cn-hangzhou.aliyuncs.com/wsvaio/blog:latest
+            registry.cn-hangzhou.aliyuncs.com/wsvaio/blog:${{ github.sha }}
+  deploy:
+    needs: build-image
+    name: deploy to cluster
+    runs-on: ubuntu-latest
+    steps:
+      - uses: steebchen/kubectl@v2.0.0
+        with:
+          config: ${{ secrets.KUBE_CONFIG_DATA }}
+          version: v1.29.2
+          command: rollout restart deployment/blog -n blog

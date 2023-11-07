@@ -1,0 +1,115 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model article {
+  id           Int       @id @default(autoincrement())
+  title        String    @unique
+  content      String    @default("")
+  createAt     DateTime  @default(now())
+  updateAt     DateTime  @updatedAt
+  typeId       Int
+  likes        Int       @default(0)
+  reads        Int       @default(0)
+  coreUpdateAt DateTime  @default(now())
+  type         type      @relation(fields: [typeId], references: [id])
+  comments     comment[]
+  tags         tag[]     @relation("articleTotag")
+}
+
+model comment {
+  id        Int       @id @default(autoincrement())
+  content   String    @default("")
+  createAt  DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
+  articleId Int
+  userId    Int
+  commentId Int?
+  from      Json      @default("{}")
+  article   article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  comment   comment?  @relation("comment", fields: [commentId], references: [id], onDelete: Cascade)
+  comments  comment[] @relation("comment")
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model user {
+  id           Int       @id @default(autoincrement())
+  avatar       String
+  name         String
+  email        String    @unique
+  createAt     DateTime  @default(now())
+  updateAt     DateTime  @updatedAt
+  site         String    @default("")
+  acceptEmails Boolean
+  comments     comment[]
+}
+
+model tag {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  articles article[] @relation("articleTotag")
+}
+
+model type {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  articles article[]
+}
+
+model file {
+  id           Int      @id @default(autoincrement())
+  name         String
+  size         String
+  type         String
+  lastModified String
+  data         Bytes
+  createAt     DateTime @default(now())
+  updateAt     DateTime @updatedAt
+  musicCovers  music[]  @relation("musicCover")
+  musics       music[]  @relation("musicFile")
+  musicLrcs    music[]  @relation("musicLrc")
+}
+
+model music {
+  id       Int      @id @default(autoincrement())
+  name     String
+  artist   String
+  coverId  Int
+  fileId   Int
+  lrcId    Int
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  cover    file     @relation("musicCover", fields: [coverId], references: [id])
+  file     file     @relation("musicFile", fields: [fileId], references: [id])
+  lrc      file     @relation("musicLrc", fields: [lrcId], references: [id])
+}
+
+model admin {
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  password String
+  role     Int      @default(1)
+  name     String   @default("管理员")
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
+model friend {
+  id         Int      @id @default(autoincrement())
+  name       String
+  link       String
+  avatar     String?
+  descr      String?
+  screenshot String?
+  createAt   DateTime @default(now())
+  updateAt   DateTime @updatedAt
+}
