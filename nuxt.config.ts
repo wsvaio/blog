@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import ReactivityTransform from "@vue-macros/reactivity-transform/vite";
+
 export default defineNuxtConfig({
 	devtools: { enabled: true },
 
@@ -8,6 +10,7 @@ export default defineNuxtConfig({
 
 	vite: {
 		vue: {},
+		plugins: [ReactivityTransform()],
 	},
 
 	vue: {
@@ -17,22 +20,26 @@ export default defineNuxtConfig({
 
 	app: {
 		head: {
+			title: "WSの小屋",
 			meta: [
-				{ name: "title", content: "WSの小屋" },
-				{ name: "author", content: "ws,wsvaio,wsvaio@qq.com" },
+				{ name: "author", content: "wsvaio@qq.com" },
 				{
 					name: "description",
-					content:
-            "你就像天外来物一样求之不得！如你所见，这是一个个人博客网站，在这里我会分享我的所见所得。",
+					content: "你就像天外来物一样求之不得！",
 				},
-				{ name: "keywords", content: "wangshang,ws,wsvaio,博客,个人博客" },
 			],
+			link: [],
+			script: [{ src: "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js" }],
 		},
 	},
 
 	css: ["~/assets/css/main.less"],
 
-	modules: [],
+	modules: ["@nuxtjs/stylelint-module", "@nuxtjs/eslint-module", "@unocss/nuxt", "@vueuse/nuxt", "@pinia/nuxt"],
 
-	nitro: {},
+	nitro: {
+		imports: {
+			dirs: ["~/server/utils"],
+		},
+	},
 });

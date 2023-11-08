@@ -7,7 +7,11 @@
 dist
 
 # Node dependencies
+
 node_modules
+prisma/.env
+
+
 
 # Logs
 logs
@@ -19,6 +23,8 @@ logs
 .idea
 
 # Local env files
-.env
-.env.*
-!.env.example
+# .env
+# .env.*
+# !.env.
+
+.stylelintcache

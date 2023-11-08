@@ -1,5 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+</script>
 
 <template>
-	<h1>Hello World ！</h1>
+	<nuxt-layout>
+		<nuxt-loading-indicator />
+		<nuxt-page />
+	</nuxt-layout>
 </template>
+
+<style lang="less" scoped></style>
