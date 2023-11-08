@@ -1,9 +1,0 @@
-{
-	"root": true,
-	"extends": "@wsvaio",
-	"rules": {
-		"vue/max-attributes-per-line": "off",
-		"no-mixed-spaces-and-tabs": "off",
-		"vue/component-definition-name-casing": "off"
-	}
-}

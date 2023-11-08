@@ -32,7 +32,16 @@ export default defineNuxtConfig({
 
 	css: ["~/assets/css/main.less"],
 
-	modules: [],
+	modules: [
+		"@unocss/nuxt",
+		"@nuxtjs/stylelint-module",
+		"@nuxtjs/eslint-module",
+	],
 
-	nitro: {},
+	nitro: {
+		imports: {
+			dirs: ["~/server/utils"]
+		},
+
+	},
 });

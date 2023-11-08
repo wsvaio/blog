@@ -11,13 +11,13 @@ datasource db {
 }
 
 model article {
-  id      Int      @id @default(autoincrement())
-  title   String   @unique
-  content String   @default("")
-  views   Int      @default(0) // 阅读次数
-  commons common[]
-  tags    tag[]
-  type    type     @relation(fields: [typeId], references: [id])
+  id       Int       @id @default(autoincrement())
+  title    String    @unique
+  content  String    @default("")
+  views    Int       @default(0) // 阅读次数
+  comments comment[]
+  tags     tag[]
+  type     type      @relation(fields: [typeId], references: [id])
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -25,7 +25,7 @@ model article {
   typeId Int
 }
 
-model common {
+model comment {
   id      Int    @id @default(autoincrement())
   content String @default("")
   user    user   @relation(fields: [userId], references: [id])
@@ -39,11 +39,11 @@ model common {
 }
 
 model user {
-  id     Int      @id @default(autoincrement())
-  avatar String
-  name   String
-  email  String
-  common common[]
+  id      Int       @id @default(autoincrement())
+  avatar  String
+  name    String
+  email   String
+  comment comment[]
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -71,9 +71,12 @@ model type {
 }
 
 model file {
-  id       Int      @id @default(autoincrement())
-  name     String
-  data     Bytes
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  id           Int      @id @default(autoincrement())
+  name         String
+  size         BigInt
+  type         String
+  lastModified BigInt
+  data         Bytes
+  createAt     DateTime @default(now())
+  updateAt     DateTime @updatedAt
 }
