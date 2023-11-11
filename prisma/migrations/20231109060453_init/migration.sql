@@ -12,7 +12,7 @@ CREATE TABLE "article" (
 );
 
 -- CreateTable
-CREATE TABLE "common" (
+CREATE TABLE "comment" (
     "id" SERIAL NOT NULL,
     "content" TEXT NOT NULL DEFAULT '',
     "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -20,7 +20,7 @@ CREATE TABLE "common" (
     "articleId" INTEGER,
     "userId" INTEGER NOT NULL,
 
-    CONSTRAINT "common_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "comment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -60,6 +60,9 @@ CREATE TABLE "type" (
 CREATE TABLE "file" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "size" BIGINT NOT NULL,
+    "type" TEXT NOT NULL,
+    "lastModified" BIGINT NOT NULL,
     "data" BYTEA NOT NULL,
     "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updateAt" TIMESTAMP(3) NOT NULL,
@@ -80,10 +83,10 @@ CREATE UNIQUE INDEX "type_name_key" ON "type"("name");
 ALTER TABLE "article" ADD CONSTRAINT "article_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "type"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "common" ADD CONSTRAINT "common_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "comment" ADD CONSTRAINT "comment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "common" ADD CONSTRAINT "common_articleId_fkey" FOREIGN KEY ("articleId") REFERENCES "article"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "comment" ADD CONSTRAINT "comment_articleId_fkey" FOREIGN KEY ("articleId") REFERENCES "article"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "tag" ADD CONSTRAINT "tag_articleId_fkey" FOREIGN KEY ("articleId") REFERENCES "article"("id") ON DELETE SET NULL ON UPDATE CASCADE;

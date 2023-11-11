@@ -6,7 +6,7 @@ export default defineEventHandler(async event => {
 	if (f) {
 		return new File([f.data], f.name, {
 			type: f.type,
-			lastModified: f.lastModified,
+			lastModified: +f.lastModified,
 		});
 	}
 });
