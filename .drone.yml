@@ -7,5 +7,5 @@ steps:
     image: oven/bun
     commands:
       - bun i
-      - bun build
+      - bun run build
       - bun ./.output/server/index.mjs
