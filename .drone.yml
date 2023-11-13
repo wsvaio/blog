@@ -37,6 +37,7 @@ steps:
         - /app/service/blog/.output
         - /app/service/blog/run.sh
 
+
   - name: run
     image: appleboy/drone-ssh
     settings:
