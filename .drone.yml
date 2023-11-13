@@ -5,14 +5,27 @@ name: blog
 steps:
   - name: build
     image: oven/bun
-    volumes:
-      - name: blog
-        path: /drone/src
     commands:
       - bun i
       - bun run build
 
-  - name: run
+  - name: scp
+    image: appleboy/drone-scp
+    settings:
+      host: 121.40.126.12
+      username: root
+      password:
+        from_secret: ssh_password
+      port: 22
+      command_timeout: 2m
+      source:
+        - /drone/src/.output
+        - /drone/src/run.sh
+      target:
+        - /app/service/blog/.output
+        - /app/service/blog/run.sh
+
+  - name: ssh
     image: appleboy/drone-ssh
     settings:
       host: 121.40.126.12
@@ -25,8 +38,3 @@ steps:
         - cd /app/service/blog
         - chmod +x run.sh
         - ./run.sh
-
-volumes:
-  - name: blog
-    host:
-      path: /app/service/blog
