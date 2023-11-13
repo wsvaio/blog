@@ -36,6 +36,7 @@ export default defineNuxtConfig({
 		"@unocss/nuxt",
 		"@nuxtjs/stylelint-module",
 		"@nuxtjs/eslint-module",
+		"@element-plus/nuxt",
 	],
 
 	nitro: {
