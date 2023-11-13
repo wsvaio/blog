@@ -34,8 +34,8 @@ steps:
         - ./.output
         - ./run.sh
       target:
-        - /app/service/blog/.output
-        - /app/service/blog/run.sh
+        - /app/service/blog/
+        
 
 
   - name: run
