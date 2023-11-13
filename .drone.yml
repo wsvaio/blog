@@ -3,14 +3,11 @@ type: docker
 name: blog
 
 steps:
-
   - name: build
     image: oven/bun
     volumes:
-      - name: output
-        path: /drone/src/.output
-      - name: runsh
-        path: /drone/src/run.sh
+      - name: blog
+        path: /drone/src
     commands:
       - bun i
       - bun run build
@@ -30,9 +27,6 @@ steps:
         - ./run.sh
 
 volumes:
-  - name: output
+  - name: blog
     host:
-      path: /app/service/blog/.output
-  - name: runsh
-    host:
-      path: /app/service/blog/run.sh
+      path: /app/service/blog
