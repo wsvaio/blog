@@ -7,9 +7,9 @@ steps:
   - name: build
     image: oven/bun
     volumes:
-      - name: .output
+      - name: output
         path: /drone/src/.output
-      - name: run.sh
+      - name: runsh
         path: /drone/src/run.sh
     commands:
       - bun i
@@ -30,9 +30,9 @@ steps:
         - ./run.sh
 
 volumes:
-  - name: .output
+  - name: output
     host:
       path: /app/service/blog/.output
-  - name: run.sh
+  - name: runsh
     host:
       path: /app/service/blog/run.sh
