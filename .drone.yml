@@ -3,9 +3,36 @@ type: docker
 name: blog
 
 steps:
+
   - name: build
     image: oven/bun
+    volumes:
+      - name: .output
+        path: /drone/src/.output
+      - name: run.sh
+        path: /drone/src/run.sh
     commands:
       - bun i
       - bun run build
-      - bun ./.output/server/index.mjs
+
+  - name: run
+    image: appleboy/drone-ssh
+    settings:
+      host: 121.40.126.12
+      username: root
+      password:
+        from_secret: ssh_password
+      port: 22
+      command_timeout: 5m
+      script:
+        - cd /app/service/blog
+        - chmod +x run.sh
+        - ./run.sh
+
+volumes:
+  - name: .output
+    host:
+      path: /app/service/blog/.output
+  - name: run.sh
+    host:
+      path: /app/service/blog/run.sh
