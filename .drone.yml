@@ -5,7 +5,6 @@ name: blog
 steps:
   - name: build
     image: oven/bun
-
     commands:
       - bun i
       - bun build
