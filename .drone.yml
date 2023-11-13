@@ -31,8 +31,8 @@ steps:
       port: 22
       command_timeout: 2m
       source:
-        - /drone/src/.output
-        - /drone/src/run.sh
+        - /drone/src/.output/
+        - /drone/src/run.sh/
       target:
         - /app/service/blog/.output
         - /app/service/blog/run.sh
