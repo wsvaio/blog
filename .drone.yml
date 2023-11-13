@@ -4,12 +4,24 @@ name: blog
 
 steps:
   - name: build
-    image: oven/bun
+    image: node
     commands:
-      - bun i
-      - bun run build
+      - npm i
+      - npm run build
 
-  - name: scp
+  - name: clean
+    image: appleboy/drone-ssh
+    settings:
+      host: 121.40.126.12
+      username: root
+      password:
+        from_secret: ssh_password
+      port: 22
+      command_timeout: 5m
+      script:
+        - rm -rf /app/service/blog
+
+  - name: upload
     image: appleboy/drone-scp
     settings:
       host: 121.40.126.12
@@ -25,7 +37,7 @@ steps:
         - /app/service/blog/.output
         - /app/service/blog/run.sh
 
-  - name: ssh
+  - name: run
     image: appleboy/drone-ssh
     settings:
       host: 121.40.126.12
