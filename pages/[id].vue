@@ -15,4 +15,13 @@ useSeoMeta({
 	<article v-html="marked(data.content)" />
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+article {
+  max-width: 1200px;
+  margin: 0 auto;
+
+	:deep(img) {
+		width: 100%;
+	}
+}
+</style>

@@ -3,7 +3,9 @@
 </script>
 
 <template>
-	<slot />
+	<aside>
+		123133
+	</aside>
 </template>
 
 <style lang='less' scoped>
