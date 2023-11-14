@@ -1,5 +1,5 @@
 # Nuxt dev/build outputs
-# .output
+.output
 .data
 .nuxt
 .nitro
@@ -10,7 +10,6 @@ dist
 
 node_modules
 
-!/.output/server/node_modules
 
 
 
