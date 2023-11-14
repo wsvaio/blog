@@ -5,10 +5,14 @@ name: blog
 steps:
   - name: build
     image: node
+    environment:
+      DATABASE_URL:
+        from_secret: database_url
     commands:
       - npm i
       - npm run build
       - npx prisma migrate deploy
+      - docker ps
 
   - name: clean
     image: appleboy/drone-ssh
