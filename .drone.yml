@@ -8,6 +8,7 @@ steps:
     commands:
       - npm i
       - npm run build
+      - npx prisma migrate deploy
 
   - name: clean
     image: appleboy/drone-ssh
