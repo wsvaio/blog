@@ -1,5 +1,5 @@
 import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'vue-bundle-renderer/runtime';
-import { e as eventHandler, s as setResponseHeader, a as send, g as getResponseStatus, b as setResponseStatus, c as setResponseHeaders, u as useNitroApp, j as joinURL, f as useRuntimeConfig, h as getQuery, i as createError, k as getRouteRules, l as getResponseStatusText } from '../nitro/node-server.mjs';
+import { e as eventHandler, s as setResponseHeader, c as send, f as getResponseStatus, h as setResponseStatus, i as setResponseHeaders, u as useNitroApp, j as joinURL, k as useRuntimeConfig, g as getQuery, l as createError, m as getRouteRules, n as getResponseStatusText } from '../nitro/node-server.mjs';
 import { stringify, uneval } from 'devalue';
 import { renderToString } from 'vue/server-renderer';
 import { renderSSRHead } from '@unhead/ssr';
@@ -99,7 +99,7 @@ function createServerHead(options = {}) {
 
 const unheadPlugins = [];
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"content":"我勒个去","name":"description"}],"link":[],"style":[],"script":[],"noscript":[]};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"title","content":"WSの小屋"},{"name":"author","content":"ws,wsvaio,wsvaio@qq.com"},{"name":"description","content":"你就像天外来物一样求之不得！如你所见，这是一个个人博客网站，在这里我会分享我的所见所得。"},{"name":"keywords","content":"wangshang,ws,wsvaio,博客,个人博客"}],"link":[],"style":[],"script":[],"noscript":[]};
 
 const appRootId = "__nuxt";
 

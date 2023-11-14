@@ -1,4 +1,4 @@
-import { hasInjectionContext, getCurrentInstance, version, unref, inject, useSSRContext, defineComponent, createApp, effectScope, reactive, provide, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, toRef, shallowRef, shallowReactive, isReadonly, defineAsyncComponent, isRef, isShallow, isReactive, toRaw, withCtx, nextTick, computed, ref, h, Suspense, Transition, mergeProps } from 'vue';
+import { hasInjectionContext, getCurrentInstance, version, unref, inject, useSSRContext, createApp, effectScope, reactive, provide, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, toRef, shallowRef, shallowReactive, isReadonly, defineAsyncComponent, isRef, isShallow, isReactive, toRaw, withCtx, mergeProps, nextTick, defineComponent, computed, ref, h, Suspense, Transition } from 'vue';
 import Rt from 'node:http';
 import Ka from 'node:https';
 import nt from 'node:zlib';
@@ -9,10 +9,10 @@ import { format } from 'node:url';
 import { isIP } from 'node:net';
 import { statSync, promises, createReadStream } from 'node:fs';
 import { basename } from 'node:path';
-import { f as useRuntimeConfig$1, i as createError$1, m as sanitizeStatusCode, n as createHooks } from '../nitro/node-server.mjs';
+import { k as useRuntimeConfig$1, l as createError$1, o as sanitizeStatusCode, p as createHooks } from '../nitro/node-server.mjs';
 import { getActiveHead } from 'unhead';
 import { createMemoryHistory, createRouter, START_LOCATION, useRoute as useRoute$1, RouterView } from 'vue-router';
-import { ssrRenderAttrs, ssrInterpolate, ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode } from 'vue/server-renderer';
+import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode } from 'vue/server-renderer';
 import 'fs';
 import 'path';
 
@@ -2721,7 +2721,7 @@ const hr = Symbol.toStringTag, oi = n((i) => typeof i == "object" && typeof i.ap
         l2.append(d2, p);
       return l2;
     }
-    const { toFormData: a2 } = await import('./_nuxt/multipart-parser-ca53fe6b.mjs');
+    const { toFormData: a2 } = await import('./_nuxt/multipart-parser-06bb4951.mjs');
     return a2(this.body, o2);
   }
   async blob() {
@@ -4539,7 +4539,7 @@ function definePayloadReducer(name, reduce) {
     (/* @__PURE__ */ useNuxtApp()).ssrContext._payloadReducers[name] = reduce;
   }
 }
-const unhead_O0UIsrbPKm = /* @__PURE__ */ defineNuxtPlugin({
+const unhead_H56KTA121j = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:head",
   enforce: "pre",
   setup(nuxtApp) {
@@ -4670,12 +4670,12 @@ function executeAsync(function_) {
 }
 const _routes = [
   {
-    name: "about",
-    path: "/about",
+    name: "id",
+    path: "/:id()",
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/about-23a8269b.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/_id_-eba2e9f4.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
@@ -4683,7 +4683,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/index-d7cbd687.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-6978760f.mjs').then((m) => m.default || m)
   }
 ];
 const routerOptions0 = {
@@ -4923,7 +4923,7 @@ const reducers = {
   Ref: (data) => isRef(data) && data.value,
   Reactive: (data) => isReactive(data) && toRaw(data)
 };
-const revive_payload_server_9KivMhyHNf = /* @__PURE__ */ defineNuxtPlugin({
+const revive_payload_server_MHvd4gN0WX = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:revive-payload:server",
   setup() {
     for (const reducer in reducers) {
@@ -4934,11 +4934,37 @@ const revive_payload_server_9KivMhyHNf = /* @__PURE__ */ defineNuxtPlugin({
 const components_plugin_KR1HBZs4kY = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:global-components"
 });
+const element_plus_teleports_plugin_h4Dmekbj62 = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.hook("app:rendered", (ctx) => {
+    var _a2;
+    if ((_a2 = ctx.ssrContext) == null ? void 0 : _a2.teleports) {
+      ctx.ssrContext.teleports = renderTeleports(ctx.ssrContext.teleports);
+    }
+  });
+});
+function renderTeleports(teleports) {
+  const body = Object.entries(teleports).reduce((all, [key, value]) => {
+    if (key.startsWith("#el-popper-container-") || [].includes(key)) {
+      return `${all}<div id="${key.slice(1)}">${value}</div>`;
+    }
+    return all;
+  }, teleports.body || "");
+  return { ...teleports, body };
+}
+const ID_INJECTION_KEY = Symbol("elIdInjection");
+const element_plus_injection_plugin_1RNPi6ogby = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.provide(ID_INJECTION_KEY, { "prefix": 1024, "current": 0 });
+});
+const unocss_MzCDxu9LMj = /* @__PURE__ */ defineNuxtPlugin(() => {
+});
 const plugins = [
-  unhead_O0UIsrbPKm,
+  unhead_H56KTA121j,
   plugin,
-  revive_payload_server_9KivMhyHNf,
-  components_plugin_KR1HBZs4kY
+  revive_payload_server_MHvd4gN0WX,
+  components_plugin_KR1HBZs4kY,
+  element_plus_teleports_plugin_h4Dmekbj62,
+  element_plus_injection_plugin_1RNPi6ogby,
+  unocss_MzCDxu9LMj
 ];
 const _wrapIf = (component, props, slots) => {
   props = props === true ? {} : props;
@@ -4948,7 +4974,7 @@ const _wrapIf = (component, props, slots) => {
   } };
 };
 const layouts = {
-  default: () => import('./_nuxt/default-7dbbf9a5.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-2bf111e9.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = /* @__PURE__ */ defineComponent({
   name: "LayoutLoader",
@@ -5203,28 +5229,46 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
 const _sfc_setup$2 = _sfc_main$2.setup;
 _sfc_main$2.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/.pnpm/nuxt@3.8.0_less@4.2.0_vite@4.5.0/node_modules/nuxt/dist/pages/runtime/app.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/.pnpm/nuxt@3.8.0_eslint@8.53.0_less@4.2.0_stylelint@15.11.0_typescript@5.2.2_vite@4.5.0/node_modules/nuxt/dist/pages/runtime/app.vue");
   return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
 };
 const AppComponent = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["ssrRender", _sfc_ssrRender]]);
-const _sfc_main$1 = /* @__PURE__ */ defineComponent({
-  __name: "error",
+const _sfc_main$1 = {
+  __name: "nuxt-error-page",
   __ssrInlineRender: true,
   props: {
     error: Object
   },
   setup(__props) {
+    const props = __props;
+    const _error = props.error;
+    (_error.stack || "").split("\n").splice(1).map((line) => {
+      const text = line.replace("webpack:/", "").replace(".vue", ".js").trim();
+      return {
+        text,
+        internal: line.includes("node_modules") && !line.includes(".cache") || line.includes("internal") || line.includes("new Promise")
+      };
+    }).map((i) => `<span class="stack${i.internal ? " internal" : ""}">${i.text}</span>`).join("\n");
+    const statusCode = Number(_error.statusCode || 500);
+    const is404 = statusCode === 404;
+    const statusMessage = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
+    const description = _error.message || _error.toString();
+    const stack = void 0;
+    const _Error404 = /* @__PURE__ */ defineAsyncComponent(() => import('./_nuxt/error-404-92dec27b.mjs').then((r) => r.default || r));
+    const _Error = /* @__PURE__ */ defineAsyncComponent(() => import('./_nuxt/error-500-85623586.mjs').then((r) => r.default || r));
+    const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<div${ssrRenderAttrs(_attrs)}><h2>${ssrInterpolate(__props.error.statusCode)}</h2><button>清除错误</button></div>`);
+      _push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({ statusCode: unref(statusCode), statusMessage: unref(statusMessage), description: unref(description), stack: unref(stack) }, _attrs), null, _parent));
     };
   }
-});
+};
 const _sfc_setup$1 = _sfc_main$1.setup;
 _sfc_main$1.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("error.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/.pnpm/nuxt@3.8.0_eslint@8.53.0_less@4.2.0_stylelint@15.11.0_typescript@5.2.2_vite@4.5.0/node_modules/nuxt/dist/app/components/nuxt-error-page.vue");
   return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
 };
+const ErrorComponent = _sfc_main$1;
 const _sfc_main = {
   __name: "nuxt-root",
   __ssrInlineRender: true,
@@ -5250,7 +5294,7 @@ const _sfc_main = {
       ssrRenderSuspense(_push, {
         default: () => {
           if (unref(error)) {
-            _push(ssrRenderComponent(unref(_sfc_main$1), { error: unref(error) }, null, _parent));
+            _push(ssrRenderComponent(unref(ErrorComponent), { error: unref(error) }, null, _parent));
           } else if (unref(islandContext)) {
             _push(ssrRenderComponent(unref(IslandRenderer), { context: unref(islandContext) }, null, _parent));
           } else if (unref(SingleRenderer)) {
@@ -5267,7 +5311,7 @@ const _sfc_main = {
 const _sfc_setup = _sfc_main.setup;
 _sfc_main.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/.pnpm/nuxt@3.8.0_less@4.2.0_vite@4.5.0/node_modules/nuxt/dist/app/components/nuxt-root.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/.pnpm/nuxt@3.8.0_eslint@8.53.0_less@4.2.0_stylelint@15.11.0_typescript@5.2.2_vite@4.5.0/node_modules/nuxt/dist/app/components/nuxt-root.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
 const RootComponent = _sfc_main;
@@ -5296,5 +5340,5 @@ let entry;
 }
 const entry$1 = (ctx) => entry(ctx);
 
-export { _export_sfc as _, asyncDataDefaults as a, useRouter as b, createError as c, dr as d, entry$1 as default, parseQuery as e, fetchDefaults as f, withTrailingSlash as g, hasProtocol as h, injectHead as i, withoutTrailingSlash as j, navigateTo as k, nuxtLinkDefaults as n, parseURL as p, resolveUnrefHeadInput as r, useNuxtApp as u, wn as w };
+export { _export_sfc as _, parseQuery as a, withoutTrailingSlash as b, createError as c, navigateTo as d, entry$1 as default, dr as e, wn as f, useRoute as g, hasProtocol as h, injectHead as i, asyncDataDefaults as j, useNuxtApp as k, fetchDefaults as l, nuxtLinkDefaults as n, parseURL as p, resolveUnrefHeadInput as r, useRouter as u, withTrailingSlash as w };
 //# sourceMappingURL=server.mjs.map

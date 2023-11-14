@@ -1318,6 +1318,13 @@ function isError(input) {
 function getQuery(event) {
   return getQuery$1(event.path || "");
 }
+function getRouterParams(event) {
+  return event.context.params || {};
+}
+function getRouterParam(event, name) {
+  const params = getRouterParams(event);
+  return params[name];
+}
 function isMethod(event, expected, allowHead) {
   if (allowHead && event.method === "HEAD") {
     return true;
@@ -1352,8 +1359,42 @@ function getRequestHeader(event, name) {
   const value = headers[name.toLowerCase()];
   return value;
 }
+function getRequestHost(event, opts = {}) {
+  if (opts.xForwardedHost) {
+    const xForwardedHost = event.node.req.headers["x-forwarded-host"];
+    if (xForwardedHost) {
+      return xForwardedHost;
+    }
+  }
+  return event.node.req.headers.host || "localhost";
+}
+function getRequestProtocol(event, opts = {}) {
+  if (opts.xForwardedProto !== false && event.node.req.headers["x-forwarded-proto"] === "https") {
+    return "https";
+  }
+  return event.node.req.connection?.encrypted ? "https" : "http";
+}
+function getRequestURL(event, opts = {}) {
+  const host = getRequestHost(event, opts);
+  const protocol = getRequestProtocol(event);
+  const path = (event.node.req.originalUrl || event.path).replace(
+    /^[/\\]+/g,
+    "/"
+  );
+  return new URL(path, `${protocol}://${host}`);
+}
+function toWebRequest(event) {
+  return event.web?.request || new Request(getRequestURL(event), {
+    // @ts-ignore Undici option
+    duplex: "half",
+    method: event.method,
+    headers: event.headers,
+    body: getRequestWebStream(event)
+  });
+}
 
 const RawBodySymbol = Symbol.for("h3RawBody");
+const ParsedBodySymbol = Symbol.for("h3ParsedBody");
 const PayloadMethods$1 = ["PATCH", "POST", "PUT", "DELETE"];
 function readRawBody(event, encoding = "utf8") {
   assertMethod(event, PayloadMethods$1);
@@ -1415,6 +1456,29 @@ function readRawBody(event, encoding = "utf8") {
   const result = encoding ? promise.then((buff) => buff.toString(encoding)) : promise;
   return result;
 }
+async function readBody(event, options = {}) {
+  const request = event.node.req;
+  if (hasProp(request, ParsedBodySymbol)) {
+    return request[ParsedBodySymbol];
+  }
+  const contentType = request.headers["content-type"] || "";
+  const body = await readRawBody(event);
+  let parsed;
+  if (contentType === "application/json") {
+    parsed = _parseJSON(body, options.strict ?? true);
+  } else if (contentType.startsWith("application/x-www-form-urlencoded")) {
+    parsed = _parseURLEncodedBody(body);
+  } else if (contentType.startsWith("text/")) {
+    parsed = body;
+  } else {
+    parsed = _parseJSON(body, options.strict ?? false);
+  }
+  request[ParsedBodySymbol] = parsed;
+  return parsed;
+}
+async function readFormData(event) {
+  return await toWebRequest(event).formData();
+}
 function getRequestWebStream(event) {
   if (!PayloadMethods$1.includes(event.method)) {
     return;
@@ -1432,6 +1496,35 @@ function getRequestWebStream(event) {
       });
     }
   });
+}
+function _parseJSON(body = "", strict) {
+  if (!body) {
+    return void 0;
+  }
+  try {
+    return destr(body, { strict });
+  } catch {
+    throw createError$1({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+      message: "Invalid JSON body"
+    });
+  }
+}
+function _parseURLEncodedBody(body) {
+  const form = new URLSearchParams(body);
+  const parsedForm = /* @__PURE__ */ Object.create(null);
+  for (const [key, value] of form.entries()) {
+    if (hasProp(parsedForm, key)) {
+      if (!Array.isArray(parsedForm[key])) {
+        parsedForm[key] = [parsedForm[key]];
+      }
+      parsedForm[key].push(value);
+    } else {
+      parsedForm[key] = value;
+    }
+  }
+  return parsedForm;
 }
 
 function handleCacheHeaders(event, opts) {
@@ -3014,9 +3107,8 @@ function klona(x) {
 }
 
 const inlineAppConfig = {
-  "title": "卧槽",
   "nuxt": {
-    "buildId": "bb3ee818-8931-41a7-829f-35c027f3ae01"
+    "buildId": "b5d97e0e-9ccd-4f07-89d3-629c8d7251ec"
   }
 };
 
@@ -3053,8 +3145,7 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {},
-  "title": "卧槽"
+  "public": {}
 };
 const ENV_PREFIX = "NITRO_";
 const ENV_PREFIX_ALT = _inlineRuntimeConfig.nitro.envPrefix ?? process.env.NITRO_ENV_PREFIX ?? "_";
@@ -4424,7 +4515,7 @@ const storage = createStorage({});
 
 storage.mount('/assets', assets$1);
 
-storage.mount('data', unstorage_47drivers_47fs_45lite({"driver":"fsLite","base":"C:\\Users\\admin\\Desktop\\munuxt\\.data\\kv"}));
+storage.mount('data', unstorage_47drivers_47fs_45lite({"driver":"fsLite","base":"C:\\Users\\admin\\Desktop\\mynewblog\\.data\\kv"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
@@ -4830,15 +4921,8 @@ function getRouteRulesForPath(path) {
   return defu({}, ..._routeRulesMatcher.matchAll(path).reverse());
 }
 
-function defineNitroPlugin(def) {
-  return def;
-}
-
-const _nJkIIF5zW2 = defineNitroPlugin((nitro) => {
-});
-
 const plugins = [
-  _nJkIIF5zW2
+  
 ];
 
 const errorHandler = (async function errorhandler(error, event) {
@@ -4901,68 +4985,103 @@ const assets = {
     "size": 4286,
     "path": "../public/favicon.ico"
   },
-  "/_nuxt/about.df9d4986.js": {
+  "/_nuxt/default.aad67274.js": {
     "type": "application/javascript",
-    "etag": "\"2d5-eB1893Bbne27wtP0QYMpzzd3cqA\"",
-    "mtime": "2023-10-30T05:42:22.159Z",
-    "size": 725,
-    "path": "../public/_nuxt/about.df9d4986.js"
+    "etag": "\"99-D/zdmNsn9E4r+spyQNLiKQxXbXc\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 153,
+    "path": "../public/_nuxt/default.aad67274.js"
   },
-  "/_nuxt/default.1d2ca18d.js": {
-    "type": "application/javascript",
-    "etag": "\"107-X/wlN+9OdS5836vfX49/yQ1nUeM\"",
-    "mtime": "2023-10-30T05:42:22.159Z",
-    "size": 263,
-    "path": "../public/_nuxt/default.1d2ca18d.js"
-  },
-  "/_nuxt/entry.22f323af.css": {
+  "/_nuxt/entry.16d61bec.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"117e0-ccfCaL2vsvCHy88R451we4+0izI\"",
-    "mtime": "2023-10-30T05:42:22.159Z",
-    "size": 71648,
-    "path": "../public/_nuxt/entry.22f323af.css"
+    "etag": "\"1182-C7AL6t6F66b1Gd2Mi8f4iK8Zy6o\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 4482,
+    "path": "../public/_nuxt/entry.16d61bec.css"
   },
-  "/_nuxt/entry.47d5ece4.js": {
+  "/_nuxt/entry.e053f288.js": {
     "type": "application/javascript",
-    "etag": "\"22c65-jLtKgRhDCmZqHdSiABm1+VuxjeQ\"",
-    "mtime": "2023-10-30T05:42:22.159Z",
-    "size": 142437,
-    "path": "../public/_nuxt/entry.47d5ece4.js"
+    "etag": "\"24cb5-lxZoa1KQZKDDy3l46iEHEMtcR+c\"",
+    "mtime": "2023-11-14T04:36:27.377Z",
+    "size": 150709,
+    "path": "../public/_nuxt/entry.e053f288.js"
   },
-  "/_nuxt/index.345cb704.js": {
+  "/_nuxt/error-404.56d1f55e.js": {
     "type": "application/javascript",
-    "etag": "\"32e3-E8Jpy00TanAU2AhfeBds5I/zlX8\"",
-    "mtime": "2023-10-30T05:42:22.159Z",
-    "size": 13027,
-    "path": "../public/_nuxt/index.345cb704.js"
+    "etag": "\"187a-rdUXO3+Vyx7gl6RTJSm+yB0pMSU\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 6266,
+    "path": "../public/_nuxt/error-404.56d1f55e.js"
   },
-  "/_nuxt/index.f594f678.css": {
+  "/_nuxt/error-404.7b8544b4.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"2c-xtCetwYPn71dkYKsGo83VspHtfY\"",
-    "mtime": "2023-10-30T05:42:22.159Z",
-    "size": 44,
-    "path": "../public/_nuxt/index.f594f678.css"
+    "etag": "\"e2e-6B947Tra97KTspo4S4SskWSsuIE\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 3630,
+    "path": "../public/_nuxt/error-404.7b8544b4.css"
   },
-  "/_nuxt/nuxt-link.74f7ccd4.js": {
+  "/_nuxt/error-500.6802c0e3.js": {
     "type": "application/javascript",
-    "etag": "\"fbf-/ZYPnrzI+K4AYJx7N0DjmzmMdEw\"",
-    "mtime": "2023-10-30T05:42:22.159Z",
-    "size": 4031,
-    "path": "../public/_nuxt/nuxt-link.74f7ccd4.js"
+    "etag": "\"77e-s1kR1/lVKu8+auLArwkU9hijdZM\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 1918,
+    "path": "../public/_nuxt/error-500.6802c0e3.js"
+  },
+  "/_nuxt/error-500.cbe832a1.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"79e-3BF4R7+ff7qwURwbdRmffygNBGg\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 1950,
+    "path": "../public/_nuxt/error-500.cbe832a1.css"
+  },
+  "/_nuxt/fetch.acdd4104.js": {
+    "type": "application/javascript",
+    "etag": "\"2f40-R+7LqqD91XluzcgLP7EIkzLRaXI\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 12096,
+    "path": "../public/_nuxt/fetch.acdd4104.js"
+  },
+  "/_nuxt/index.7e53be38.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"c8b3-J9Ss7nDNjtaEdFP5iWrxTUQI/K4\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 51379,
+    "path": "../public/_nuxt/index.7e53be38.css"
+  },
+  "/_nuxt/index.e1a6c228.js": {
+    "type": "application/javascript",
+    "etag": "\"3666-EGtA9w0/+oNk5IW3ZEyUypNdy7g\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 13926,
+    "path": "../public/_nuxt/index.e1a6c228.js"
+  },
+  "/_nuxt/vue.f36acd1f.5b3db5b9.js": {
+    "type": "application/javascript",
+    "etag": "\"186-e0gTLGD6wLEGuU8/ZX+mecS3Eo0\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 390,
+    "path": "../public/_nuxt/vue.f36acd1f.5b3db5b9.js"
+  },
+  "/_nuxt/_id_.f7108551.js": {
+    "type": "application/javascript",
+    "etag": "\"8f43-wedDtfyLArHQ1/7jb3iFRaMfJvE\"",
+    "mtime": "2023-11-14T04:36:27.379Z",
+    "size": 36675,
+    "path": "../public/_nuxt/_id_.f7108551.js"
   },
   "/_nuxt/builds/latest.json": {
     "type": "application/json",
-    "etag": "\"47-E03qC9gWA20W/03EZBtGmC/mP6Y\"",
-    "mtime": "2023-10-30T05:42:22.854Z",
+    "etag": "\"47-2hC/+oWiJm4P1h0xEGKOmv2jB1Y\"",
+    "mtime": "2023-11-14T04:36:31.903Z",
     "size": 71,
     "path": "../public/_nuxt/builds/latest.json"
   },
-  "/_nuxt/builds/meta/bb3ee818-8931-41a7-829f-35c027f3ae01.json": {
+  "/_nuxt/builds/meta/b5d97e0e-9ccd-4f07-89d3-629c8d7251ec.json": {
     "type": "application/json",
-    "etag": "\"8b-Awp/205NCJnLmq/NmBJ3Yy0q7D0\"",
-    "mtime": "2023-10-30T05:42:22.854Z",
+    "etag": "\"8b-cUxi7K67kgs4ubj7A1CBBVk6uDU\"",
+    "mtime": "2023-11-14T04:36:31.903Z",
     "size": 139,
-    "path": "../public/_nuxt/builds/meta/bb3ee818-8931-41a7-829f-35c027f3ae01.json"
+    "path": "../public/_nuxt/builds/meta/b5d97e0e-9ccd-4f07-89d3-629c8d7251ec.json"
   }
 };
 
@@ -5158,14 +5277,72 @@ const _f4b49z = eventHandler((event) => {
   return readAsset(id);
 });
 
-const _lazy_HhVmsH = () => import('../test.mjs');
-const _lazy_WDxZy1 = () => import('../handlers/renderer.mjs');
+const _lazy_wLI7oK = () => import('../.get.mjs');
+const _lazy_z3kuL1 = () => import('../.post.mjs');
+const _lazy_rWUfRc = () => import('../_id_.delete.mjs');
+const _lazy_rZryAN = () => import('../_id_.get.mjs');
+const _lazy_0oIGtc = () => import('../_id_.put.mjs');
+const _lazy_HZNfV4 = () => import('../.get2.mjs');
+const _lazy_qYiZGT = () => import('../.post2.mjs');
+const _lazy_TO1S6o = () => import('../_id_.delete2.mjs');
+const _lazy_OEyFbf = () => import('../_id_.get2.mjs');
+const _lazy_8RsrU8 = () => import('../_id_.put2.mjs');
+const _lazy_kDKJX2 = () => import('../all.get.mjs');
+const _lazy_trIXZV = () => import('../.post3.mjs');
+const _lazy_MTNrW7 = () => import('../_id_.delete3.mjs');
+const _lazy_ds1jsd = () => import('../_id_.get3.mjs');
+const _lazy_xnrzpj = () => import('../get.mjs');
+const _lazy_52hHqJ = () => import('../.get3.mjs');
+const _lazy_Eygrng = () => import('../.post4.mjs');
+const _lazy_Yt8U4X = () => import('../_id_.delete4.mjs');
+const _lazy_jTcuTT = () => import('../_id_.get4.mjs');
+const _lazy_UhD1nO = () => import('../_id_.put3.mjs');
+const _lazy_0oMXWj = () => import('../.get4.mjs');
+const _lazy_7uFwwW = () => import('../.post5.mjs');
+const _lazy_OOpvmY = () => import('../_id_.delete5.mjs');
+const _lazy_RMYxBO = () => import('../_id_.get5.mjs');
+const _lazy_7UXQuq = () => import('../_id_.put4.mjs');
+const _lazy_BWHad7 = () => import('../.get5.mjs');
+const _lazy_1CdsGd = () => import('../.post6.mjs');
+const _lazy_wZC3qH = () => import('../_id_.delete6.mjs');
+const _lazy_SlUbEp = () => import('../_id_.get6.mjs');
+const _lazy_oIzIBm = () => import('../_id_.put5.mjs');
+const _lazy_icPli0 = () => import('../handlers/renderer.mjs');
 
 const handlers = [
   { route: '', handler: _f4b49z, lazy: false, middleware: true, method: undefined },
-  { route: '/api/test', handler: _lazy_HhVmsH, lazy: true, middleware: false, method: undefined },
-  { route: '/__nuxt_error', handler: _lazy_WDxZy1, lazy: true, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_WDxZy1, lazy: true, middleware: false, method: undefined }
+  { route: '/api/article/', handler: _lazy_wLI7oK, lazy: true, middleware: false, method: "get" },
+  { route: '/api/article/', handler: _lazy_z3kuL1, lazy: true, middleware: false, method: "post" },
+  { route: '/api/article/:id', handler: _lazy_rWUfRc, lazy: true, middleware: false, method: "delete" },
+  { route: '/api/article/:id', handler: _lazy_rZryAN, lazy: true, middleware: false, method: "get" },
+  { route: '/api/article/:id', handler: _lazy_0oIGtc, lazy: true, middleware: false, method: "put" },
+  { route: '/api/comment/', handler: _lazy_HZNfV4, lazy: true, middleware: false, method: "get" },
+  { route: '/api/comment/', handler: _lazy_qYiZGT, lazy: true, middleware: false, method: "post" },
+  { route: '/api/comment/:id', handler: _lazy_TO1S6o, lazy: true, middleware: false, method: "delete" },
+  { route: '/api/comment/:id', handler: _lazy_OEyFbf, lazy: true, middleware: false, method: "get" },
+  { route: '/api/comment/:id', handler: _lazy_8RsrU8, lazy: true, middleware: false, method: "put" },
+  { route: '/api/comment/all', handler: _lazy_kDKJX2, lazy: true, middleware: false, method: "get" },
+  { route: '/api/file/', handler: _lazy_trIXZV, lazy: true, middleware: false, method: "post" },
+  { route: '/api/file/:id', handler: _lazy_MTNrW7, lazy: true, middleware: false, method: "delete" },
+  { route: '/api/file/:id', handler: _lazy_ds1jsd, lazy: true, middleware: false, method: "get" },
+  { route: '/api/file/get', handler: _lazy_xnrzpj, lazy: true, middleware: false, method: undefined },
+  { route: '/api/tag/', handler: _lazy_52hHqJ, lazy: true, middleware: false, method: "get" },
+  { route: '/api/tag/', handler: _lazy_Eygrng, lazy: true, middleware: false, method: "post" },
+  { route: '/api/tag/:id', handler: _lazy_Yt8U4X, lazy: true, middleware: false, method: "delete" },
+  { route: '/api/tag/:id', handler: _lazy_jTcuTT, lazy: true, middleware: false, method: "get" },
+  { route: '/api/tag/:id', handler: _lazy_UhD1nO, lazy: true, middleware: false, method: "put" },
+  { route: '/api/type/', handler: _lazy_0oMXWj, lazy: true, middleware: false, method: "get" },
+  { route: '/api/type/', handler: _lazy_7uFwwW, lazy: true, middleware: false, method: "post" },
+  { route: '/api/type/:id', handler: _lazy_OOpvmY, lazy: true, middleware: false, method: "delete" },
+  { route: '/api/type/:id', handler: _lazy_RMYxBO, lazy: true, middleware: false, method: "get" },
+  { route: '/api/type/:id', handler: _lazy_7UXQuq, lazy: true, middleware: false, method: "put" },
+  { route: '/api/user/', handler: _lazy_BWHad7, lazy: true, middleware: false, method: "get" },
+  { route: '/api/user/', handler: _lazy_1CdsGd, lazy: true, middleware: false, method: "post" },
+  { route: '/api/user/:id', handler: _lazy_wZC3qH, lazy: true, middleware: false, method: "delete" },
+  { route: '/api/user/:id', handler: _lazy_SlUbEp, lazy: true, middleware: false, method: "get" },
+  { route: '/api/user/:id', handler: _lazy_oIzIBm, lazy: true, middleware: false, method: "put" },
+  { route: '/__nuxt_error', handler: _lazy_icPli0, lazy: true, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_icPli0, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
@@ -5539,5 +5716,5 @@ trapUnhandledNodeErrors();
 setupGracefulShutdown(listener, nitroApp);
 const nodeServer = {};
 
-export { send as a, setResponseStatus as b, setResponseHeaders as c, defineEventHandler as d, eventHandler as e, useRuntimeConfig as f, getResponseStatus as g, getQuery as h, createError$1 as i, joinURL as j, getRouteRules as k, getResponseStatusText as l, sanitizeStatusCode as m, createHooks as n, nodeServer as o, setResponseHeader as s, useNitroApp as u };
+export { getRouterParam as a, readFormData as b, send as c, defineEventHandler as d, eventHandler as e, getResponseStatus as f, getQuery as g, setResponseStatus as h, setResponseHeaders as i, joinURL as j, useRuntimeConfig as k, createError$1 as l, getRouteRules as m, getResponseStatusText as n, sanitizeStatusCode as o, createHooks as p, nodeServer as q, readBody as r, setResponseHeader as s, useNitroApp as u };
 //# sourceMappingURL=node-server.mjs.map
