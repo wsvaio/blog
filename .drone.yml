@@ -12,7 +12,6 @@ steps:
       - npm install
       - npm run build
       - npx prisma migrate deploy
-      - docker ps
 
   - name: clean
     image: appleboy/drone-ssh
@@ -37,7 +36,7 @@ steps:
       command_timeout: 2m
       source:
         - ./.output
-        - ./run.sh
+        - ./run.shw
       target:
         - /app/service/blog/
 
