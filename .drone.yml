@@ -44,7 +44,8 @@ steps:
     image: appleboy/drone-ssh
     settings:
       envs:
-        from_secret: database_url
+        database_url:
+          from_secret: database_url
       host: 121.40.126.12
       username: root
       password:
