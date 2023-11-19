@@ -10,26 +10,27 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@element-plus/nuxt": "^1.0.6",
     "@nuxt/devtools": "latest",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/stylelint-module": "^5.1.0",
-    "@unocss/nuxt": "^0.57.2",
+    "@pinia/nuxt": "^0.5.1",
+    "@prisma/client": "^5.6.0",
+    "@unocss/nuxt": "^0.57.5",
+    "@vue-macros/reactivity-transform": "^0.4.0",
+    "@vueuse/core": "^10.6.1",
+    "@vueuse/nuxt": "^10.6.1",
     "@wsvaio/eslint-config": "^0.0.7",
     "@wsvaio/stylelint-config": "^0.0.7",
-    "element-plus": "^2.4.2",
     "eslint": "^8.53.0",
     "less": "^4.2.0",
+    "marked": "^10.0.0",
     "nuxt": "^3.8.0",
-    "prisma": "^5.5.2",
+    "pinia": "^2.1.7",
+    "prisma": "^5.6.0",
     "stylelint": "^15.11.0",
     "unocss": "^0.57.4",
     "vue": "^3.3.6",
     "vue-router": "^4.2.5"
-  },
-  "dependencies": {
-    "@prisma/client": "5.5.2",
-    "marked": "^10.0.0"
   },
   "eslintConfig": {
     "extends": "@wsvaio/eslint-config"

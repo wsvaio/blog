@@ -1,5 +1,8 @@
 name=blog
 
+echo $name
+echo $database_url
+
 docker rm -fv $name
 
 docker run \

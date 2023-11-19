@@ -2,11 +2,11 @@
   "editor.tabSize": 2,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.acceptSuggestionOnCommitCharacter": false,
-	"editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.quickSuggestions": {
-    "other": "on",
-    "comments": "on",
-    "strings": "on"
+    "other": true,
+    "comments": true,
+    "strings": true
   },
   "stylelint.enable": true,
   "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass", "html"],
@@ -22,8 +22,8 @@
     "CHANGELOG.md": true,
     "pnpm-lock.yaml": true
   },
-	"files.eol": "\n",
-	"vue.complete.casing.props": "kebab",
+  "files.eol": "\n",
+  "vue.complete.casing.props": "kebab",
   "vue.complete.casing.tags": "kebab",
   "[svg]": {
     "editor.defaultFormatter": "jock.svg"
@@ -33,6 +33,5 @@
   },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  },
-
+  }
 }
