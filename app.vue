@@ -17,7 +17,9 @@ watchEffect(() => {
 </script>
 
 <template>
-	<nuxt-layout />
+	<nuxt-layout>
+		<nuxt-page />
+	</nuxt-layout>
 </template>
 
 <style lang="less" scoped></style>

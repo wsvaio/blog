@@ -7,7 +7,3 @@
 		<slot />
 	</main>
 </template>
-
-<style lang='less' scoped>
-
-</style>
