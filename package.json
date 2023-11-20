@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxt/kit": "^3.8.1",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/stylelint-module": "^5.1.0",
     "@pinia/nuxt": "^0.5.1",
@@ -21,6 +22,7 @@
     "@vueuse/nuxt": "^10.6.1",
     "@wsvaio/eslint-config": "^0.0.7",
     "@wsvaio/stylelint-config": "^0.0.7",
+    "colord": "^2.9.3",
     "eslint": "^8.53.0",
     "less": "^4.2.0",
     "marked": "^10.0.0",

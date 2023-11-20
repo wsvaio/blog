@@ -9,12 +9,8 @@ export default defineNuxtConfig({
 	appConfig: {},
 
 	vite: {
-		vue: {
-
-		},
-		plugins: [
-			ReactivityTransform(),
-		]
+		vue: {},
+		plugins: [ReactivityTransform()],
 	},
 
 	vue: {
@@ -38,13 +34,7 @@ export default defineNuxtConfig({
 
 	css: ["~/assets/css/main.less"],
 
-	modules: [
-		"@nuxtjs/stylelint-module",
-		"@nuxtjs/eslint-module",
-		"@unocss/nuxt",
-		"@vueuse/nuxt",
-		"@pinia/nuxt"
-	],
+	modules: ["@nuxtjs/stylelint-module", "@nuxtjs/eslint-module", "@unocss/nuxt", "@vueuse/nuxt", "@pinia/nuxt"],
 
 	nitro: {
 		imports: {
