@@ -19,8 +19,9 @@ export default defineStore("theme", {
 	state: () => ({
 		type: "dark" as "light" | "dark" | "",
 		common: {
-			primaryColor: "#CD3636",
-			secondaryColor: "#D8C4A4",
+			// primaryColor: "#CD3636",
+			primaryColor: "rgb(255, 0, 153)",
+			secondaryColor: "rgb(36, 198, 220)",
 			infoColor: "#096dd9",
 			successColor: "#1CAE74",
 			warningColor: "#faad14",

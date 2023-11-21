@@ -2,16 +2,14 @@
 const { data } = await useFetch<any[]>("/api/article");
 
 const { data: tags } = useLazyFetch<any[]>("/api/tag");
+const { data: types } = useLazyFetch<any[]>("/api/type");
 </script>
 
 <template>
 	<div m="x-auto" max="w-[var(--max-width)]" p="[var(--spacing)]">
-		<div grid="~ cols-1 md:cols-3" gap="1em">
-			<div v-for="i in 2" flex="~ col" gap="1em">
-				<fieldset
-					v-for="item in data?.filter((value, index) => (i == 1 ? index % 2 == 0 : index % 2 != 0))"
-					@click="$router.push(`/${item.id}`)"
-				>
+		<div grid="~ cols-1 md:cols-[2fr_1fr]" gap="1em">
+			<div flex="~ col" gap="1em">
+				<fieldset v-for="item in data" @click="$router.push(`/article/${item.id}`)">
 					<legend>{{ item.title }}</legend>
 					<button v-for="sub in item.tags">{{ sub.name }}</button>
 					<p>{{ item.createAt }}</p>
@@ -26,16 +24,20 @@ const { data: tags } = useLazyFetch<any[]>("/api/tag");
 				<input placeholder="搜索" />
 			</fieldset> -->
 				<fieldset flex="~ wrap" gap=".5em">
+					<legend>类型</legend>
+					<button v-for="item in types" @click="$router.push(`/type/${item.id}`)">{{ item.name }}</button>
+				</fieldset>
+				<fieldset flex="~ wrap" gap=".5em">
 					<legend>标签</legend>
-					<button v-for="item in tags">{{ item.name }}</button>
+					<button v-for="item in tags" @click="$router.push(`/tag/${item.id}`)">{{ item.name }}</button>
 				</fieldset>
 			</div>
 		</div>
 
-		<div>
+		<!-- <div>
 			<button>前一页</button>
 			<button>1</button>
 			<button>后一页</button>
-		</div>
+		</div> -->
 	</div>
 </template>
