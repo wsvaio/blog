@@ -3,7 +3,7 @@
 </script>
 
 <template>
-	<main>
+	<main flex="1">
 		<slot />
 	</main>
 </template>

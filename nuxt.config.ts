@@ -20,8 +20,8 @@ export default defineNuxtConfig({
 
 	app: {
 		head: {
+			title: "王上上的小屋",
 			meta: [
-				{ name: "title", content: "王上上小屋" },
 				{ name: "author", content: "ws,wsvaio,wsvaio@qq.com" },
 				{
 					name: "description",

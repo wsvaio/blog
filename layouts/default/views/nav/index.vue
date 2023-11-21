@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data } = await useFetch<any[]>("/api/tag");
+const { data } = await useFetch<any[]>("/api/type");
 </script>
 
 <template>

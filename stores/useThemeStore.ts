@@ -51,6 +51,8 @@ export default defineStore("theme", {
 			sm: "574px",
 			xs: "375px",
 			xxs: "256px",
+
+			maxWidth: "1200px",
 		},
 
 		...generateThemeColor({

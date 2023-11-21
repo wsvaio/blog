@@ -12,16 +12,5 @@ useSeoMeta({
 </script>
 
 <template>
-	<article v-html="marked(data.content)" />
+	<article m="x-auto" max="w-[var(--max-width)]" p="[var(--spacing)]" v-html="marked(data.content, { gfm: true, breaks: true })" />
 </template>
-
-<style lang="less" scoped>
-article {
-  max-width: 1200px;
-  margin: 0 auto;
-
-	:deep(img) {
-		width: 100%;
-	}
-}
-</style>

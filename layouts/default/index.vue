@@ -21,6 +21,8 @@ import FooterView from "./views/footer/index.vue";
 
 <style lang="less" scoped>
 article {
+	display: flex;
+	flex-direction: column;
   min-height: 100dvh;
 }
 </style>
