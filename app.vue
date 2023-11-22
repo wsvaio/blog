@@ -9,11 +9,28 @@ const theme = useThemeStore();
 
 // 同步cssvars到html上
 const isMounted = $(useMounted());
+
+// 暗黑模式
+onMounted(() => {
+	const themeMedia = window.matchMedia("(prefers-color-scheme: light)");
+	const setIsDark = (isLightMatches: boolean) => {
+		theme.type = isLightMatches ? "light" : "dark";
+	};
+	setIsDark(themeMedia.matches);
+	themeMedia.addEventListener("change", e => setIsDark(e.matches));
+});
+
 watchEffect(() => {
 	if (!isMounted) return;
-	for (const [k, v] of Object.entries(theme.vars))
-		document.documentElement.style.setProperty(`--${k.replace(/([A-Z])/g, $1 => `-${$1.toLowerCase()}`)}`, v);
+	document.documentElement.classList.remove("light", "dark");
+	document.documentElement.classList.add(theme.type);
 });
+
+// watchEffect(() => {
+// 	if (!isMounted) return;
+// 	for (const [k, v] of Object.entries(theme.vars))
+// 		document.documentElement.style.setProperty(`--${k.replace(/([A-Z])/g, $1 => `-${$1.toLowerCase()}`)}`, v);
+// });
 </script>
 
 <template>

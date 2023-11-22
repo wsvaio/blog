@@ -20,31 +20,25 @@ export default defineNuxtConfig({
 
 	app: {
 		head: {
-			title: "王上上的小屋",
+			title: "WSの小屋",
 			meta: [
-				{ name: "author", content: "ws,wsvaio,wsvaio@qq.com" },
+				{ name: "author", content: "wsvaio@qq.com" },
 				{
 					name: "description",
 					content: "你就像天外来物一样求之不得！",
 				},
-				{ name: "keywords", content: "wangshang,ws,wsvaio,博客,个人博客" },
 			],
 		},
 	},
 
 	css: ["~/assets/css/main.less"],
 
-	modules: [
-		"@nuxtjs/stylelint-module",
-		"@nuxtjs/eslint-module",
-		"@unocss/nuxt",
-		"@vueuse/nuxt",
-		"@pinia/nuxt",
-	],
+	modules: ["@nuxtjs/stylelint-module", "@nuxtjs/eslint-module", "@unocss/nuxt", "@vueuse/nuxt", "@pinia/nuxt"],
 
 	nitro: {
 		imports: {
 			dirs: ["~/server/utils"],
 		},
 	},
+
 });
