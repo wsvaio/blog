@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { marked } from "marked";
+import Occupy from "~/assets/img/occupy.jpg";
 
 const { data = {} } = defineProps<{
 	data: Record<any, any>;
@@ -20,10 +21,7 @@ watchEffect(() => {
 
 <template>
 	<div grid="~ sm:cols-[1fr_2fr] cols-1fr" gap="1em" bg="[var(--theme-color5)]" p="1em">
-		<img
-			v-for="item in images.slice(0, 1)" grid="row-span-full" h="full" object="cover"
-			:src="item"
-		/>
+		<img grid="row-span-full" h="full" object="cover" :src="images[0] || Occupy" />
 
 		<div>
 			<h2 mt="0">
@@ -43,7 +41,7 @@ watchEffect(() => {
 				<button class="i-material-symbols-edit-calendar-outline" text="16px" ml=".5em" font="italic" />
 				<span text="14px">{{ new Date(data.updateAt).toLocaleString() }}</span>
 			</p>
-			<p mb="0">{{ textContent.length > 128 ? `${textContent.slice(0, 128)}……` : textContent }}</p>
+			<p mb="0">{{ textContent.length > 128 ? `${textContent.slice(0, 128)}……` : (textContent.trim() || '……') }}</p>
 		</div>
 	</div>
 </template>
