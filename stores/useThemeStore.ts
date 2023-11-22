@@ -58,10 +58,15 @@ export default defineStore("theme", {
 
 		...generateThemeColor({
 			mixColor: { light: "", dark: "" },
-			themeColor: { light: "#ffffff", dark: "#181818" },
+			// themeColor: { light: "#E1E5EA", dark: "#181818" },
+			// bgColor: "var(--theme-color)",
+			// textColor: { light: "#85709C", dark: "#dddddd" },
+			// borderColor: { light: "#B8CAD8", dark: "#bbbbbb" },
+
+			themeColor: { light: "#E1E5EA", dark: "#241F21" },
 			bgColor: "var(--theme-color)",
-			textColor: { light: "#000000", dark: "#dddddd" },
-			borderColor: { light: "#000000", dark: "#bbbbbb" },
+			textColor: { light: "#85709C", dark: "#E3D2AC" },
+			borderColor: { light: "#B8CAD8", dark: "#CFBF8B" },
 		}),
 		overwrite: {},
 	}),

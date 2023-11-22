@@ -20,7 +20,7 @@ watchEffect(() => {
 
 <template>
 	<div grid="~ sm:cols-[1fr_2fr] cols-1fr" gap="1em" bg="[var(--theme-color5)]" p="1em">
-		<nuxt-img
+		<img
 			v-for="item in images.slice(0, 1)" grid="row-span-full" h="full" object="cover"
 			:src="item"
 		/>

@@ -40,7 +40,6 @@ export default defineNuxtConfig({
 		"@unocss/nuxt",
 		"@vueuse/nuxt",
 		"@pinia/nuxt",
-		"@nuxt/image",
 	],
 
 	nitro: {
