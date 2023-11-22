@@ -9,13 +9,7 @@ const { data: types } = useLazyFetch<any[]>("/api/type");
 	<div m="x-auto" max="w-[var(--max-width)]" p="[var(--spacing)]">
 		<div grid="~ cols-1 md:cols-[2fr_1fr]" gap="1em">
 			<div flex="~ col" gap="1em">
-				<fieldset v-for="item in data" @click="$router.push(`/article/${item.id}`)">
-					<legend>{{ item.title }}</legend>
-					<button v-for="sub in item.tags">{{ sub.name }}</button>
-					<p>{{ item.createAt }}</p>
-					<p>{{ item.content.slice(0, 64) }}{{ item.content.length > 64 ? "……" : "" }}</p>
-					<button>Read More</button>
-				</fieldset>
+				<article-card v-for="item in data" :data="item" />
 			</div>
 
 			<div flex="~ col" gap="1em">

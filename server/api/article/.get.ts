@@ -1,6 +1,6 @@
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   const query = getQuery(event);
-
+  const select = JSON.parse(Array.isArray(query.select) ? query.select[0] : query.select || "{}");
   if (query.page && query.limit) {
     let page = Number(query.page) || 1;
     let pageSize = Number(query.pageSize) || 10;
@@ -12,19 +12,37 @@ export default defineEventHandler(async (event) => {
       list: await db.article.findMany({
         skip: page * pageSize - 10,
         take: pageSize,
-        include: {
-          tags: true,
+        select: {
+          id: true,
+          title: true,
           type: true,
+          tags: true,
+          content: true,
           comments: true,
+          views: true,
+          updateAt: true,
+          createAt: true,
+          typeId: true,
+          _count: true,
+          ...select,
         },
       }),
     };
   } else {
     return await db.article.findMany({
-      include: {
-        tags: true,
+      select: {
+        id: true,
+        title: true,
         type: true,
+        tags: true,
+        content: true,
         comments: true,
+        views: true,
+        updateAt: true,
+        createAt: true,
+        typeId: true,
+        _count: true,
+        ...select,
       },
     });
   }

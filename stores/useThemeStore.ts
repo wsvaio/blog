@@ -79,6 +79,7 @@ export default defineStore("theme", {
 						["warningColor", this.common.warningColor],
 						["errorColor", this.common.errorColor],
 						["themeColor", this[this.type || "light"].themeColor],
+						["textColor", this[this.type || "light"].textColor],
 					],
 					this[this.type || "light"].mixColor
 				),

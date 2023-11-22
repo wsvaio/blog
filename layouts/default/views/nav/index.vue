@@ -15,43 +15,42 @@
 				v-for="item in [
 					{
 						name: '首页',
-						href: '/',
+						to: '/',
 					},
 					{
 						name: '类型',
-						href: '/type',
+						to: '/type',
 					},
 					{
 						name: '标签',
-						href: '/tag',
+						to: '/tag',
 					},
 					{
 						name: '归档',
-						href: '/article',
+						to: '/article',
 					},
 					{
 						name: '留言板',
-						href: '/guestbook',
+						to: '/guestbook',
 					},
 					{
 						name: '关于',
-						href: '/about',
+						to: '/about',
 					},
 				]"
 			>
-				<a
+				<nuxt-link
 					hover="text-[var(--secondary-color)]"
 					color="[var(--text-color)]"
 					underline="transparent"
-					cursor="pointer"
-					:href="item.href"
+					:to="item.to"
 					:style="{
-						textDecoration: $route.path == item.href ? 'underline' : '',
-						color: $route.path == item.href ? 'var(--secondary-color)' : '',
+						textDecoration: $route.path == item.to ? 'underline' : '',
+						color: $route.path == item.to ? 'var(--secondary-color)' : '',
 					}"
 				>
 					{{ item.name }}
-				</a>
+				</nuxt-link>
 			</li>
 		</ul>
 	</nav>
