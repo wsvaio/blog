@@ -5,6 +5,8 @@ import MainView from "./views/main/index.vue";
 
 // import AsideView from "./views/aside/index.vue";
 import FooterView from "./views/footer/index.vue";
+
+import MusicView from "./views/music/index.vue";
 </script>
 
 <template>
@@ -14,6 +16,8 @@ import FooterView from "./views/footer/index.vue";
 		<main-view>
 			<slot />
 		</main-view>
+
+		<music-view />
 		<!-- <aside-view /> -->
 		<footer-view />
 	</article>
