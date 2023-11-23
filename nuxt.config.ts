@@ -28,16 +28,8 @@ export default defineNuxtConfig({
 					content: "你就像天外来物一样求之不得！",
 				},
 			],
-			link: [
-
-			],
-			script: [
-				{ src: "https://l2dwidget.js.org/lib/L2Dwidget.min.js" },
-				{ src: "https://files.cnblogs.com/files/quaint/sakuraPlus.js" },
-				{ src: "https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/static/js/sakura-less.js" },
-				{ src: "http://zhouql.vip/cdn/blast.js" }
-
-			]
+			link: [],
+			script: [{ src: "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js" }],
 		},
 	},
 
@@ -50,5 +42,4 @@ export default defineNuxtConfig({
 			dirs: ["~/server/utils"],
 		},
 	},
-
 });
