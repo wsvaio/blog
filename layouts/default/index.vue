@@ -1,32 +1,39 @@
 <script setup lang="ts">
 import HeaderView from "./views/header/index.vue";
-import NavView from "./views/nav/index.vue";
 import MainView from "./views/main/index.vue";
-
-// import AsideView from "./views/aside/index.vue";
 import FooterView from "./views/footer/index.vue";
 
-import MusicView from "./views/music/index.vue";
+const { data } = useLazyFetch<Record<any, any>>("https://www.dmoe.cc/random.php?return=json", { responseType: "json" });
+
+// useIntervalFn(() => {
+// 	execute();
+// }, 16000);
 </script>
 
 <template>
-	<article>
+	<article
+		:style="{
+			backgroundImage: `url(${data?.imgurl})`,
+		}"
+	>
 		<header-view />
-		<nav-view />
+
 		<main-view>
 			<slot />
 		</main-view>
 
-		<music-view />
-		<!-- <aside-view /> -->
 		<footer-view />
 	</article>
 </template>
 
 <style lang="less" scoped>
 article {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
   min-height: 100dvh;
+  transition: all 16s;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
 </style>
