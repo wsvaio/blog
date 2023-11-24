@@ -11,13 +11,13 @@ useSeoMeta({
 
 <template>
 	<article m="x-auto" max="w-[var(--max-width)]" p="[var(--spacing)]">
-		<h2 text="center">
+		<h2 text="center 72px white" text-shadow="md">
 			{{ data.title }}
 		</h2>
 
-		<p text="center">
+		<p text="center white">
 			<span font="bold">{{ data.type.name }}</span>
-			<span v-for="item in data.tags" text="14px [var(--text-color7)]" font="italic" ml=".5em">#{{ item.name }}</span>
+			<span v-for="item in data.tags" font="italic" ml=".5em">#{{ item.name }}</span>
 			<button class="i-material-symbols-edit-calendar-outline" text="16px" ml=".5em" font="italic" />
 			<span text="14px">{{ new Date(data.updateAt).toLocaleString() }}</span>
 		</p>

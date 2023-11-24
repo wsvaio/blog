@@ -3,12 +3,12 @@ const { y } = $(useWindowScroll());
 </script>
 
 <template>
-	<header :class="y <= 0 && 'hide'">
-		<nav flex="~" items="center" max="w-[var(--max-width)]" mx="auto">
-			<img src="@/assets/img/bear.webp" w="64px" h="64px" />
+	<header :class="y <= 0 && 'hide'" flex="~" items="center">
+		<img src="@/assets/img/bear.webp" w="64px" h="64px" />
+		<nav ml="auto">
 			<ul
 				flex="~" gap="2em" list="none" justify="center"
-				m="0 l-auto" p="1em"
+				m="0"
 			>
 				<li
 					v-for="item in [
@@ -63,21 +63,21 @@ header {
   top: 0;
   right: 0;
   left: 0;
-  padding: 0;
+  padding: 0 36px;
   transition: all 0.3s;
   opacity: 1;
-  background-color: rgb(255 255 255 / 90%);
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+	background-color: rgb(255 255 255 / 80%);
+  box-shadow: 0 5px 6px -5px rgb(133 133 133 / 60%);
   color: #666;
   backdrop-filter: saturate(200%) blur(20px);
 
   &.hide {
-    padding: 0.5em;
+    padding: 0.5em 36px;
     // opacity: 0;
     background-color: rgb(255 255 255 / 0%);
-    box-shadow: 0 2px 5px rgb(0 0 0 / 0%);
+    box-shadow: 0 5px 6px -5px rgb(133 133 133 / 0%);
     color: white;
-    text-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    text-shadow: 0 1px 1px rgb(0 0 0 / 34%);
     backdrop-filter: saturate(100%) blur(0);
   }
 }

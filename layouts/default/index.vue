@@ -3,17 +3,38 @@ import HeaderView from "./views/header/index.vue";
 import MainView from "./views/main/index.vue";
 import FooterView from "./views/footer/index.vue";
 
-const { data } = useLazyFetch<Record<any, any>>("https://www.dmoe.cc/random.php?return=json", { responseType: "json" });
+// let url = $ref("");
+// const theme = useThemeStore();
 
-// useIntervalFn(() => {
-// 	execute();
-// }, 16000);
+const { data, execute } = await useFetch<Record<any, any>>("/api/dmoe");
+// watchEffect(async () => {
+// 	if (!data?.value?.url) return;
+// 	const blob = await fetch(data.value.url).then(data => data.blob());
+
+// 	if (url) URL.revokeObjectURL(url);
+// 	url = URL.createObjectURL(blob);
+
+// 	identifySubject(url).then(([r, g, b, a]) => {
+// 		theme.common.primaryColor = `rgba(${r},${g},${b},${a})`;
+// 		theme.common.secondaryColor = `rgba(${r},${g},${b},${a})`;
+// 		theme.light.textColor = `rgba(${r},${g},${b},${a})`;
+// 		theme.dark.textColor = `rgba(${r},${g},${b},${a})`;
+// 	});
+// });
+
+useIntervalFn(() => {
+	execute();
+}, 10000);
+
+setTimeout(() => {
+	execute();
+}, 4000);
 </script>
 
 <template>
 	<article
 		:style="{
-			backgroundImage: `url(${data?.imgurl})`,
+			background: `url(${data.imgurl}) center / cover fixed`,
 		}"
 	>
 		<header-view />
@@ -31,9 +52,7 @@ article {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  transition: all 16s;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+  transition: all 5s 1s;
+
 }
 </style>

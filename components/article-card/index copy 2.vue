@@ -14,10 +14,7 @@ watchEffect(() => {
 	const domparser = new DOMParser();
 	const doc = domparser.parseFromString(marked(data.content), "text/html");
 	images = [...doc.querySelectorAll("img")].map(item => item.src);
-	textContent = [...doc.querySelectorAll("*")]
-		.map(item => item.textContent)
-		.join(" ")
-		.trim();
+	textContent = [...doc.querySelectorAll("*")].map(item => item.textContent).join(" ");
 });
 </script>
 
@@ -28,12 +25,10 @@ watchEffect(() => {
 			justify="end"
 			items="center"
 			color="[#fffffff2]"
+			h="250px"
 			p="1em"
 			class="box-border"
 			pos="relative"
-			:style="{
-				height: images.length ? '250px' : 'auto',
-			}"
 		>
 			<div
 				grid="~"
@@ -44,13 +39,12 @@ watchEffect(() => {
 				inset="0"
 			>
 				<img
-					v-for="item in images"
-					w="full" object="cover" :src="item"
+					v-for="item in images" w="full" object="cover" :src="item"
 					h="250px"
 				/>
 			</div>
 
-			<div pos="absolute" inset="0" bg="[rgba(0,0,0,0.16)]" />
+			<!-- <div pos="absolute" inset="0" bg="[rgba(0,0,0,0.16)]" /> -->
 
 			<h2 mt="0" z="10">
 				<nuxt-link
@@ -83,8 +77,12 @@ watchEffect(() => {
 			</div>
 		</div>
 
-		<p v-if="textContent" m="0" p="2em" z="10">
-			{{ textContent.length > 256 ? `${textContent.slice(0, 128)}……` : textContent }}
+		<p
+			m="0"
+			p="x-2em y-3em"
+			z="10"
+		>
+			{{ textContent.length > 128 ? `${textContent.slice(0, 128)}……` : textContent.trim() || "……" }}
 		</p>
 	</div>
 </template>

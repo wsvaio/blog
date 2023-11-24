@@ -17,7 +17,7 @@ const generateThemeColor = <T extends string>(color: Record<T, { [K in "light" |
 
 export default defineStore("theme", {
 	state: () => ({
-		type: "dark" as "light" | "dark" | "",
+		type: "light" as "light" | "dark" | "",
 		common: {
 			// primaryColor: "#CD3636",
 			primaryColor: "#211F46",
@@ -53,7 +53,7 @@ export default defineStore("theme", {
 			xs: "375px",
 			xxs: "256px",
 
-			maxWidth: "1400px",
+			maxWidth: "768px",
 		},
 
 		...generateThemeColor({
@@ -65,7 +65,7 @@ export default defineStore("theme", {
 
 			themeColor: { light: "#E1E5EA", dark: "#241F21" },
 			bgColor: { light: "#E1E5EA", dark: "#241F21" },
-			textColor: { light: "#85709C", dark: "#E3D2AC" },
+			textColor: { light: "#525f7f", dark: "#525f7f" },
 			borderColor: { light: "#B8CAD8", dark: "#CFBF8B" },
 		}),
 		overwrite: {},

@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-	<footer bg="[var(--theme-color5)]" text="14px center" p="2em" lh="[1]">
+	<footer text="14px center" p="2em" lh="[1]">
 		<p>All Rights Reserved 2023.</p>
 		<p>
 			<a un-text="[var(--text-color)]" underline="transparent" href="https://beian.miit.gov.cn/" target="_blank">
@@ -18,5 +18,8 @@
 <style lang="less" scoped>
 footer {
   border-top: 1px solid rgb(204 204 204 / 80%);
+	// background-color: rgb(255 255 255 / 80%);
+  backdrop-filter: blur(5px);
+	background-color: white;
 }
 </style>
