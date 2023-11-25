@@ -25,6 +25,6 @@ const { data: types } = useLazyFetch<any[]>("/api/type");
 		flex="~ col" gap="1em" m="x-auto" max="w-[var(--max-width)]"
 		p="[var(--spacing)]" z="10"
 	>
-		<article-card v-for="item in data" :data="item" />
+		<article-card v-for="(item, index) in data" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
 	</div>
 </template>

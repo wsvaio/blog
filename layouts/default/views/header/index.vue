@@ -58,7 +58,7 @@ const { y } = $(useWindowScroll());
 
 <style lang="less" scoped>
 header {
-  position: sticky;
+  position: fixed;
   z-index: 100;
   top: 0;
   right: 0;

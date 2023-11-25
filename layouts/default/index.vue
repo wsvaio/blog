@@ -25,16 +25,12 @@ const { data, execute } = await useFetch<Record<any, any>>("/api/dmoe");
 useIntervalFn(() => {
 	execute();
 }, 10000);
-
-setTimeout(() => {
-	execute();
-}, 4000);
 </script>
 
 <template>
 	<article
 		:style="{
-			background: `url(${data.imgurl}) center / cover fixed`,
+			background: `url(${data?.imgurl}) center / cover fixed`,
 		}"
 	>
 		<header-view />
