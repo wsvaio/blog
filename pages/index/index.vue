@@ -9,22 +9,15 @@ const { data: types } = useLazyFetch<any[]>("/api/type");
 
 <template>
 	<banner-view />
-	<!-- <div
+	<div
 		m="x-auto" max="w-[var(--max-width)]" p="[var(--spacing)]" z="10"
 		pos="relative" grid="~ cols-[3fr_1fr]" gap="1em"
 	>
 		<div flex="~ col" gap="1em">
-			<article-card v-for="item in data" :data="item" />
+			<article-card v-for="(item, index) in data" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
 		</div>
 		<div flex="~ col" gap="1em">
-			<article-card v-for="item in data" :data="item" />
+			<about-card />
 		</div>
-	</div> -->
-
-	<div
-		flex="~ col" gap="1em" m="x-auto" max="w-[var(--max-width)]"
-		p="[var(--spacing)]" z="10"
-	>
-		<article-card v-for="(item, index) in data" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
 	</div>
 </template>

@@ -79,7 +79,7 @@ watchEffect(async () => {
 						<div class="i-pepicons-pop:label" />
 					</small>
 
-					<span>{{ data?.tags?.map((item:any) => item.name).join('·') }}</span>
+					<span>{{ data?.tags?.map((item:any) => item.name).join(' · ') }}</span>
 				</li>
 			</ul>
 

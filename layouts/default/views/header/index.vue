@@ -4,7 +4,7 @@ const { y } = $(useWindowScroll());
 
 <template>
 	<header :class="y <= 0 && 'hide'" flex="~" items="center">
-		<img src="@/assets/img/bear.webp" w="64px" h="64px" />
+		<nuxt-link to="/" underline="transparent" un-text="inherit 20px">WSの小屋</nuxt-link>
 		<nav ml="auto">
 			<ul
 				flex="~" gap="2em" list="none" justify="center"
@@ -63,19 +63,19 @@ header {
   top: 0;
   right: 0;
   left: 0;
-  padding: 0 36px;
+  padding: 0.5em 36px;
   transition: all 0.3s;
   opacity: 1;
-	background-color: rgb(255 255 255 / 80%);
-  box-shadow: 0 5px 6px -5px rgb(133 133 133 / 60%);
-  color: #666;
+	background-color: rgb(255 255 255 / 90%);
+  box-shadow: 0 0.5rem 1rem rgb(18 38 63 / 5%);
+  color: rgb(0 0 0 / 90%);
   backdrop-filter: saturate(200%) blur(20px);
 
   &.hide {
-    padding: 0.5em 36px;
+    padding: 1em 36px;
     // opacity: 0;
     background-color: rgb(255 255 255 / 0%);
-    box-shadow: 0 5px 6px -5px rgb(133 133 133 / 0%);
+    box-shadow: 0 0.5rem 1rem rgb(18 38 63 / 0%);
     color: white;
     text-shadow: 0 1px 1px rgb(0 0 0 / 34%);
     backdrop-filter: saturate(100%) blur(0);
