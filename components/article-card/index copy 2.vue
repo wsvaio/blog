@@ -49,7 +49,7 @@ watchEffect(() => {
 			<h2 mt="0" z="10">
 				<nuxt-link
 					:to="`/article/${data.id}`"
-					hover="text-[var(--secondary-color)]"
+					hover="text-[var(--primary-color)]"
 					underline="transparent"
 					color="[#fffffff2]"
 				>
