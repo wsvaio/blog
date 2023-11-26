@@ -6,7 +6,7 @@ import FooterView from "./views/footer/index.vue";
 // let url = $ref("");
 // const theme = useThemeStore();
 
-const { data, execute } = await useFetch<Record<any, any>>("/api/dmoe");
+const { data, execute } = await useFetch<Record<any, any>>("/api/common/image");
 // watchEffect(async () => {
 // 	if (!data?.value?.url) return;
 // 	const blob = await fetch(data.value.url).then(data => data.blob());

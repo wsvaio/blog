@@ -2,7 +2,7 @@
 </script>
 
 <template>
-	<article m="x-auto" max="w-[var(--max-width)]" p="[var(--spacing)]">
+	<article m="x-auto" max="w-[var(--max-width)]" p="1em">
 		关于？
 	</article>
 </template>

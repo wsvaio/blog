@@ -23,7 +23,7 @@ watchEffect(async () => {
 	const domparser = new DOMParser();
 	const doc = domparser.parseFromString(marked(data.content), "text/html");
 	// images = [...doc.querySelectorAll("img")].map(item => item.src);
-	image = [...doc.querySelectorAll("img")].find(item => item.src)?.src || (await $fetch<any>("/api/dmoe")).imgurl;
+	image = [...doc.querySelectorAll("img")].find(item => item.src)?.src || (await $fetch<any>("/api/common/image")).imgurl;
 	textContent = [...doc.querySelectorAll("*")]
 		.map(item => item.textContent)
 		.join(" ")
@@ -86,7 +86,7 @@ watchEffect(async () => {
 			<h2 z="10" font="normal">
 				<nuxt-link
 					:to="`/article/${data.id}`"
-					hover="text-[var(--secondary-color)]"
+					hover="text-[var(--primary-color)]"
 					underline="transparent"
 					color="inherit"
 				>

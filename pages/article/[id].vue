@@ -14,17 +14,30 @@ useSeoMeta({
 </script>
 
 <template>
-	<article m="x-auto" max="w-[var(--max-width)]" p="[var(--spacing)]">
-		<h2 text="center 72px white" text-shadow="md">
-			{{ data.title }}
-		</h2>
-
-		<p text="center white">
+	<article m="x-auto" max="w-[var(--max-width)]" p="1em">
+		<banner h="!50dvh" :title="data.title">
+			<!-- <p text="center white">
 			<span font="bold">{{ data.type.name }}</span>
 			<span v-for="item in data.tags" font="italic" ml=".5em">#{{ item.name }}</span>
 			<button class="i-material-symbols-edit-calendar-outline" text="16px" ml=".5em" font="italic" />
 			<span text="14px">{{ new Date(data.updateAt).toLocaleString() }}</span>
-		</p>
+		</p> -->
+
+			<ul
+				m="1em" p="0" list="none" flex="~"
+				gap=".5em" text="20px"
+			>
+				<li>
+					{{ new Date(data.createAt).toLocaleString() }}
+				</li>
+				<li>|</li>
+				<li>{{ data.reads }} 阅读</li>
+				<li>|</li>
+				<li>{{ data.comments?.length }} 评论</li>
+				<li>|</li>
+				<li>{{ data.likes }} 点赞</li>
+			</ul>
+		</banner>
 		<markdown-preview :model-value="data.content" />
 	</article>
 </template>

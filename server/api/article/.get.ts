@@ -17,6 +17,7 @@ export default defineEventHandler(async event => {
           tags: true,
           type: true,
         },
+        
       }),
     };
   } else {
@@ -27,6 +28,7 @@ export default defineEventHandler(async event => {
         tags: true,
         type: true,
       },
+      
     });
   }
 });
