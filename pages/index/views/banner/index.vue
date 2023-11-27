@@ -1,18 +1,18 @@
 <script setup lang="ts">
 const { y } = $(useWindowScroll());
+const { data } = await useFetch<any>("/api/common/message");
 </script>
 
 <template>
 	<div
-		class="banner" :style="{
+		class="banner"
+		:style="{
 			transform: `translateY(${y / 2}px)`,
-
 		}"
 	>
-		<slot>
-			<h1 text="72px">WSの小屋</h1>
-			<div class="i-ion-ios-arrow-down arrow" text="32px" />
-		</slot>
+		<h1 text="40px" m="0" data-text="WSの小屋">WSの小屋</h1>
+		<p texg="20px">{{ data?.content }}</p>
+		<!-- <div class="i-ion-ios-arrow-down arrow" text="32px" /> -->
 	</div>
 </template>
 
@@ -23,9 +23,10 @@ const { y } = $(useWindowScroll());
   align-items: center;
   justify-content: center;
   height: 100dvh;
-  transition: height .3s;
+  transition: height 0.3s;
   background: var(--background-primary);
   color: white;
+  text-shadow: 0 0.1875rem 0.3125rem #1c1f21;
 
   & > .arrow {
     @keyframes scroll-down-effect {
@@ -68,7 +69,25 @@ const { y } = $(useWindowScroll());
       }
     }
 
-    text-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    @keyframes animation-before {
+      0% {
+        clip-path: inset(0 0 0 0);
+      }
+
+      100% {
+        clip-path: inset(0.62em 0 0.29em 0);
+      }
+    }
+
+    @keyframes animation-after {
+      0% {
+        clip-path: inset(0 0 0 0);
+      }
+
+      100% {
+        clip-path: inset(0.29em 0 0.62em 0);
+      }
+    }
 
     &:hover {
       animation: text-jump 0.5s linear infinite;

@@ -6,7 +6,7 @@ const { data: types } = useLazyFetch<any[]>("/api/type");
 </script>
 
 <template>
-	<div m="x-auto" max="w-[var(--max-width)]" p="[var(--spacing)]">
+	<div m="x-auto" max="w-[var(--max-width)]" p="1em">
 		<div grid="~ cols-1 md:cols-[2fr_1fr]" gap="1em">
 			<div flex="~ col" gap="1em">
 				<article-card v-for="item in data" :data="item" />

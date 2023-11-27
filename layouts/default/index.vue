@@ -6,7 +6,7 @@ import FooterView from "./views/footer/index.vue";
 // let url = $ref("");
 // const theme = useThemeStore();
 
-const { data, execute } = await useFetch<Record<any, any>>("/api/dmoe");
+const { data, execute } = await useFetch<Record<any, any>>("/api/common/image");
 // watchEffect(async () => {
 // 	if (!data?.value?.url) return;
 // 	const blob = await fetch(data.value.url).then(data => data.blob());
@@ -24,17 +24,16 @@ const { data, execute } = await useFetch<Record<any, any>>("/api/dmoe");
 
 useIntervalFn(() => {
 	execute();
-}, 10000);
-
-setTimeout(() => {
+}, 18000);
+useTimeoutFn(() => {
 	execute();
-}, 4000);
+}, 0);
 </script>
 
 <template>
 	<article
 		:style="{
-			background: `url(${data.imgurl}) center / cover fixed`,
+			background: `url(${data?.imgurl}) center / cover fixed`,
 		}"
 	>
 		<header-view />
@@ -52,7 +51,6 @@ article {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  transition: all 5s 1s;
-
+  transition: all 16s steps(16) 1s;
 }
 </style>

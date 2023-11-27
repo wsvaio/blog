@@ -29,7 +29,12 @@ export default defineNuxtConfig({
 				},
 			],
 			link: [],
-			script: [{ src: "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js" }],
+			script: [
+
+				// { src: "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js" },
+				{ src: "https://apii.ctose.cn/live2d/Source-One/default/autoload.js" }
+
+			],
 		},
 	},
 
