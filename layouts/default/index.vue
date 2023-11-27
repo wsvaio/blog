@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import HeaderView from "./views/header/index.vue";
+import BannerView from "./views/banner/index.vue";
 import MainView from "./views/main/index.vue";
 import FooterView from "./views/footer/index.vue";
+
+defineProps<{ bannerHeight?: string; bannerTitle: string }>();
 
 // let url = $ref("");
 // const theme = useThemeStore();
@@ -24,7 +27,12 @@ const { data, execute } = await useFetch<Record<any, any>>("/api/common/image");
 
 useIntervalFn(() => {
 	execute();
-}, 10000);
+}, 18000);
+useTimeoutFn(() => {
+	execute();
+}, 0);
+
+const bannerRef = $ref<InstanceType<typeof BannerView>>();
 </script>
 
 <template>
@@ -33,7 +41,11 @@ useIntervalFn(() => {
 			background: `url(${data?.imgurl}) center / cover fixed`,
 		}"
 	>
-		<header-view />
+		<header-view :hide-height="bannerRef?.clientHeight" />
+
+		<banner-view ref="bannerRef" :style="{ height: bannerHeight }" :title="bannerTitle">
+			<slot name="banner" />
+		</banner-view>
 
 		<main-view>
 			<slot />

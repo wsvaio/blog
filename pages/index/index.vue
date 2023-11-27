@@ -2,10 +2,10 @@
 // import BannerView from "./views/banner/index.vue";
 
 const { data } = await useFetch<any[]>("/api/article");
-const { data: message } = await useFetch<any>("/api/common/message");
-
-const { data: tags } = useLazyFetch<any[]>("/api/tag");
-const { data: types } = useLazyFetch<any[]>("/api/type");
+const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
+const nextMessage = () => setTimeout(() => executeMessage(), 5000);
+// const { data: tags } = useLazyFetch<any[]>("/api/tag");
+// const { data: types } = useLazyFetch<any[]>("/api/type");
 
 // const theme = useThemeStore();
 const { y } = useWindowScroll({ behavior: "smooth" });
@@ -15,24 +15,14 @@ const jump = () => {
 </script>
 
 <template>
-	<!-- <banner-view /> -->
-	<banner title="WSの小屋">
-		<p text="20px">{{ message?.content }}</p>
-	</banner>
-	<div class="i-ion-ios-arrow-down arrow" @click="jump" />
+	<nuxt-layout banner-title="WSの小屋">
+		<template #banner>
+			<typewriter m="1em" :content="message?.content" @finish="nextMessage" />
+			<div class="i-ion-ios-arrow-down arrow" @click="jump" />
+		</template>
 
-	<div
-		m="x-auto" max="w-[var(--max-width)]" p="1em" z="10"
-		pos="relative" grid="~ cols-[3fr_1fr]" gap="1em" items="start"
-	>
-		<div flex="~ col" gap="1em">
-			<article-card v-for="(item, index) in data" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
-		</div>
-		<div flex="~ col" gap="1em" pos="sticky" top="[var(--header-height)]">
-			<about-card />
-			<tiangou-card />
-		</div>
-	</div>
+		<article-card v-for="(item, index) in data" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
+	</nuxt-layout>
 </template>
 
 <style lang="less" scoped>
@@ -54,10 +44,17 @@ const jump = () => {
     }
   }
 
+<<<<<<< HEAD
 	position: fixed;
 	bottom: 1em;
 	left: 50%;
 	transform: translateX(-50%);
+=======
+  position: absolute;
+  bottom: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+>>>>>>> 9abb75a (feat: 布局结构优化)
   animation: scroll-down-effect 1.5s infinite;
 	color: white;
 	font-size: 32px;

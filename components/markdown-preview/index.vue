@@ -11,7 +11,8 @@ const theme = useThemeStore();
 	<md-preview
 		v-model="modelValue"
 		:theme="theme.type == 'dark' ? 'dark' : 'light'"
-		class="!font-sans"
+		class="!font-sans card"
+		bg="![var(--bg-color)]"
 	/>
 </template>
 

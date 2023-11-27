@@ -1,9 +1,20 @@
 <script setup lang="ts">
+const { hideHeight } = defineProps<{
+	hideHeight?: number;
+}>();
+
 const { y } = $(useWindowScroll());
+
+const isMounted = $(useMounted());
+
+const needHide = computed(() => {
+	if (!isMounted) return;
+	return y < (hideHeight || document.documentElement.clientHeight) - 48;
+});
 </script>
 
 <template>
-	<header :class="y <= 0 && 'hide'" flex="~" items="center">
+	<header :class="needHide && 'hide'" flex="~" items="center">
 		<nuxt-link to="/" underline="transparent" un-text="inherit 20px">WSの小屋</nuxt-link>
 		<nav ml="auto">
 			<ul

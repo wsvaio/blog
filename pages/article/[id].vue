@@ -14,15 +14,8 @@ useSeoMeta({
 </script>
 
 <template>
-	<article m="x-auto" max="w-[var(--max-width)]" p="1em">
-		<banner h="!50dvh" :title="data.title">
-			<!-- <p text="center white">
-			<span font="bold">{{ data.type.name }}</span>
-			<span v-for="item in data.tags" font="italic" ml=".5em">#{{ item.name }}</span>
-			<button class="i-material-symbols-edit-calendar-outline" text="16px" ml=".5em" font="italic" />
-			<span text="14px">{{ new Date(data.updateAt).toLocaleString() }}</span>
-		</p> -->
-
+	<nuxt-layout :banner-title="data.title" banner-height="38.2dvh">
+		<template #banner>
 			<ul
 				m="1em" p="0" list="none" flex="~"
 				gap=".5em" text="20px"
@@ -37,7 +30,7 @@ useSeoMeta({
 				<li>|</li>
 				<li>{{ data.likes }} 点赞</li>
 			</ul>
-		</banner>
+		</template>
 		<markdown-preview :model-value="data.content" />
-	</article>
+	</nuxt-layout>
 </template>
