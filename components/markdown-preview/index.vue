@@ -12,6 +12,7 @@ const theme = useThemeStore();
 		v-model="modelValue"
 		:theme="theme.type == 'dark' ? 'dark' : 'light'"
 		class="!font-sans card"
+		bg="![var(--bg-color)]"
 	/>
 </template>
 

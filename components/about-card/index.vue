@@ -1,13 +1,6 @@
 <script setup lang="ts">
 const { data } = useFetch<any>("/api/common/image");
 const list = useListStore();
-
-const message = ["好好学习，天天向上", "好好学习，哈哈哈哈"];
-let index = $ref(0);
-const handleFinish = () => {
-	index++;
-	if (index >= message.length) index = 0;
-};
 </script>
 
 <template>
@@ -39,10 +32,7 @@ const handleFinish = () => {
 		</div>
 		<div flex="~ col" items="center" p="t-0 2em">
 			<h2 text="16px" font="normal" m="1em">王上上同学</h2>
-			<p mt="0" text="14px">
-				<typewriter :content="message[index]" @finish="handleFinish" />
-			</p>
-
+			<p mt="0" text="14px">好好学习，天天向上</p>
 			<!-- <hr bg="1px solid [#e7eaf1]" w="[80%]" border="none" h="1px" /> -->
 
 			<ul m="0" p="0" list="none" text="28px">

@@ -3,7 +3,7 @@
 
 const { data } = await useFetch<any[]>("/api/article");
 const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
-
+const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 // const { data: tags } = useLazyFetch<any[]>("/api/tag");
 // const { data: types } = useLazyFetch<any[]>("/api/type");
 
@@ -12,39 +12,17 @@ const { y } = useWindowScroll({ behavior: "smooth" });
 const jump = () => {
 	y.value = document.documentElement.clientHeight - 48;
 };
-
-const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 </script>
 
 <template>
-	<!-- <banner-view /> -->
-	<banner title="WSの小屋">
-		<!-- <p id="message" text="20px">{{ message?.content }}</p> -->
-		<p>
-			<typewriter :content="message?.content" @finish="nextMessage" />
-		</p>
-	</banner>
-	<div class="i-ion-ios-arrow-down arrow" @click="jump" />
+	<nuxt-layout banner-title="WSの小屋">
+		<template #banner>
+			<typewriter m="1em" :content="message?.content" @finish="nextMessage" />
+			<div class="i-ion-ios-arrow-down arrow" @click="jump" />
+		</template>
 
-	<div
-		m="x-auto"
-		max="w-[var(--max-width)]"
-		p="1em"
-		z="10"
-		pos="relative"
-		grid="~ cols-[3fr_1fr]"
-		gap="1em"
-		items="start"
-	>
-		<div flex="~ col" gap="1em">
-			<article-card v-for="(item, index) in data" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
-		</div>
-		<div flex="~ col" gap="1em" pos="sticky" top="[var(--header-height)]">
-			<about-card />
-			<tiangou-card />
-			<!-- <sclsday-card /> -->
-		</div>
-	</div>
+		<article-card v-for="(item, index) in data" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
+	</nuxt-layout>
 </template>
 
 <style lang="less" scoped>
@@ -66,7 +44,7 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
     }
   }
 
-  position: fixed;
+  position: absolute;
   bottom: 1em;
   left: 50%;
   transform: translateX(-50%);
