@@ -14,6 +14,7 @@ let index = $ref(0);
 		transform="translate-x-[-50%] "
 		rounded="4px t-0"
 		shadow="md"
+		z="10000"
 	>
 		<typewriter :content="messages[index]" @finish="index >= messages.length - 1 ? (index = 0) : index++" />
 	</div>

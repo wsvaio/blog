@@ -20,3 +20,14 @@ img {
   box-shadow: 0 1px 3px rgb(0 37 55 / 6%);
   // backdrop-filter: saturate(200%) blur(20px);
 }
+
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity var(--transition-duration, 0.2s);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}

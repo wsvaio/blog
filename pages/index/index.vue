@@ -29,17 +29,17 @@ const jump = () => {
 .arrow {
   @keyframes scroll-down-effect {
     0% {
-      transform: translateY(0);
+      transform: translateY(0) translateX(-50%);
       opacity: 1;
     }
 
     50% {
-      transform: translateY(-16px);
+      transform: translateY(-16px) translateX(-50%);
       opacity: 0.4;
     }
 
     100% {
-      transform: translateY(0);
+      transform: translateY(0) translateX(-50%);
       opacity: 1;
     }
   }
