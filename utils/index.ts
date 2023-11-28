@@ -1,7 +1,7 @@
 export const log = console.log;
 export const { format: formatNumber } = Intl.NumberFormat("en-GB", {
 	notation: "compact",
-	maximumFractionDigits: 1
+	maximumFractionDigits: 1,
 });
 
 /**
@@ -23,8 +23,7 @@ export async function identifySubject(imgUrl: string): Promise<[number, number, 
 			ctx.drawImage(img, 0, 0);
 			const { data } = ctx.getImageData(0, 0, img.width, img.height);
 			const rgbas: [number, number, number, number][] = [];
-			for (let i = 0; i < data.length; i += 4)
-				rgbas.push([data[i], data[i + 1], data[i + 2], data[i + 3]]);
+			for (let i = 0; i < data.length; i += 4) rgbas.push([data[i], data[i + 1], data[i + 2], data[i + 3]]);
 			const result: [number, number, number, number] = [0, 0, 0, 0];
 			for (const [r, g, b, a] of rgbas) {
 				result[0] += r;
@@ -45,3 +44,5 @@ export async function identifySubject(imgUrl: string): Promise<[number, number, 
 		// img.setAttribute("crossOrigin", "Anonymous");
 	});
 }
+
+export const toFileUrl = (id: string) => `/api/file/${id}`;

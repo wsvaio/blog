@@ -33,5 +33,6 @@
   },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  }
+  },
+  "editor.inlineSuggest.showToolbar": "always"
 }
