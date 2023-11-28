@@ -1,12 +1,16 @@
 <script setup lang="ts"></script>
 
 <template>
-	<isbuilding />
-	<music />
-	<background />
+	<article min="h-100dvh" font="!sans" flex="~ col">
+		<isbuilding />
+		<music />
+		<background />
 
-	<nuxt-loading-indicator />
-	<nuxt-page class="!font-sans" />
+		<LayoutHeader />
+		<nuxt-loading-indicator />
+		<nuxt-page />
+		<LayoutFooter mt="auto" />
+	</article>
 </template>
 
 <style lang="less" scoped></style>

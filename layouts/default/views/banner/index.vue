@@ -2,6 +2,8 @@
 defineProps<{ title: string }>();
 const { y } = $(useWindowScroll());
 
+const main = useMainStore();
+
 const isMounted = $(useMounted());
 const divRef = $ref<HTMLDivElement>();
 const transY = computed(() => {
@@ -10,9 +12,10 @@ const transY = computed(() => {
 	return clientHeiht - y > 256 ? y / 2 : (clientHeiht - 256) / 2;
 });
 
-defineExpose({
-	clientHeight: computed(() => divRef?.clientHeight || 0),
-});
+useResizeObserver(
+	() => divRef,
+	() => (main.headerHideHiehgt = divRef?.clientHeight || 0)
+);
 </script>
 
 <template>
