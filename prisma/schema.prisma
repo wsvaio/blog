@@ -11,16 +11,16 @@ datasource db {
 }
 
 model article {
-  id       Int       @id @default(autoincrement())
-  title    String    @unique
-  content  String    @default("")
+  id      Int    @id @default(autoincrement())
+  title   String @unique
+  content String @default("")
 
   comments comment[]
   tags     tag[]
   type     type      @relation(fields: [typeId], references: [id])
 
-  reads    Int       @default(0) // 阅读次数
-  likes    Int       @default(0) // 点赞次数
+  reads Int @default(0) // 阅读次数
+  likes Int @default(0) // 点赞次数
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -81,5 +81,25 @@ model file {
   data         Bytes
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
+
+  music      music[] @relation("musicFile")
+  musicCover music[] @relation("musicCover")
+  musicLrc   music[] @relation("musicLrc")
 }
 
+model music {
+  id     Int    @id @default(autoincrement())
+  name   String
+  artist String
+
+  file  file @relation("musicFile", fields: [fileId], references: [id])
+  cover file @relation("musicCover", fields: [coverId], references: [id])
+  lrc   file @relation("musicLrc", fields: [lrcId], references: [id])
+
+  fileId  Int
+  coverId Int
+  lrcId   Int
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
