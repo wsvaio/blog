@@ -19,7 +19,7 @@
 		</div>
 		<div flex="~ col" gap="1em" pos="sticky" top="[var(--header-height)]">
 			<about-card />
-			<tiangou-card />
+			<!-- <tiangou-card /> -->
 			<!-- <sclsday-card /> -->
 			<slot name="sub" />
 		</div>

@@ -32,5 +32,9 @@ useSeoMeta({
 			</ul>
 		</template>
 		<markdown-preview :model-value="data.content" />
+
+		<template #sub>
+			<catalog-card article-id="md-editor-v3-preview" />
+		</template>
 	</nuxt-layout>
 </template>

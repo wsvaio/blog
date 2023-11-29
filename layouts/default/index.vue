@@ -11,6 +11,10 @@ defineProps<{ bannerHeight?: string; bannerTitle: string }>();
 	</banner-view>
 
 	<main-view>
+		<template #sub>
+			<slot name="sub" />
+		</template>
+
 		<slot />
 	</main-view>
 </template>
