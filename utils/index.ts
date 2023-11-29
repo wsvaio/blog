@@ -46,3 +46,37 @@ export async function identifySubject(imgUrl: string): Promise<[number, number, 
 }
 
 export const toFileUrl = (id: string) => `/api/file/${id}`;
+
+export const resolveArticleTitles = <T extends Element>(doc: T) => {
+	interface Title {
+		el: HTMLElement;
+		children: Title[];
+	}
+
+	const titles: Title[] = [];
+
+	doc.childNodes.forEach(e => {
+		if (/h\d/i.test(e.nodeName)) {
+			titles.push({
+				el: e as HTMLElement,
+				children: [],
+			});
+		}
+	});
+
+	const r = (list: Title[]) => {
+		const result: Title[] = [];
+		const min = Math.min(...list.map(item => +item.el.nodeName.slice(1)));
+		for (const item of list.filter(item => +item.el.nodeName.slice(1) === min)) {
+			const start = list.indexOf(item) + 1;
+			const end = list.slice(start).findIndex(sub => sub.el.nodeName == item.el.nodeName);
+			result.push({
+				el: item.el,
+				children: r(list.slice(start, end == -1 ? list.length : end)),
+			});
+		}
+		return result;
+	};
+
+	return r(titles);
+};
