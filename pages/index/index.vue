@@ -24,6 +24,7 @@ const jump = () => {
 		<article-card v-for="(item, index) in data" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
 
 		<template #sub>
+			<!-- <about-card /> -->
 			<tiangou-card />
 		</template>
 	</nuxt-layout>

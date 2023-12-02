@@ -10,8 +10,10 @@ defineProps<{
 <template>
 	<ul v-if="list?.length">
 		<template v-for="item in list">
-			<li>{{ item.el.innerHTML }}</li>
-			<self :list="item.children" />
+			<li>
+				<span>{{ item.el.innerHTML }}</span>
+				<self :list="item.children" />
+			</li>
 		</template>
 	</ul>
 </template>

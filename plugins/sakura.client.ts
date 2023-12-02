@@ -175,15 +175,15 @@ export default defineNuxtPlugin(() => {
 		startSakura();
 	};
 
-	function toggle() {
-		if (staticx) {
-			let child = document.getElementById("canvas_sakura")! as HTMLCanvasElement;
-			child.parentNode!.removeChild(child);
-			window.cancelAnimationFrame(stop);
-			staticx = false;
-		}
-		else {
-			startSakura();
-		}
-	}
+	// function toggle() {
+	// 	if (staticx) {
+	// 		let child = document.getElementById("canvas_sakura")! as HTMLCanvasElement;
+	// 		child.parentNode!.removeChild(child);
+	// 		window.cancelAnimationFrame(stop);
+	// 		staticx = false;
+	// 	}
+	// 	else {
+	// 		startSakura();
+	// 	}
+	// }
 });
