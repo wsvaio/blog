@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const { hideHeight } = defineProps<{
-	hideHeight?: number;
-}>();
+const main = useMainStore();
 
 const { y } = $(useWindowScroll());
 
@@ -9,7 +7,7 @@ const isMounted = $(useMounted());
 
 const needHide = computed(() => {
 	if (!isMounted) return;
-	return y < (hideHeight || document.documentElement.clientHeight) - 48;
+	return y < (main.headerHideHiehgt || document.documentElement.clientHeight) - 48;
 });
 
 const headerRef = $ref<HTMLDivElement>();

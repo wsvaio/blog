@@ -48,23 +48,30 @@ export async function identifySubject(imgUrl: string): Promise<[number, number, 
 export const toFileUrl = (id: string) => `/api/file/${id}`;
 
 export const resolveArticleTitles = <T extends Element>(doc: T) => {
-	interface Title {
+	const titles: {
 		el: HTMLElement;
-		children: Title[];
-	}
-
-	const titles: Title[] = [];
+	}[] = [];
 
 	doc.childNodes.forEach(e => {
 		if (/h\d/i.test(e.nodeName)) {
 			titles.push({
 				el: e as HTMLElement,
-				children: [],
 			});
 		}
 	});
 
-	const r = (list: Title[]) => {
+	return titles;
+};
+
+export const resolveArticleTitlesToTree = <T extends Element>(doc: T) => {
+	interface Title {
+		el: HTMLElement;
+		children: Title[];
+	}
+
+	const titles = resolveArticleTitles(doc);
+
+	const r = (list: { el: HTMLElement }[]) => {
 		const result: Title[] = [];
 		const min = Math.min(...list.map(item => +item.el.nodeName.slice(1)));
 		for (const item of list.filter(item => +item.el.nodeName.slice(1) === min)) {

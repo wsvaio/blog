@@ -1,12 +1,11 @@
-<script setup lang='ts'>
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
 	<main
 		flex="1"
 		m="x-auto"
 		max="w-[var(--max-width)]"
+		w="full"
 		p="1em"
 		z="10"
 		pos="relative"

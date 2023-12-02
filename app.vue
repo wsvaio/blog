@@ -3,7 +3,7 @@
 <template>
 	<article min="h-100dvh" font="!sans" flex="~ col">
 		<isbuilding />
-		<music />
+		<!-- <music /> -->
 		<background />
 
 		<LayoutHeader />
