@@ -45,7 +45,7 @@ const list = useListStore();
 				list="none" w="full" items="center"
 			>
 				<li flex="~ col" items="center">
-					<span>666</span>
+					<span>{{ list.$articles().length }}</span>
 					<span>文章</span>
 				</li>
 				<li>|</li>

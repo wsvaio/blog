@@ -2,7 +2,6 @@
 declare const APlayer: any;
 
 const divRef = $ref<HTMLDivElement>();
-
 const { data } = $(await useFetch<any[]>("/api/music"));
 
 onMounted(() => {
@@ -19,14 +18,25 @@ onMounted(() => {
 			lrc: toFileUrl(item.lrcId),
 		})),
 	});
-
-	// _.lrc.hide();
 });
 </script>
 
 <template>
 	<!-- transform="translate-x-[-66px] hover:translate-x-[0px]" transition="all .3s" -->
-	<div ref="divRef" />
+	<div id="aplayer" ref="divRef" :class="[]" />
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less">
+#aplayer {
+	transform: translateX(0%);
+	transition: transform .3s;
+
+	&.aplayer-narrow {
+		transform: translateX(-100%);
+	}
+
+	&:has(.aplayer-miniswitcher:hover), &:has(.aplayer-body:hover) {
+		transform: translateX(0%);
+	}
+}
+</style>

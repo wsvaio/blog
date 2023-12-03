@@ -1,4 +1,30 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const rightDivRef = $ref<HTMLDivElement>();
+
+const { y } = $(useWindowScroll());
+let rightDivTop = $ref(0);
+
+// 实现侧边栏的上下吸附——往下滚动吸附底部，往上滚动吸附顶部
+watch(
+	() => y,
+	(value, oldValue) => {
+		rightDivTop += oldValue - value;
+
+		if (!rightDivRef) return;
+
+		const max = 64;
+		const min = -rightDivRef.clientHeight + document.documentElement.clientHeight - 16;
+
+		rightDivTop < min && (rightDivTop = min);
+		rightDivTop > max && (rightDivTop = max);
+	}
+);
+
+// useResizeObserver(() => rightDivRef, () => {
+// 	if (!rightDivRef) return;
+// 	rightDivRef.style.top = `calc(100dvh - ${rightDivRef.clientHeight}px - 1em)`;
+// });
+</script>
 
 <template>
 	<main
@@ -12,11 +38,20 @@
 		grid="~ cols-[1fr] md:cols-[3fr_1fr]"
 		gap="1em"
 		items="start"
+		box="border"
 	>
-		<div flex="~ col" gap="1em">
+		<div flex="~ col" gap="1em" overflow="hidden">
 			<slot />
 		</div>
-		<div flex="~ col" gap="1em" pos="sticky" top="[var(--header-height)]">
+		<div
+			ref="rightDivRef"
+			flex="~ col"
+			gap="1em"
+			pos="md:sticky"
+			:style="{
+				top: `${rightDivTop}px`,
+			}"
+		>
 			<about-card />
 			<!-- <tiangou-card /> -->
 			<!-- <sclsday-card /> -->
