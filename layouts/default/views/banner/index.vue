@@ -39,9 +39,11 @@ useResizeObserver(
   justify-content: center;
   height: 100dvh;
   min-height: 256px;
+  padding: 2em;
   transition: all 0.3s;
   background: var(--background-primary);
   color: white;
+  text-align: center;
   text-shadow: 0 0.1875rem 0.3125rem #1c1f21;
 
   h1 {
