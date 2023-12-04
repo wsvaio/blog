@@ -11,7 +11,7 @@ defineProps<{ bannerHeight?: string; bannerTitle: string }>();
 	</banner-view>
 
 	<main-view>
-		<template #sub>
+		<template v-if="$slots.sub" #sub>
 			<slot name="sub" />
 		</template>
 

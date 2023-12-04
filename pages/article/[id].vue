@@ -33,6 +33,10 @@ useSeoMeta({
 		</template>
 		<markdown-preview :model-value="data.content" />
 
+		<comments />
+
+		<comment-on />
+
 		<template #sub>
 			<catalog-card article-id="md-editor-v3-preview" />
 		</template>

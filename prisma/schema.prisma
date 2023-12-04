@@ -32,24 +32,28 @@ model comment {
   id      Int    @id @default(autoincrement())
   content String @default("")
   user    user   @relation(fields: [userId], references: [id])
+  userId  Int
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
+
+  commentId Int
+  comment   comment   @relation("comment", fields: [commentId], references: [id])
+  comments  comment[] @relation("comment")
 
   article   article? @relation(fields: [articleId], references: [id])
   articleId Int?
-  userId    Int
 }
 
 model user {
-  id      Int       @id @default(autoincrement())
-  avatar  String
-  name    String
-  email   String
-  comment comment[]
+  id     Int    @id @default(autoincrement())
+  avatar String
+  name   String
+  email  String
 
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  comments comment[]
 }
 
 model tag {
@@ -69,7 +73,7 @@ model type {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
-  article article[]
+  articles article[]
 }
 
 model file {
@@ -82,9 +86,9 @@ model file {
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
 
-  music      music[] @relation("musicFile")
-  musicCover music[] @relation("musicCover")
-  musicLrc   music[] @relation("musicLrc")
+  musics      music[] @relation("musicFile")
+  musicCovers music[] @relation("musicCover")
+  musicLrcs   music[] @relation("musicLrc")
 }
 
 model music {

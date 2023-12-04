@@ -31,3 +31,32 @@ img {
 .fade-leave-to {
 	opacity: 0;
 }
+
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+  background-color: var(--primary-color2);
+}
+
+::-webkit-scrollbar-thumb {
+	// border: 1px solid transparent;
+	// border-radius: 10px;
+	// background-clip: content-box;
+	background-color: var(--primary-color5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:active {
+	background-color: var(--primary-color7);
+}
+
+::-webkit-scrollbar-corner {
+	display: none;
+}
+
+* {
+	scrollbar-width: thin;
+}
