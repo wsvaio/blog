@@ -69,12 +69,13 @@ watch(
 			/>
 		</ul>
 		<ul
-			m="0" p="0" list="none" lh="[1.5em]"
+			m="0" p="0" list="none"
 			flex="1" pos="relative"
 		>
 			<li
 				v-for="item in titles"
 				:id="`catalog-${item.el.id}`"
+				py=".25em"
 				:style="{
 					paddingLeft: `${titleTags.indexOf(item.el.nodeName) + 1}em`,
 				}"

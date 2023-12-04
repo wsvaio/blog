@@ -39,11 +39,15 @@ watch(
 		gap="1em"
 		items="start"
 		box="border"
+		:style="{
+			gridTemplateColumns: $slots.sub ? undefined : '1fr',
+		}"
 	>
 		<div flex="~ col" gap="1em" overflow="hidden">
 			<slot />
 		</div>
 		<div
+			v-if="$slots.sub"
 			ref="rightDivRef"
 			flex="~ col"
 			gap="1em"
@@ -52,7 +56,7 @@ watch(
 				top: `${rightDivTop}px`,
 			}"
 		>
-			<about-card />
+			<!-- <about-card /> -->
 			<!-- <tiangou-card /> -->
 			<!-- <sclsday-card /> -->
 			<slot name="sub" />
