@@ -1,0 +1,40 @@
+name: deployment
+
+on:
+  push:
+    branches: ["prod"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - run: |
+          npm install
+          npm run build
+          npx prisma migrate deploy
+
+      - name: ssh scp ssh pipelines
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        env:
+          database_url: ${{ secrets.database_url }}
+          docker_name: blog
+
+        with:
+          host: 121.40.126.12
+          user: root
+          pass: ${{ secrets.ssh_password }}
+          connect_timeout: 10s
+          first_ssh: |
+            rm -rf /app/service/blog
+          scp: |
+            ./.output/* => /app/service/blog
+            ./run.sh => /app/service/blog
+          last_ssh: |
+            docker rm -fv $name
+            docker run -d -v /app/service/blog:/app -e PORT=7100 -e DATABASE_URL=$database_url --name $name -p 7100:7100 node node /app/.output/server/index.mjs
