@@ -34,7 +34,6 @@ jobs:
             rm -rf /app/service/blog
           scp: |
             ./.output/* => /app/service/blog
-            ./run.sh => /app/service/blog
           last_ssh: |
-            docker rm -fv $name
-            docker run -d -v /app/service/blog:/app -e PORT=7100 -e DATABASE_URL=$database_url --name $name -p 7100:7100 node node /app/.output/server/index.mjs
+            docker rm -fv $docker_name
+            docker run -d -v /app/service/blog:/app -e PORT=7100 -e DATABASE_URL=$database_url --name $docker_name -p 7100:7100 node node /app/server/index.mjs
