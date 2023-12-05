@@ -1,13 +1,11 @@
 <script setup lang="ts">
 const route = useRoute();
-const id = route.params.id;
-
-const { data } = await useFetch<any>(`/api/article/${id}`, {
+const id = +route.params.id;
+const { data, refresh } = await useFetch<any>(`/api/article/${id}`, {
 	onResponse() {
 		$fetch(`/api/article/reads/${id}`);
 	},
 });
-
 useSeoMeta({
 	title: data.value.title,
 });
@@ -32,10 +30,21 @@ useSeoMeta({
 			</ul>
 		</template>
 		<markdown-preview :model-value="data.content" />
-
-		<comments />
-
-		<comment-on />
+		<comments
+			:list="
+				map(data?.comments, (item: any) => ({
+					id: item.id,
+					avatar: item.avatar,
+					name: item.name,
+					website: item.website,
+					content: item.content,
+					comments: item.comments,
+					children: item.comments,
+				}), { childrenKey: 'comments' })
+			"
+			:article-id="id"
+			@submit="refresh()"
+		/>
 
 		<template #sub>
 			<catalog-card article-id="md-editor-v3-preview" />

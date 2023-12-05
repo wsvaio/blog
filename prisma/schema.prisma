@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
@@ -32,15 +32,17 @@ model article {
 model comment {
   id      Int    @id @default(autoincrement())
   content String @default("")
-  user    user   @relation(fields: [userId], references: [id])
-  userId  Int
+
+  user   user @relation(fields: [userId], references: [id])
+  userId Int
 
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
-  commentId Int
-  comment   comment   @relation("comment", fields: [commentId], references: [id])
-  comments  comment[] @relation("comment")
+  commentId Int?
+
+  comment  comment?  @relation("comment", fields: [commentId], references: [id])
+  comments comment[] @relation("comment")
 
   article   article? @relation(fields: [articleId], references: [id])
   articleId Int?
@@ -50,7 +52,8 @@ model user {
   id     Int    @id @default(autoincrement())
   avatar String
   name   String
-  email  String
+  email  String @unique
+  site String @default("")
 
   createAt DateTime  @default(now())
   updateAt DateTime  @updatedAt
