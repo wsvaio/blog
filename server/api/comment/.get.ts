@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   const query = getQuery(event);
 
   if (query.page && query.limit) {
@@ -12,9 +12,20 @@ export default defineEventHandler(async (event) => {
       list: await db.comment.findMany({
         skip: page * pageSize - 10,
         take: pageSize,
+        include: {
+          _count: true,
+          comments: true,
+          user: true,
+        },
       }),
     };
   } else {
-    return await db.comment.findMany();
+    return await db.comment.findMany({
+      include: {
+        _count: true,
+        comments: true,
+        user: true,
+      },
+    });
   }
 });

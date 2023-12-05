@@ -1,209 +1,44 @@
 <script setup lang="ts">
-const data = [
-	{
-		id: 1,
-		avatar: "/favicon.ico",
-		name: "老王",
-		email: "wsvaio@qq.com",
-		content: "这是一条评论",
-		comments: [
-			{
-				id: 2,
-				avatar: "/favicon.ico",
-				name: "老王",
-				email: "wsvaio@qq.com",
-				content: "这是一条回复",
-				comments: [
-					{
-						id: 1,
-						avatar: "/favicon.ico",
-						name: "老王",
-						email: "wsvaio@qq.com",
-						content: "这是一条评论",
-						comments: [
-							{
-								id: 2,
-								avatar: "/favicon.ico",
-								name: "老王",
-								email: "wsvaio@qq.com",
-								content: "这是一条回复",
-								comments: [
-									{
-										id: 1,
-										avatar: "/favicon.ico",
-										name: "老王",
-										email: "wsvaio@qq.com",
-										content: "这是一条评论",
-										comments: [
-											{
-												id: 2,
-												avatar: "/favicon.ico",
-												name: "老王",
-												email: "wsvaio@qq.com",
-												content: "这是一条回复",
-												comments: [
-													{
-														id: 1,
-														avatar: "/favicon.ico",
-														name: "老王",
-														email: "wsvaio@qq.com",
-														content: "这是一条评论",
-														comments: [
-															{
-																id: 2,
-																avatar: "/favicon.ico",
-																name: "老王",
-																email: "wsvaio@qq.com",
-																content: "这是一条回复",
-																comments: [
-																	{
-																		id: 1,
-																		avatar: "/favicon.ico",
-																		name: "老王",
-																		email: "wsvaio@qq.com",
-																		content: "这是一条评论",
-																		comments: [
-																			{
-																				id: 2,
-																				avatar: "/favicon.ico",
-																				name: "老王",
-																				email: "wsvaio@qq.com",
-																				content: "这是一条回复",
-																				comments: [{
-																					id: 1,
-																					avatar: "/favicon.ico",
-																					name: "老王",
-																					email: "wsvaio@qq.com",
-																					content: "这是一条评论",
-																					comments: [
-																						{
-																							id: 2,
-																							avatar: "/favicon.ico",
-																							name: "老王",
-																							email: "wsvaio@qq.com",
-																							content: "这是一条回复",
-																							comments: [{
-																								id: 1,
-																								avatar: "/favicon.ico",
-																								name: "老王",
-																								email: "wsvaio@qq.com",
-																								content: "这是一条评论",
-																								comments: [
-																									{
-																										id: 2,
-																										avatar: "/favicon.ico",
-																										name: "老王",
-																										email: "wsvaio@qq.com",
-																										content: "这是一条回复",
-																										comments: [{
-																											id: 1,
-																											avatar: "/favicon.ico",
-																											name: "老王",
-																											email: "wsvaio@qq.com",
-																											content: "这是一条评论",
-																											comments: [
-																												{
-																													id: 2,
-																													avatar: "/favicon.ico",
-																													name: "老王",
-																													email: "wsvaio@qq.com",
-																													content: "这是一条回复",
-																													comments: [{
-																														id: 1,
-																														avatar: "/favicon.ico",
-																														name: "老王",
-																														email: "wsvaio@qq.com",
-																														content: "这是一条评论",
-																														comments: [
-																															{
-																																id: 2,
-																																avatar: "/favicon.ico",
-																																name: "老王",
-																																email: "wsvaio@qq.com",
-																																content: "这是一条回复",
-																																comments: [{
-																																	id: 1,
-																																	avatar: "/favicon.ico",
-																																	name: "老王",
-																																	email: "wsvaio@qq.com",
-																																	content: "这是一条评论",
-																																	comments: [
-																																		{
-																																			id: 2,
-																																			avatar: "/favicon.ico",
-																																			name: "老王",
-																																			email: "wsvaio@qq.com",
-																																			content: "这是一条回复",
-																																			comments: [],
-																																		},
-																																	],
-																																},],
-																															},
-																														],
-																													},],
-																												},
-																											],
-																										},],
-																									},
-																								],
-																							},],
-																						},
-																					],
-																				},],
-																			},
-																		],
-																	},
-																],
-															},
-														],
-													},
-												],
-											},
-										],
-									},
-								],
-							},
-						],
-					},
-				],
-			},
-		],
-	},
+import Comment from "./comment.vue";
+import CommentOn from "./comment-on.vue";
 
-	{
-		id: 3,
-		avatar: "/favicon.ico",
-		name: "老王",
-		email: "wsvaio@qq.com",
-		content: "这是一条评论",
-		comments: [],
-	},
-	{
-		id: 3,
-		avatar: "/favicon.ico",
-		name: "老王",
-		email: "wsvaio@qq.com",
-		content: "这是一条评论",
-		comments: [],
-	},
-	{
-		id: 3,
-		avatar: "/favicon.ico",
-		name: "老王",
-		email: "wsvaio@qq.com",
-		content: "这是一条评论",
-		comments: [],
-	},
-];
+interface List {
+	id: number;
+	avatar: string;
+	name: string;
+	content: string;
+	website: string;
+	comments: List[];
+}
+const { articleId } = defineProps<{
+	articleId: number;
+	list?: List[];
+}>();
+
+defineEmits<{
+	submit: [];
+}>();
+
+let commentId = $ref<number>();
+
+const tpId = computed(() => `#comment${commentId || "on"}`);
 </script>
 
 <template>
-	<div class="card ">
+	<div class="card comments">
 		<h3>Comments|2条评论</h3>
 
 		<div class="overflow-auto">
-			<comment :list="data" pl="0" />
+			<comment v-model:comment-id="commentId" :list="list" pl="0" />
 		</div>
+
+		<div id="commenton" />
+
+		<client-only>
+			<teleport :to="tpId">
+				<comment-on :article-id="articleId" :comment-id="commentId" @submit="$emit('submit'), (commentId = 0)" />
+			</teleport>
+		</client-only>
 	</div>
 </template>
 

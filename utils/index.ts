@@ -87,3 +87,26 @@ export const resolveArticleTitlesToTree = <T extends Element>(doc: T) => {
 
 	return r(titles);
 };
+
+/**
+ * 递归遍历映射数组
+ * @param list - 要遍历的数组或对象树。
+ * @param handle - 对每个元素执行的操作函数。
+ * @returns 一个新的数组或对象树。
+ */
+export const map = <T extends Record<any, any>, R extends Record<any, any>>(
+	list?: T[],
+	handle: (item: T) => R,
+	{ childrenKey } = { childrenKey: "children" }
+) => {
+	if (!list?.length) return [];
+	const result = [] as R[];
+	for (const item of list) {
+		const handled = handle(item);
+		if (Array.isArray(handled?.[childrenKey]) || Array.isArray(item?.[childrenKey]))
+			// @ts-expect-error pass
+			handled[childrenKey] = map(handled?.[childrenKey] || item?.[childrenKey], handle);
+		result.push(handled as unknown as R);
+	}
+	return result;
+};
