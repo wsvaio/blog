@@ -7,8 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: ${{ secrets.database_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -16,15 +14,15 @@ jobs:
         with:
           node-version: latest
 
-      - run: |
+      - env:
+          DATABASE_URL: ${{ secrets.database_url }}
+        run: |
           npm install
           npm run build
           npx prisma migrate deploy
 
-      - name: ssh scp ssh pipelines
-        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+      - uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         env:
-          database_url: ${{ secrets.database_url }}
           docker_name: blog
 
         with:
@@ -38,4 +36,4 @@ jobs:
             ./.output/* => /app/service/blog
           last_ssh: |
             docker rm -fv $docker_name
-            docker run -d -v /app/service/blog:/app -e PORT=7100 -e DATABASE_URL=$database_url --name $docker_name -p 7100:7100 node node /app/server/index.mjs
+            docker run -d -v /app/service/blog:/app -e PORT=7100 --name $docker_name -p 7100:7100 node node /app/server/index.mjs
