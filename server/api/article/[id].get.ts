@@ -37,37 +37,20 @@ export default defineEventHandler(async event => {
 
 	// if (!article) return;
 
+	const r = (n: number): boolean | Record<any, any> => ({
+		include: {
+			user: true,
+			comments: --n <= 0 ? true : r(n)
+		}
+	});
+
+	console.log(r(32));
+
 	return db.article.findUnique({
 		where: { id },
 		include: {
 			_count: true,
-			comments: {
-				include: {
-					_count: true,
-					user: true,
-					comments: {
-						include: {
-							_count: true,
-							user: true,
-							comments: {
-								include: {
-									_count: true,
-									user: true,
-									comments: {
-										include: {
-											_count: true,
-											user: true,
-											comments: {
-
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
+			comments: r(32),
 			tags: true,
 			type: true,
 		}
