@@ -7,7 +7,7 @@ interface List {
 	avatar: string;
 	name: string;
 	content: string;
-	website: string;
+	site: string;
 	comments: List[];
 }
 const { articleId } = defineProps<{
@@ -26,7 +26,7 @@ const tpId = computed(() => `#comment${commentId || "on"}`);
 
 <template>
 	<div class="card comments">
-		<h3>Comments|2条评论</h3>
+		<h3>Comments | {{ list?.length }}条评论</h3>
 
 		<div class="overflow-auto">
 			<comment v-model:comment-id="commentId" :list="list" pl="0" />

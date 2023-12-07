@@ -1,11 +1,9 @@
 <script setup lang="ts">
 const route = useRoute();
 const id = +route.params.id;
-const { data, refresh } = await useFetch<any>(`/api/article/${id}`, {
-	onResponse() {
-		$fetch(`/api/article/reads/${id}`);
-	},
-});
+const { data, refresh } = await useFetch<any>(`/api/article/${id}`);
+console.log(data);
+useFetch(`/api/article/reads/${id}`);
 useSeoMeta({
 	title: data.value.title,
 });
@@ -33,13 +31,13 @@ useSeoMeta({
 		<comments
 			:list="
 				map(data?.comments, (item: any) => ({
+					...item,
 					id: item.id,
-					avatar: item.avatar,
-					name: item.name,
-					website: item.website,
+					avatar: item.user.avatar,
+					name: item.user.name,
+					site: item.user.site,
 					content: item.content,
 					comments: item.comments,
-					children: item.comments,
 				}), { childrenKey: 'comments' })
 			"
 			:article-id="id"
