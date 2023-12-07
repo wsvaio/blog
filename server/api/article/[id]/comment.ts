@@ -5,17 +5,22 @@ export default defineEventHandler(async event => {
 	const headers = getHeaders(event);
 	const id = +getRouterParam(event, "id")!;
 
+	const { city, province, isp } = await fetch(`https://zj.v.api.aa1.cn/api/ip-taobao/?ip=${headers["x-forwarded-for"]}`)
+		.then(async res => {
+			const data = await res.json();
+			return {
+				province: data.data.PROVINCE_CN,
+				city: data.data.CITY_CN,
+				isp: data.data.ISP_CN,
+			};
+		})
+		.catch(() => ({
+			city: "",
+			province: "",
+			isp: "",
+		}));
+
 	const ua = new UAParser(event.headers.get("user-agent")!);
-	console.log(ua.getBrowser(), ua.getCPU(), ua.getDevice(), ua.getEngine(), ua.getOS(), ua.getResult(), ua.getUA());
-
-	console.log(headers);
-
-	const { city, province, isp } = await fetch(`/api/common/ip?ip=${headers["x-forwarded-for"]}`).then(data => data.json()).catch(() => ({
-		city: "",
-		province: "",
-		isp: ""
-	}));
-
 	const browser = ua.getBrowser();
 	const os = ua.getOS();
 
@@ -26,10 +31,9 @@ export default defineEventHandler(async event => {
 		browserName: browser.name,
 		browserVersion: browser.version,
 		osName: os.name,
-		osVersion: os.version
+		osVersion: os.version,
 	};
-	// if (!body.avatar)
-	// 	return new Error("请上传头像");
+
 	const verifyErrors: Error[] = [];
 	if (!body.name) verifyErrors.push(new Error("请输入昵称"));
 	if (!body.email) verifyErrors.push(new Error("请输入邮箱"));
@@ -43,7 +47,6 @@ export default defineEventHandler(async event => {
 			email: body.email,
 			name: body.name,
 			site: body.site,
-
 		},
 		update: {
 			avatar: body.avatar,

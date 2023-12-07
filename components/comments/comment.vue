@@ -25,10 +25,27 @@ const commentId = defineModel<number>("commentId");
 				{{ item.name }}
 			</nuxt-link>
 
-			<button ml="auto" grid="row-span-2" self="center" @click="commentId = commentId == item.id ? 0 : item.id">
+			<a
+				bg="transparent"
+				transition="all"
+				un-text="[var(--text-color)] hover:[var(--primary-color)]"
+				cursor="pointer"
+				ml="auto"
+				grid="row-span-2"
+				@click="commentId = commentId == item.id ? 0 : item.id"
+			>
 				{{ item.id == commentId ? "取消" : "回复" }}
-			</button>
-			<small self="end">发布于 {{ item.createAt }} (Google Chrome 112.0.0.0 Windows 10) 来自：绍兴市 移动</small>
+			</a>
+			<small self="end">
+				<span>发布于 {{ item.createAt }}</span>
+				<span>（</span>
+				<span>🥁</span>
+				<span>{{ `${item?.from?.browserName} ${item?.from?.browserVersion}` }}</span>
+				<span><span>🥁</span></span>
+				<span>{{ `${item?.from?.osName} ${item?.from?.osVersion}` }}</span>
+				<span>{{ `来自：${item?.from?.province}${item?.from?.city}${item?.from?.isp}` }}</span>
+				<span>）</span>
+			</small>
 
 			<p grid="col-span-full">{{ item.content }}</p>
 			<div :id="`comment${item.id}`" grid="col-span-full" />
