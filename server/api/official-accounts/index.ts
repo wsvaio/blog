@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 
 export default eventHandler(event => {
-	const { signature, timestamp, nonce } = getQuery<{
+	const { signature, timestamp, nonce, echostr } = getQuery<{
 		signature: string;
 		timestamp: string;
 		nonce: number;
@@ -17,9 +17,5 @@ export default eventHandler(event => {
 	const sha1 = createHash("sha1");
 	sha1.update(tmpStr);
 
-	if (sha1.digest("hex") === signature)
-		return true;
-
-	else
-		return false;
+	if (sha1.digest("hex") === signature) return echostr;
 });
