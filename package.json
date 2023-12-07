@@ -44,5 +44,10 @@
   },
   "stylelint": {
     "extends": "@wsvaio/stylelint-config"
+  },
+  "dependencies": {
+    "@types/ua-parser-js": "^0.7.39",
+    "@wsvaio/utils": "^1.0.19",
+    "ua-parser-js": "^1.0.37"
   }
 }

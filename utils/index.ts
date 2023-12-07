@@ -95,7 +95,7 @@ export const resolveArticleTitlesToTree = <T extends Element>(doc: T) => {
  * @returns 一个新的数组或对象树。
  */
 export const map = <T extends Record<any, any>, R extends Record<any, any>>(
-	list?: T[],
+	list: T[],
 	handle: (item: T) => R,
 	{ childrenKey } = { childrenKey: "children" }
 ) => {
@@ -104,8 +104,8 @@ export const map = <T extends Record<any, any>, R extends Record<any, any>>(
 	for (const item of list) {
 		const handled = handle(item);
 		if (Array.isArray(handled?.[childrenKey]) || Array.isArray(item?.[childrenKey]))
-			// @ts-expect-error pass
-			handled[childrenKey] = map(handled?.[childrenKey] || item?.[childrenKey], handle);
+		// @ts-expect-error pass
+			handled[childrenKey] = map(handled?.[childrenKey] || item?.[childrenKey], handle, { childrenKey });
 		result.push(handled as unknown as R);
 	}
 	return result;
