@@ -38,6 +38,7 @@ useSeoMeta({
 					site: item.user.site,
 					content: item.content,
 					comments: item.comments,
+
 				}), { childrenKey: 'comments' })
 			"
 			:article-id="id"

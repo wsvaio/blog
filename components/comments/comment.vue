@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/no-self-import
+import { marked } from "marked";
 import Self from "./comment.vue";
 
 defineProps<{
@@ -15,23 +15,29 @@ const commentId = defineModel<number>("commentId");
 			<nuxt-link :to="item.site || undefined" w="40px" h="40px" grid="row-span-2">
 				<img :src="item.avatar" alt="头像" />
 			</nuxt-link>
-			<nuxt-link
-				:to="item.site || undefined"
-				:style="{
-					color: item.site ? 'var(--primary-color)' : 'inherit',
-				}"
-				class="underline-transparent"
-			>
-				{{ item.name }}
-			</nuxt-link>
+			<div flex="~" items="end">
+				<nuxt-link
+					:to="item.site || undefined"
+					:style="{
+						color: item.site ? 'var(--primary-color)' : 'inherit',
+					}"
+					class="underline-transparent"
+				>
+					<span>{{ item.name }}</span>
+				</nuxt-link>
+				<small v-if="item?.user?.email == 'wsvaio@qq.com'">站长</small>
+			</div>
 
 			<a
 				bg="transparent"
 				transition="all"
-				un-text="[var(--text-color)] hover:[var(--primary-color)]"
+				un-text="!hover:[var(--primary-color)]"
 				cursor="pointer"
 				ml="auto"
 				grid="row-span-2"
+				:style="{
+					color: item.id == commentId ? 'var(--error-color)' : 'var(--text-color)',
+				}"
 				@click="commentId = commentId == item.id ? 0 : item.id"
 			>
 				{{ item.id == commentId ? "取消" : "回复" }}
@@ -47,7 +53,8 @@ const commentId = defineModel<number>("commentId");
 				<span>）</span>
 			</small>
 
-			<p grid="col-span-full">{{ item.content }}</p>
+			<div grid="col-span-full" v-html="marked(item.content)" />
+
 			<div :id="`comment${item.id}`" grid="col-span-full" />
 			<hr
 				grid="col-span-full" w="full" m="0" border="none"

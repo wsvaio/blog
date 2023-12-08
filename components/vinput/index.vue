@@ -10,10 +10,17 @@ const modelValue = defineModel<string>();
 
 <template>
 	<div class="vinput">
-		<slot name="prefix" />
+		<div class="prefix">
+			<slot name="prefix" />
+		</div>
 
-		<input v-model="modelValue" :placeholder="placeholder" :="input" />
-		<slot name="suffix" />
+		<div class="input">
+			<input v-model="modelValue" :placeholder="placeholder" :="input" />
+			<label :class="[modelValue && 'active']">{{ placeholder }}</label>
+		</div>
+		<div class="suffix">
+			<slot name="suffix" />
+		</div>
 	</div>
 </template>
 
@@ -22,29 +29,57 @@ const modelValue = defineModel<string>();
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  padding: .25em .5em;
-  transition: all .3s;
+  transition: all 0.3s;
   border: 1px solid var(--border-color7);
+  gap: 0.5em;
 
-  input {
-    width: 100%;
-    height: 100%;
-    padding: .25em .5em;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    color: inherit;
-    font-size: inherit;
-
-    &:placeholder-shown::placeholder {
-      color: var(--text-color1)
-    }
+  &:hover {
+    border-color: var(--primary-color);
   }
 
-  &:has(input:focus) {
+  & > .input {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    & > input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      color: inherit;
+      font-size: inherit;
+
+      &:placeholder-shown::placeholder {
+        color: transparent;
+      }
+    }
+
+    & > label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: all 0.2s;
+      color: var(--text-color1);
+      pointer-events: none;
+    }
+
+    input:focus ~ label, label.active {
+      top: 0;
+        padding: 0.25em;
+        border-radius: 0.2em;
+        background-color: var(--primary-color);
+        color: white;
+        font-size: small;
+
+    }
+
+  }
+
+  &:has(.input > input:focus) {
     border-color: var(--primary-color);
 
   }
-
 }
 </style>
