@@ -78,8 +78,7 @@ const handleEmailInput = useDebounceFn(user.refresh, 200);
 				w="5em"
 			>
 				<template v-if="pending && data">
-					<div class="i-eos-icons-loading" />
-					发送中
+					<div class="i-eos-icons-loading" text="16px" />
 				</template>
 				<template v-else>发送</template>
 			</awesome-button>

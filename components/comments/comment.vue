@@ -1,3 +1,4 @@
+<!-- eslint-disable import/no-self-import -->
 <script setup lang="ts">
 import { marked } from "marked";
 import Self from "./comment.vue";
