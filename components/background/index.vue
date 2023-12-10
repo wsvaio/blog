@@ -8,8 +8,9 @@ useIntervalFn(() => {
 
 <template>
 	<div
-		pos="fixed"
-		inset="0"
+		pos="fixed left-0 top-0"
+		w="full"
+		h="100dvh"
 		:style="{
 			background: `url(${data?.imgurl}) center / cover fixed`,
 			transition: 'all 16s steps(16) 1s',

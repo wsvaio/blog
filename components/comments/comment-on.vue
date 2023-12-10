@@ -9,7 +9,12 @@ const emit = defineEmits<{
 }>();
 
 const user = useUserStore();
-let content = $ref("");
+
+const form = reactive({
+	content: "",
+	whispers: false,
+	notARobot: false,
+});
 
 const { execute, error, pending, data } = useAsyncData(
 	async () => {
@@ -18,19 +23,21 @@ const { execute, error, pending, data } = useAsyncData(
 				method: "POST",
 				body: {
 					...user,
-					content,
+					...form,
+					articleId,
 				},
 			})
 			: await $fetch(`/api/article/${articleId}/comment`, {
 				method: "POST",
 				body: {
 					...user,
-					content,
+					...form,
 				},
 			});
 
 		emit("submit");
-		content = "";
+		form.content = "";
+		form.notARobot = false;
 
 		return result;
 	},
@@ -53,19 +60,19 @@ const handleEmailInput = useDebounceFn(user.refresh, 200);
 			<span>Forbidden</span>
 		</div>
 
-		<vtextarea v-model="content" placeholder="见到你很高兴！" :textarea="{ required: 'true' }" />
+		<vtextarea v-model="form.content" placeholder="多想聆听你的声音" :textarea="{ required: 'true' }" />
 		<!-- <markdown-editor v-model="content" /> -->
 
-		<div grid="~ cols-[max-content_1fr_1fr_max-content] rows-2" gap="1em" mt="1em">
+		<div grid="~ cols-[max-content_1fr_1fr] rows-3" gap="1em" mt="1em">
 			<avatar-input
-				v-model="user.avatar" h="96px" w="96px" grid="row-span-full"
+				v-model="user.avatar" h="96px" w="96px" grid="row-span-2"
 				:img="{ alt: '头像' }"
 			/>
 			<vinput
 				v-model="user.email"
 				placeholder="邮箱(可获取上次登录信息)"
 				:input="{ required: 'true', type: 'email' }"
-				grid="col-span-3"
+				grid="col-span-2"
 				@input="handleEmailInput"
 			/>
 
@@ -73,16 +80,40 @@ const handleEmailInput = useDebounceFn(user.refresh, 200);
 
 			<vinput v-model="user.site" placeholder="http(s)://主页" />
 
-			<awesome-button
-				flex="~" justify="center" items="center" :disabled="pending && data"
-				w="5em"
-			>
-				<template v-if="pending && data">
-					<div class="i-eos-icons-loading" />
-					发送中
-				</template>
-				<template v-else>发送</template>
-			</awesome-button>
+			<div grid="col-span-full" flex="~" items="center">
+				<label title="保留信息到浏览器缓存，方便下次评论">
+					<input v-model="user.persist" type="checkbox" />
+					<span>保留信息</span>
+				</label>
+
+				<label title="如果有人回复你，将会邮件通知">
+					<input v-model="user.acceptEmails" type="checkbox" />
+					<span>接收邮件</span>
+				</label>
+
+				<label title="只会发送邮件，不会保存数据，也不会展示">
+					<input v-model="form.whispers" type="checkbox" />
+					<span>悄悄话</span>
+				</label>
+
+				<label title="你们都是机器人吗？[dog]">
+					<input v-model="form.notARobot" required type="checkbox" />
+					<span>我不是机器人</span>
+				</label>
+
+				<awesome-button
+					ml="auto" h="full" w="7em"
+					:disabled="pending && data"
+				>
+					<div flex="~" items="center">
+						<template v-if="pending && data">
+							<div class="i-eos-icons-loading" text="16px" mr=".5em" />
+							<span>发送中</span>
+						</template>
+						<span v-else>发 送</span>
+					</div>
+				</awesome-button>
+			</div>
 		</div>
 
 		<!-- <p text="[var(--error-color)]">{{ (error as any)?.data?.message || error?.message }}</p> -->
