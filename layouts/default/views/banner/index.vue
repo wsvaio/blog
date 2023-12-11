@@ -34,6 +34,7 @@ useResizeObserver(
 <style lang="less" scoped>
 .banner {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   align-items: center;
   justify-content: center;

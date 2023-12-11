@@ -6,9 +6,13 @@ export default defineStore("user", {
 		avatar: "",
 		name: "",
 		email: "",
+		acceptEmails: false,
 		site: "",
 		createAt: "",
 		updateAt: "",
+
+		persist: false,
+
 	}),
 	actions: {
 		async refreshAvatar() {
@@ -22,5 +26,26 @@ export default defineStore("user", {
 		},
 	},
 	getters: {},
-	persist: true,
+	persist: [
+		{
+			includes: ["persist"],
+		},
+		{
+			excludes: ["persist"],
+			setter(key, value) {
+				if (this.persist) {
+					localStorage.setItem(key, JSON.stringify(value));
+					sessionStorage.removeItem(key);
+				}
+				else {
+					sessionStorage.setItem(key, JSON.stringify(value));
+					localStorage.removeItem(key);
+				}
+			},
+			getter(key) {
+				if (this.persist) return JSON.parse(localStorage.getItem(key) || "null");
+				else return JSON.parse(sessionStorage.getItem(key) || "null");
+			},
+		},
+	],
 });

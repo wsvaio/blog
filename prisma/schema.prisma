@@ -46,8 +46,8 @@ model comment {
 
   from Json @default("{}")
 
-  article   article? @relation(fields: [articleId], references: [id])
-  articleId Int?
+  article   article @relation(fields: [articleId], references: [id])
+  articleId Int
 }
 
 model user {
@@ -55,6 +55,7 @@ model user {
   avatar String
   name   String
   email  String @unique
+  acceptEmails Boolean
   site   String @default("")
 
   createAt DateTime  @default(now())

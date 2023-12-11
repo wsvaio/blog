@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: ${{ secrets.database_url }}
+      EMAIL_PASS: ${{ secrets.email_pass }}
       DOCKER_NAME: blog
     steps:
       - uses: actions/checkout@v4
@@ -35,4 +36,4 @@ jobs:
             ./.output/* => /app/service/blog
           last_ssh: |
             docker rm -fv $DOCKER_NAME
-            docker run -d -v /app/service/blog:/app -e PORT=7100 -e DATABASE_URL=$DATABASE_URL --name $DOCKER_NAME  -p 7100:7100 node node /app/server/index.mjs
+            docker run -d -v /app/service/blog:/app -e PORT=7100 -e DATABASE_URL=$DATABASE_URL -e EMAIL_PASS=$EMAIL_PASS --name $DOCKER_NAME  -p 7100:7100 node node /app/server/index.mjs
