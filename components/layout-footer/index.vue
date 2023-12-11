@@ -14,7 +14,7 @@ useIntervalFn(() => {
 	s = Math.floor(t % 60);
 }, 1000);
 
-const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
+const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/tiangou");
 const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 </script>
 

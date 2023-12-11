@@ -45,7 +45,8 @@ useResizeObserver(
   background: var(--background-primary);
   color: white;
   text-align: center;
-  text-shadow: 0 0.1875rem 0.3125rem #1c1f21;
+  // text-shadow: 0 0.1875rem 0.3125rem #1c1f21;
+  filter: drop-shadow(0 0.1875rem 0.3125rem #1c1f21);
 
   h1 {
     @keyframes text-jump {

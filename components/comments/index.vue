@@ -25,7 +25,7 @@ const tpId = computed(() => `#comment${commentId || "on"}`);
 </script>
 
 <template>
-	<div class="card comments">
+	<div class="comments card">
 		<h3>Comments | {{ list?.length }}条评论</h3>
 
 		<div class="overflow-auto">

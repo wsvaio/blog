@@ -26,7 +26,7 @@ const commentId = defineModel<number>("commentId");
 				>
 					<span>{{ item.name }}</span>
 				</nuxt-link>
-				<small v-if="item?.user?.email == 'wsvaio@qq.com'">站长</small>
+				<small v-if="item?.user?.email == 'wsvaio@qq.com'" text="[var(--info-color)]">站长</small>
 			</div>
 
 			<a
@@ -46,9 +46,11 @@ const commentId = defineModel<number>("commentId");
 			<small self="end">
 				<span>发布于 {{ item.createAt }}</span>
 				<span>（</span>
-				<span>🥁</span>
+				<!-- <span>🥁</span> -->
+				<!-- <div class="i-icon-park-browser" /> -->
 				<span>{{ `${item?.from?.browserName} ${item?.from?.browserVersion}` }}</span>
-				<span><span>🥁</span></span>
+				<!-- <span><span>🥁</span></span> -->
+				<!-- <div class="i-icon-park-system" /> -->
 				<span>{{ `${item?.from?.osName} ${item?.from?.osVersion}` }}</span>
 				<span>{{ `来自：${item?.from?.province}${item?.from?.city}${item?.from?.isp}` }}</span>
 				<span>）</span>
