@@ -21,18 +21,18 @@ const { execute, error, pending, data } = useAsyncData(
 		let result = commentId
 			? await $fetch(`/api/comment/${commentId}/comment`, {
 				method: "POST",
-				body: {
+				body: JSON.stringify({
 					...user,
 					...form,
 					articleId,
-				},
+				}),
 			})
 			: await $fetch(`/api/article/${articleId}/comment`, {
 				method: "POST",
-				body: {
+				body: JSON.stringify({
 					...user,
 					...form,
-				},
+				}),
 			});
 
 		emit("submit");
@@ -116,13 +116,13 @@ const handleEmailInput = useDebounceFn(user.refresh, 200);
 			</div>
 		</div>
 
-		<!-- <p text="[var(--error-color)]">{{ (error as any)?.data?.message || error?.message }}</p> -->
-		<typewriter
+		<p text="[var(--error-color)]">{{ (error as any)?.data?.message || error?.message }}</p>
+		<!-- <typewriter
 			:style="{
 				color: error ? 'var(--error-color)' : 'var(--text-color)',
 			}"
 			py=".5em"
 			:content="(error as any)?.data?.message || error?.message "
-		/>
+		/> -->
 	</form>
 </template>
