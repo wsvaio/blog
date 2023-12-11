@@ -1,75 +1,49 @@
-# Nuxt 3 Minimal Starter
+# 关于
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## 关于本站
 
-## Setup
+一个个人博客网站，主要记录一些学习笔记，我的所见所得，锻炼锻炼写作能力。
 
-Make sure to install the dependencies:
 
-```bash
-# npm
-npm install
 
-# pnpm
-pnpm install
+域名：wsvaio.site
 
-# yarn
-yarn install
+站长：wsvaio
 
-# bun
-bun install
-```
+立项日期：2023年11月
 
-## Development Server
+发布日期：2024年1月
 
-Start the development server on `http://localhost:3000`:
+使用技术：
+  - 语言：typescript
+  - 框架：nuxt
+  - ORM：prisma + postgresql
+  - 服务器：阿里云2核2G3M Ubuntu
+  - 部署：docker + github actions
 
-```bash
-# npm
-npm run dev
+## 关于设计
+参考了大量hero主题
+  
+## 关于我
 
-# pnpm
-pnpm run dev
+一名前端从业者，喜欢typescript语言，同时会用ts写点后端接口，也会用linux+docker部署一些应用（例如本站）
 
-# yarn
-yarn dev
 
-# bun
-bun run dev
-```
+### 技术栈
 
-## Production
+Typescript、Vue、Nuxt、Vite、Uniapp、Nitro、Prisma、PostgreSQL
 
-Build the application for production:
+Node、Bun、Deno、Linux、Docker、Nginx、Git、Go、Python、Java
 
-```bash
-# npm
-npm run build
+Html、Css、Javascript、Https、Websocket
 
-# pnpm
-pnpm run build
 
-# yarn
-yarn build
+### 学习中
 
-# bun
-bun run build
-```
+Threejs、Rpc、K8s、Tauri、Rust
 
-Locally preview production build:
 
-```bash
-# npm
-npm run preview
+### 兴趣
 
-# pnpm
-pnpm run preview
+Coding、Gaming、Sleeping、Riding、Eating
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

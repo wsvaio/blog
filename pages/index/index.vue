@@ -15,7 +15,7 @@ const jump = () => {
 </script>
 
 <template>
-	<nuxt-layout banner-title="WSの小屋">
+	<nuxt-layout banner-title="HI THERE">
 		<template #banner>
 			<typewriter m="1em" :content="message?.content" @finish="nextMessage" />
 			<div class="i-ion-ios-arrow-down arrow" @click="jump" />
@@ -25,7 +25,7 @@ const jump = () => {
 
 		<template #sub>
 			<about-card />
-			<tiangou-card />
+			<!-- <tiangou-card /> -->
 		</template>
 	</nuxt-layout>
 </template>

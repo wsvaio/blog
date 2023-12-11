@@ -26,4 +26,5 @@ export default defineStore("list", () => ({
 	...wapper("tag", () => $fetch<any[]>("/api/tag")),
 	...wapper("type", () => $fetch<any[]>("/api/type")),
 	...wapper("article", () => $fetch<any[]>("/api/article", { query: { select: { content: false } } })),
+
 }));
