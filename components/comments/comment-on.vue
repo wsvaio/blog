@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { pick } from "@wsvaio/utils";
+
 const { articleId, commentId } = defineProps<{
 	articleId: number;
 	commentId?: number;
@@ -21,18 +23,18 @@ const { execute, error, pending, data } = useAsyncData(
 		let result = commentId
 			? await $fetch(`/api/comment/${commentId}/comment`, {
 				method: "POST",
-				body: JSON.stringify({
-					...user,
+				body: {
+					...pick(user, ["avatar", "acceptEmails", "email", "name", "site"]),
 					...form,
 					articleId,
-				}),
+				},
 			})
 			: await $fetch(`/api/article/${articleId}/comment`, {
 				method: "POST",
-				body: JSON.stringify({
-					...user,
+				body: {
+					...pick(user, ["avatar", "acceptEmails", "email", "name", "site"]),
 					...form,
-				}),
+				},
 			});
 
 		emit("submit");
