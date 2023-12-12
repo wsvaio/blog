@@ -1,5 +1,13 @@
 <script setup lang="ts">
-const { data } = useFetch<any>("/api/common/image");
+const { data } = await useFetch<Record<any, any>>("/api/common/image", {
+	query: computed(() =>
+		useMainStore().easterEgg
+			? {
+				type: "dongman",
+			}
+			: undefined
+	),
+});
 const list = useListStore();
 </script>
 
@@ -7,7 +15,7 @@ const list = useListStore();
 	<div class="about-card card" pos="relative" grid="~ rows-[0.384fr_1fr]" p="0">
 		<div pos="relative" flex="~ col" items="center" pt="48px">
 			<img
-				:src="data?.imgurl"
+				:src="data?.content"
 				w="full"
 				h="full"
 				pos="absolute"

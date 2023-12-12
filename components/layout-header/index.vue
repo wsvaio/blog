@@ -95,6 +95,18 @@ useResizeObserver(
 
 <style lang="less" scoped>
 header {
+	@keyframes enter {
+    0% {
+      transform: translateY(-100%);
+			opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0%);
+			opacity: 1;
+    }
+  }
+
   position: fixed;
   z-index: 100;
   top: 0;
@@ -103,6 +115,7 @@ header {
   height: 48px;
   padding: 0 36px;
   transition: all 0.3s;
+	animation: enter .3s;
   opacity: 1;
   background-color: rgb(255 255 255 / 90%);
   box-shadow: 0 0.5rem 1rem rgb(18 38 63 / 5%);
@@ -110,7 +123,7 @@ header {
   text-shadow: 0 0.1875rem 0.3125rem #1c1f2100;
   backdrop-filter: saturate(200%) blur(20px);
 
-  &.hide {
+	&.hide {
     height: 72px;
     // opacity: 0;
     background-color: rgb(255 255 255 / 0%);

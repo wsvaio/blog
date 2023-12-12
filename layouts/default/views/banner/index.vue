@@ -33,6 +33,18 @@ useResizeObserver(
 
 <style lang="less" scoped>
 .banner {
+  @keyframes enter {
+    0% {
+      transform: translateY(-16dvh);
+			opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0%);
+			opacity: 1;
+    }
+  }
+
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
@@ -41,7 +53,8 @@ useResizeObserver(
   height: 100dvh;
   min-height: 256px;
   padding: 2em;
-  transition: all 0.3s;
+  transition: all 0.1s;
+  animation: enter .3s;
   background: var(--background-primary);
   color: white;
   text-align: center;

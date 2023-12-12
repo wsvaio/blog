@@ -66,7 +66,6 @@ useSeoMeta({
 			:article-id="16"
 			@submit="refresh()"
 		/>
-		<!-- </div> -->
 	</nuxt-layout>
 </template>
 

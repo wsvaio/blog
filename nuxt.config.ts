@@ -16,6 +16,7 @@ export default defineNuxtConfig({
 	vue: {
 		defineModel: true,
 		propsDestructure: true,
+
 	},
 
 	app: {
@@ -41,6 +42,18 @@ export default defineNuxtConfig({
 				{ src: "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js", type: "text/javascript" },
 			],
 		},
+
+		// PageTransitionEvent: { name: "page", mode: "out-in" },
+
+		// layoutTransition: {
+		// 	name: "page",
+		// 	mode: "out-in" // 默认值
+		// },
+		// pageTransition: {
+		// 	name: "page",
+		// 	mode: "out-in" // 默认值
+		// },
+
 	},
 
 	css: ["~/assets/css/main.less"],
@@ -52,4 +65,9 @@ export default defineNuxtConfig({
 			dirs: ["~/server/utils"],
 		},
 	},
+
+	// experimental: {
+	// 	viewTransition: true,
+
+	// }
 });
