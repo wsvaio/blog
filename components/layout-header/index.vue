@@ -6,7 +6,7 @@ const { y } = $(useWindowScroll());
 const isMounted = $(useMounted());
 
 const needHide = computed(() => {
-	if (!isMounted) return;
+	if (!isMounted) return true;
 	return y < (main.headerHideHiehgt || document.documentElement.clientHeight) - 48;
 });
 
@@ -39,14 +39,14 @@ useResizeObserver(
 								name: '首页',
 								to: '/',
 							},
-							{
-								name: '类型',
-								to: '/type',
-							},
-							{
-								name: '标签',
-								to: '/tag',
-							},
+							// {
+							// 	name: '类型',
+							// 	to: '/type',
+							// },
+							// {
+							// 	name: '标签',
+							// 	to: '/tag',
+							// },
 							{
 								name: '归档',
 								to: '/article',

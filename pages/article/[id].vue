@@ -2,7 +2,6 @@
 const route = useRoute();
 const id = +route.params.id;
 const { data, refresh } = await useFetch<any>(`/api/article/${id}`);
-console.log(data);
 useFetch(`/api/article/reads/${id}`);
 useSeoMeta({
 	title: data.value.title,
