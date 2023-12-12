@@ -109,9 +109,9 @@ watchEffect(async () => {
 				<li>|</li>
 				<li>{{ data.reads }} 阅读</li>
 				<li>|</li>
-				<li>{{ data.comments?.length }} 评论</li>
+				<li>{{ data._count?.comment }} 评论</li>
 				<li>|</li>
-				<li>{{ data.likes }} 点赞</li>
+				<li>{{ data.content.length }} 字数</li>
 			</ul>
 		</div>
 	</div>
