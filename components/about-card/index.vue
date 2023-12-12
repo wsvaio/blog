@@ -1,5 +1,13 @@
 <script setup lang="ts">
-const { data } = useFetch<any>("/api/common/image");
+const { data } = await useFetch<Record<any, any>>("/api/common/image", {
+	query: computed(() =>
+		useMainStore().easterEgg
+			? {
+				type: "dongman",
+			}
+			: undefined
+	),
+});
 const list = useListStore();
 </script>
 
@@ -10,9 +18,14 @@ const list = useListStore();
 	>
 		<div pos="relative" flex="~ col" items="center" pt="48px">
 			<img
-				:src="data?.imgurl" w="full" h="full" pos="absolute"
-				inset="0" aspect-ratio="square"
-				object="cover" z="1"
+				:src="data?.content"
+				w="full"
+				h="full"
+				pos="absolute"
+				inset="0"
+				aspect-ratio="square"
+				object="cover"
+				z="1"
 				:style="{
 					'maskImage': 'linear-gradient(black 61.8%, transparent)',
 					'-webkit-mask-image': 'linear-gradient(black 61.8%, transparent)',

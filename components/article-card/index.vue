@@ -23,7 +23,13 @@ watchEffect(async () => {
 	const domparser = new DOMParser();
 	const doc = domparser.parseFromString(marked(data.content), "text/html");
 	// images = [...doc.querySelectorAll("img")].map(item => item.src);
-	image = [...doc.querySelectorAll("img")].find(item => item.src)?.src || (await $fetch<any>("/api/common/image")).imgurl;
+	image = [...doc.querySelectorAll("img")].find(item => item.src)?.src || (await $fetch<any>("/api/common/image", {
+		query: useMainStore().easterEgg
+			? {
+				type: "dongman",
+			}
+			: undefined
+	})).content;
 	textContent = [...doc.querySelectorAll("*")]
 		.map(item => item.textContent)
 		.join(" ")

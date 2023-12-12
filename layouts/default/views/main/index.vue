@@ -41,6 +41,7 @@ watch(
 		box="border"
 		:style="{
 			gridTemplateColumns: $slots.sub ? undefined : '1fr',
+
 		}"
 	>
 		<div flex="~ col" gap="1em" overflow="hidden">
@@ -63,3 +64,21 @@ watch(
 		</div>
 	</main>
 </template>
+
+<style lang="less" scoped>
+main {
+	@keyframes enter {
+    0% {
+      transform: translateY(16dvh);
+			opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0%);
+			opacity: 1;
+    }
+  }
+
+  animation: enter .3s;
+}
+</style>

@@ -5,10 +5,16 @@
 		<!-- <isbuilding /> -->
 		<music />
 		<background />
+		<nuxt-loading-indicator />
 
 		<LayoutHeader />
-		<nuxt-loading-indicator />
+
+		<transition name="fade">
+			<global-loading v-show="useMainStore().globalLoading" />
+		</transition>
+
 		<nuxt-page />
+
 		<LayoutFooter mt="auto" />
 	</article>
 </template>
