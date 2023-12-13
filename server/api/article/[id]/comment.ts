@@ -78,22 +78,19 @@ export default defineEventHandler(async event => {
 				from,
 			},
 		});
-
-		if (user.acceptEmails) {
-			result ||= await transporter.sendMail({
-				from: "\"WSの小屋\" wsvaio@qq.com",
-				to: "wsvaio@qq.com",
-				subject: `“${user.name}”同学评论了您的文章“${article?.title}”`,
-				text: result.content,
-				html: `
+		await transporter.sendMail({
+			from: "\"WSの小屋\" wsvaio@qq.com",
+			to: "wsvaio@qq.com",
+			subject: `“${user.name}”同学评论了您的文章“${article?.title}”`,
+			text: result.content,
+			html: `
 					<p>${user.name}：</p>
 					${marked(result!.content)}
 					<address>
 						<a href="https://wsvaio.site/article/${id}?commentId=${result.id}">查看原文</a>
 					</address>
 				`,
-			});
-		}
+		});
 	}
 	else {
 		result ||= await transporter.sendMail({

@@ -18,35 +18,32 @@ const form = reactive({
 	notARobot: false,
 });
 
-const { execute, error, pending, data } = useAsyncData(
-	async () => {
-		let result = commentId
-			? await $fetch(`/api/comment/${commentId}/comment`, {
-				method: "POST",
-				body: {
-					...pick(user, ["avatar", "acceptEmails", "email", "name", "site"]),
-					...form,
-					articleId,
-				},
-			})
-			: await $fetch(`/api/article/${articleId}/comment`, {
-				method: "POST",
-				body: {
-					...pick(user, ["avatar", "acceptEmails", "email", "name", "site"]),
-					...form,
-				},
-			});
+let init = false;
+const { execute, error, pending } = useAsyncData(async () => {
+	if (init == false) return (init = true);
+	let result = commentId
+		? await $fetch(`/api/comment/${commentId}/comment`, {
+			method: "POST",
+			body: {
+				...pick(user, ["avatar", "acceptEmails", "email", "name", "site"]),
+				...form,
+				articleId,
+			},
+		})
+		: await $fetch(`/api/article/${articleId}/comment`, {
+			method: "POST",
+			body: {
+				...pick(user, ["avatar", "acceptEmails", "email", "name", "site"]),
+				...form,
+			},
+		});
 
-		emit("submit");
-		form.content = "";
-		form.notARobot = false;
+	emit("submit");
+	form.content = "";
+	form.notARobot = false;
 
-		return result;
-	},
-	{
-		immediate: false,
-	}
-);
+	return result;
+});
 
 const handleEmailInput = useDebounceFn(user.refresh, 200);
 </script>
@@ -103,12 +100,9 @@ const handleEmailInput = useDebounceFn(user.refresh, 200);
 					<span>我不是机器人</span>
 				</label>
 
-				<awesome-button
-					ml="auto" h="full" w="7em"
-					:disabled="pending && data"
-				>
+				<awesome-button ml="auto" h="full" w="7em" :disabled="pending">
 					<div flex="~" items="center">
-						<template v-if="pending && data">
+						<template v-if="pending">
 							<div class="i-eos-icons-loading" text="16px" mr=".5em" />
 							<span>发送中</span>
 						</template>

@@ -63,12 +63,12 @@ useResizeObserver(
 					>
 						<nuxt-link
 							hover="text-[var(--primary-color)]"
-							color="inherit"
+							un-text="inherit"
 							underline="transparent"
 							:to="item.to"
 							:style="{
 								textDecoration: $route.path == item.to ? 'underline' : '',
-								color: $route.path == item.to ? 'var(--primary-color)' : '',
+								color: $route.path == item.to ? 'var(--primary-color)' : show ? 'var(--text-color)' : 'inherit',
 							}"
 							@click="show = false"
 						>
@@ -86,7 +86,7 @@ useResizeObserver(
 			z="10000"
 			cursor="pointer"
 			:style="{
-				color: show ? 'rgb(0 0 0 / 90%)' : undefined,
+				color: show ? 'var(--text-color)' : 'inherit',
 			}"
 			@click="show = !show"
 		/>
@@ -117,9 +117,8 @@ header {
   transition: all 0.3s;
 	animation: enter .3s;
   opacity: 1;
-  background-color: rgb(255 255 255 / 90%);
+  background-color: var(--bg-color);
   box-shadow: 0 0.5rem 1rem rgb(18 38 63 / 5%);
-  color: rgb(0 0 0 / 90%);
   text-shadow: 0 0.1875rem 0.3125rem #1c1f2100;
   backdrop-filter: saturate(200%) blur(20px);
 
@@ -133,5 +132,6 @@ header {
     text-shadow: 0 0.1875rem 0.3125rem #1c1f21ff;
     backdrop-filter: saturate(100%) blur(0);
   }
+
 }
 </style>

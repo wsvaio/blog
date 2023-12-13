@@ -21,10 +21,6 @@ export default defineNuxtPlugin(() => {
 
 	let i = 0;
 
-	onMounted(() => {
-		console.log("wdf");
-	});
-
 	window.addEventListener("keydown", ev => {
 		if (t.slice(i).indexOf(ev.key.toLowerCase()) == i - t.slice(0, i).length) i++;
 		else i = 0;

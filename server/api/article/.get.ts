@@ -27,11 +27,18 @@ export default defineEventHandler(async event => {
         skip: page * pageSize - 10,
         take: pageSize,
         select,
+        orderBy: {
+          createAt: 'desc'
+        }
       }),
+      
     };
   } else {
     return await db.article.findMany({
       select,
+      orderBy: {
+        createAt: 'desc'
+      }
     });
   }
 });

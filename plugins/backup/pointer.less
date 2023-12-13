@@ -1,0 +1,36 @@
+* {
+  cursor: none !important;
+}
+
+.pointer1,
+.pointer2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  mix-blend-mode: exclusion;
+  pointer-events: none;
+}
+
+.pointer1 {
+  z-index: 9999999999;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+}
+
+.pointer2 {
+  z-index: 999999999;
+  width: 42px;
+  height: 42px;
+  transition: all 0.3s ease-out;
+  background-color: #222;
+}
+
+@media (width < 768px) {
+  .pointer1,
+  .pointer2 {
+    display: none;
+  }
+}

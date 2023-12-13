@@ -14,7 +14,7 @@ useIntervalFn(() => {
 	s = Math.floor(t % 60);
 }, 1000);
 
-const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/tiangou");
+const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/wenan");
 const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 </script>
 
@@ -26,9 +26,7 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 		<music-icon-lines />
 
 		<typewriter m="1em" :content="message?.content" @finish="nextMessage" />
-		<p class="runtime">
-			本站目前勉强运行了{{ d }}天{{ h }}时{{ m }}分{{ s }}秒
-		</p>
+		<p class="runtime">本站目前勉强运行了{{ d }}天{{ h }}时{{ m }}分{{ s }}秒</p>
 
 		<div flex="~" gap=".5em">
 			<p>
@@ -255,13 +253,13 @@ footer {
     }
   }
 
-  border-top: 1px solid rgb(204 204 204 / 80%);
+  border-top: 1px solid var(--border-color);
   // background-color: rgb(255 255 255 / 80%);
   backdrop-filter: blur(5px);
   background-color: var(--bg-color);
 
-	.runtime {
-		animation: h 5s infinite ease-in-out;
-	}
+  .runtime {
+    animation: h 5s infinite ease-in-out;
+  }
 }
 </style>
