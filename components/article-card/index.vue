@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { dateFormat } from "@wsvaio/utils";
 import { marked } from "marked";
 
 const { data = {}, type = "left" } = defineProps<{
@@ -70,7 +71,7 @@ watchEffect(async () => {
 					<small rounded="full" bg="[var(--primary-color)]" p=".12em">
 						<div class="i-ic:round-edit-calendar" />
 					</small>
-					<span>{{ new Date(data.updateAt).toLocaleString() }}</span>
+					<span>{{ dateFormat(data.updateAt) }}</span>
 				</li>
 
 				<li flex="~" gap=".5em" items="center" ml="auto">
@@ -110,7 +111,7 @@ watchEffect(async () => {
 				gap=".5em" text="14px"
 			>
 				<li>
-					{{ new Date(data.createAt).toLocaleString() }}
+					{{ dateFormat(data.createAt) }}
 				</li>
 				<li>|</li>
 				<li>{{ data.reads }} 阅读</li>

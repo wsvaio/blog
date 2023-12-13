@@ -40,6 +40,7 @@ export default defineNuxtConfig({
 				// { src: "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js", type: "text/javascript" },
 				{ src: "https://apii.ctose.cn/live2d/Source-One/default/autoload.js", type: "text/javascript" },
 				{ src: "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js", type: "text/javascript" },
+
 			],
 		},
 

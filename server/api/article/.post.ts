@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
     data: {
       title: body.title,
       content: body.content,
+      
       tags: {
         connectOrCreate: body?.tags.map(
           (item: { id: number; name: string }) => ({
@@ -11,7 +12,10 @@ export default defineEventHandler(async (event) => {
             where: { name: item.name },
           })
         ),
+        
       },
+
+      
       type: {
         connectOrCreate: {
           create: {
@@ -21,6 +25,7 @@ export default defineEventHandler(async (event) => {
             name: body?.type?.name,
           },
         },
+
       },
     },
   });

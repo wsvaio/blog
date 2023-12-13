@@ -35,8 +35,8 @@ export default defineStore("theme", {
 
 		...generateThemeColor({
 			mixColor: { light: "", dark: "" },
-			bgColor: { light: "rgba(255,255,255,0.9)", dark: "#241F21" },
-			textColor: { light: "#343a40", dark: "#525f7f" },
+			bgColor: { light: "rgba(255,255,255,0.9)", dark: "rgba(36,31,33,0.9)" },
+			textColor: { light: "#343a40", dark: "#e9ecef" },
 			borderColor: { light: "#e9ecef", dark: "#CFBF8B" },
 		}),
 		overwrite: {} as any,

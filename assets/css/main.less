@@ -1,131 +1,3 @@
-
-:root {
-  --primary-color: #ff69b4;
-  --info-color: #096dd9;
-  --success-color: #1cae74;
-  --warning-color: #faad14;
-  --error-color: #f5222d;
-  --font-size: 16px;
-  --max-width: 1200px;
-  --header-height: calc(48px + 1rem);
-  --primary-color-suppl: #ff69b4;
-  --primary-color-hover: #ff91c5;
-  --primary-color-pressed: #d94e98;
-  --primary-color-active: #ff69b41a;
-  --primary-color1: #fff0f5;
-  --primary-color2: #fff0f5;
-  --primary-color3: #ffe3ee;
-  --primary-color4: #ffbad8;
-  --primary-color5: #ff91c5;
-  --primary-color6: #ff69b4;
-  --primary-color7: #d94e98;
-  --primary-color8: #b3377d;
-  --primary-color9: #8c2463;
-  --primary-color10: #661a4a;
-  --info-color-suppl: #096dd9;
-  --info-color-hover: #2e8de6;
-  --info-color-pressed: #0050b3;
-  --info-color-active: #096dd91a;
-  --info-color1: #e6f6ff;
-  --info-color2: #ade0ff;
-  --info-color3: #85ccff;
-  --info-color4: #57acf2;
-  --info-color5: #2e8de6;
-  --info-color6: #096dd9;
-  --info-color7: #0050b3;
-  --info-color8: #003a8c;
-  --info-color9: #002766;
-  --info-color10: #001640;
-  --success-color-suppl: #1cae74;
-  --success-color-hover: #3cba83;
-  --success-color-pressed: #0f875b;
-  --success-color-active: #1cae741a;
-  --success-color1: #dfede5;
-  --success-color2: #b4e0c8;
-  --success-color3: #87d4ae;
-  --success-color4: #5fc797;
-  --success-color5: #3cba83;
-  --success-color6: #1cae74;
-  --success-color7: #0f875b;
-  --success-color8: #066143;
-  --success-color9: #013b29;
-  --success-color10: #00140f;
-  --warning-color-suppl: #faad14;
-  --warning-color-hover: #ffc53d;
-  --warning-color-pressed: #d48806;
-  --warning-color-active: #faad141a;
-  --warning-color1: #fffbe6;
-  --warning-color2: #fff1b8;
-  --warning-color3: #ffe58f;
-  --warning-color4: #ffd666;
-  --warning-color5: #ffc53d;
-  --warning-color6: #faad14;
-  --warning-color7: #d48806;
-  --warning-color8: #ad6800;
-  --warning-color9: #874d00;
-  --warning-color10: #613400;
-  --error-color-suppl: #f5222d;
-  --error-color-hover: #ff4d4f;
-  --error-color-pressed: #cf1322;
-  --error-color-active: #f5222d1a;
-  --error-color1: #fff1f0;
-  --error-color2: #ffccc7;
-  --error-color3: #ffa39e;
-  --error-color4: #ff7875;
-  --error-color5: #ff4d4f;
-  --error-color6: #f5222d;
-  --error-color7: #cf1322;
-  --error-color8: #a8071a;
-  --error-color9: #820014;
-  --error-color10: #5c0011;
-  --bg-color: rgb(255 255 255 / 90%);
-  --bg-color-suppl: rgb(255 255 255 / 90%);
-  --bg-color-hover: #fff;
-  --bg-color-pressed: #d9d9d9;
-  --bg-color-active: #ffffff1a;
-  --bg-color1: #fff;
-  --bg-color2: #fff;
-  --bg-color3: #fff;
-  --bg-color4: #fff;
-  --bg-color5: #fff;
-  --bg-color6: #ffffffe6;
-  --bg-color7: #d9d9d9;
-  --bg-color8: #b3b3b3;
-  --bg-color9: #8c8c8c;
-  --bg-color10: #666;
-  --text-color: #343a40;
-  --text-color-suppl: #343a40;
-  --text-color-hover: #484a4d;
-  --text-color-pressed: #13161a;
-  --text-color-active: #343a401a;
-  --text-color1: #787d80;
-  --text-color2: #6c7073;
-  --text-color3: #606466;
-  --text-color4: #545759;
-  --text-color5: #484a4d;
-  --text-color6: #343a40;
-  --text-color7: #13161a;
-  --text-color8: #000;
-  --text-color9: #000;
-  --text-color10: #000;
-  --border-color: #e9ecef;
-  --border-color-suppl: #e9ecef;
-  --border-color-hover: #edf5fc;
-  --border-color-pressed: #b9c1c9;
-  --border-color-active: #e9ecef1a;
-  --border-color1: #f0faff;
-  --border-color2: #f0f9ff;
-  --border-color3: #f0f9ff;
-  --border-color4: #f0f8ff;
-  --border-color5: #edf5fc;
-  --border-color6: #e9ecef;
-  --border-color7: #b9c1c9;
-  --border-color8: #8e97a3;
-  --border-color9: #666f7d;
-  --border-color10: #464c57;
-}
-
-
 body {
   margin: 0;
   // line-height: 1.25;
@@ -143,13 +15,11 @@ img {
   overflow: hidden;
   // border: 1px solid #e7eaf1;
   border-radius: 4px;
-  background-color: rgb(255 255 255 / 95%);
+  background-color: var(--bg-color);
   // background-color: white;
   box-shadow: 0 1px 3px rgb(0 37 55 / 6%);
   // backdrop-filter: saturate(200%) blur(20px);
 }
-
-
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -179,7 +49,6 @@ img {
 * {
   scrollbar-width: thin;
 }
-
 
 .fade-enter-active,
 .fade-leave-active {

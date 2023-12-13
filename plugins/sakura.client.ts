@@ -165,7 +165,7 @@ export default defineNuxtPlugin(() => {
 	}
 
 	window.onresize = function () {
-		let canvasSnow = document.getElementById("canvas_snow")! as HTMLCanvasElement;
+		let canvasSnow = document.getElementById("canvas_sakura")! as HTMLCanvasElement;
 
 		canvasSnow.width = window.innerWidth;
 		canvasSnow.height = window.innerHeight;

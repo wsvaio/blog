@@ -43,7 +43,7 @@
 
 @media (prefers-color-scheme: dark) {
 	.global-loading {
-		background-color: var(--body-color, #101014);
+		background-color: #101014 !important;
 	}
 }
 
@@ -54,7 +54,7 @@
 	align-items: center;
 	justify-content: center;
 	inset: 0;
-	background-color: var(--body-color, white);
+	background-color: white;
 }
 
 .global-loading > .loader {
@@ -73,7 +73,7 @@
 	animation: shadow324 0.5s linear infinite;
 	border-radius: 50%;
 	background: #f0808050;
-	background: var(--primary-color7, #253965);
+	background: var(--primary-color7, #d94e98);
 }
 
 .global-loading > .loader::after {
@@ -85,6 +85,6 @@
 	height: 100%;
 	animation: jump7456 0.5s linear infinite;
 	border-radius: 4px;
-	background: var(--primary-color6, #1890ff);
+	background: var(--primary-color6, #FF69B4);
 }
 </style>

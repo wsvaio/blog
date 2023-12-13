@@ -24,8 +24,10 @@ useIntervalFn(() => {
 			transition: 'all 16s steps(16) 1s',
 		}"
 	/>
-	<img
-		:src="data?.content" pos="absolute" w="0" h="0"
-		left="-100px" @load="useMainStore().globalLoading = false"
-	/>
+	<client-only>
+		<img
+			:src="data?.content" pos="absolute" w="0" h="0"
+			left="-100px" @load="useMainStore().globalLoading = false"
+		/>
+	</client-only>
 </template>
