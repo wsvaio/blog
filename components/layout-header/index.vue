@@ -31,6 +31,7 @@ useResizeObserver(
 			>
 				<ul
 					flex="~" gap="2em" list="none" justify="center"
+					items="center"
 					m="0" lt-md="flex-col items-center justify-center h-full"
 				>
 					<li
@@ -62,10 +63,11 @@ useResizeObserver(
 						]"
 					>
 						<nuxt-link
-							hover="text-[var(--primary-color)]"
+							hover="!text-[var(--primary-color)]"
 							un-text="inherit"
 							underline="transparent"
 							:to="item.to"
+							flex="~ items-center"
 							:style="{
 								textDecoration: $route.path == item.to ? 'underline' : '',
 								color: $route.path == item.to ? 'var(--primary-color)' : show ? 'var(--text-color)' : 'inherit',
@@ -73,6 +75,23 @@ useResizeObserver(
 							@click="show = false"
 						>
 							{{ item.name }}
+						</nuxt-link>
+					</li>
+
+					<li>
+						<nuxt-link
+							to="https://www.travellings.cn/go.html"
+							target="_blank"
+							rel="noopener"
+							title="开往-友链接力"
+							hover="text-[var(--primary-color)]"
+							un-text="inherit"
+							flex="~ items-center"
+							underline="transparent"
+						>
+							<!-- <img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120" /> -->
+							<div class="i-ion-md-train" />
+							<span>开往</span>
 						</nuxt-link>
 					</li>
 				</ul>
@@ -95,15 +114,15 @@ useResizeObserver(
 
 <style lang="less" scoped>
 header {
-	@keyframes enter {
+  @keyframes enter {
     0% {
       transform: translateY(-100%);
-			opacity: 0;
+      opacity: 0;
     }
 
     100% {
       transform: translateY(0%);
-			opacity: 1;
+      opacity: 1;
     }
   }
 
@@ -115,14 +134,14 @@ header {
   height: 48px;
   padding: 0 36px;
   transition: all 0.3s;
-	animation: enter .3s;
+  animation: enter 0.3s;
   opacity: 1;
   background-color: var(--bg-color);
   box-shadow: 0 0.5rem 1rem rgb(18 38 63 / 5%);
   text-shadow: 0 0.1875rem 0.3125rem #1c1f2100;
   backdrop-filter: saturate(200%) blur(20px);
 
-	&.hide {
+  &.hide {
     height: 72px;
     // opacity: 0;
     background-color: rgb(255 255 255 / 0%);
@@ -132,6 +151,5 @@ header {
     text-shadow: 0 0.1875rem 0.3125rem #1c1f21ff;
     backdrop-filter: saturate(100%) blur(0);
   }
-
 }
 </style>

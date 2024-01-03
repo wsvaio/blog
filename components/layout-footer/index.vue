@@ -28,6 +28,12 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 		<typewriter m="1em" :content="message?.content" @finish="nextMessage" />
 		<p class="runtime">本站目前勉强运行了{{ d }}天{{ h }}时{{ m }}分{{ s }}秒</p>
 
+		<p>
+			<nuxt-link href="https://www.travellings.cn/go.html" target="_blank" rel="noopener" title="开往-友链接力">
+				<img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120" />
+			</nuxt-link>
+		</p>
+
 		<div flex="~" gap=".5em">
 			<p>
 				©2023-{{ new Date().getFullYear() }} By
