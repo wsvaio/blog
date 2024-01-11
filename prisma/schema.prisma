@@ -114,3 +114,14 @@ model music {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 }
+
+model admin {
+  id       Int    @id @default(autoincrement())
+
+  name  String
+
+  username String @unique
+  password String
+  
+  role     Int
+}
