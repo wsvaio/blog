@@ -44,7 +44,7 @@ watch(
 
 		}"
 	>
-		<div flex="~ col" gap="1em" overflow="hidden">
+		<div flex="~ col" gap="1em">
 			<slot />
 		</div>
 		<div

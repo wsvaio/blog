@@ -1,22 +1,24 @@
 import jwt from "jsonwebtoken";
 
 export default defineEventHandler(async event => {
-	const { username, password } = await readBody(event);
-	if (!username) return new Error("请输入用户名");
-	if (!password) return new Error("请输入密码");
+  const body = await readBody(event);
+  if (!body) return new Error("参数呢？");
+  const { username, password } = await readBody(event);
+  if (!username) return new Error("用户名呢？");
+  if (!password) return new Error("密码呢？");
 
-	const admin = await db.admin.findUnique({
-		where: {
-			username,
+  const admin = await db.admin.findUnique({
+    where: {
+      username,
+    },
+  });
 
-		}
-	});
+  if (!admin) return new Error("查无此人");
 
-	if (!admin) return new Error("用户名不存在");
+  if (admin.password !== password) return new Error("你的密码不对劲");
 
-	if (admin.password !== password) return new Error("密码错误");
+  // @ts-ignore pass
+  delete admin.password;
 
-	return jwt.sign({ username, password }, "wsvaio");
-
-	// return
+  return jwt.sign(admin, "是我卡了吗");
 });

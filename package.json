@@ -40,12 +40,12 @@
     "vue": "^3.4.8",
     "vue-router": "^4.2.5"
   },
-  
   "dependencies": {
     "@types/ua-parser-js": "^0.7.39",
     "@wsvaio/utils": "^1.0.22",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.8",
-    "ua-parser-js": "^1.0.37"
+    "ua-parser-js": "^1.0.37",
+    "vue-request": "^2.0.4"
   }
 }
