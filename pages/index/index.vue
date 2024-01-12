@@ -1,7 +1,21 @@
 <script setup lang="ts">
-// import BannerView from "./views/banner/index.vue";
+const { dataList, loadmoreStatus, refreshing, refreshAsync, loadMoreAsync, noMore, loading } = $(
+  useLoadMore(async page => {
+    const result = await $fetch<any>("/api/article", {
+      query: {
+        page,
+        pageSize: 10,
+      },
+    });
 
-const { data } = await useFetch<any[]>("/api/article");
+    return {
+      list: result.list,
+      total: result.total,
+      page,
+    };
+  })
+);
+
 const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
 const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 // const { data: tags } = useLazyFetch<any[]>("/api/tag");
@@ -10,24 +24,30 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 // const theme = useThemeStore();
 const { y } = useWindowScroll({ behavior: "smooth" });
 const jump = () => {
-	y.value = document.documentElement.clientHeight - 48;
+  y.value = document.documentElement.clientHeight - 48;
 };
 </script>
 
 <template>
-	<nuxt-layout banner-title="HI THERE">
-		<template #banner>
-			<typewriter m="1em" :content="message?.content" @finish="nextMessage" />
-			<div class="i-ion-ios-arrow-down arrow" @click="jump" />
-		</template>
+  <nuxt-layout banner-title="HI THERE">
+    <template #banner>
+      <typewriter m="1em" :content="message?.content" @finish="nextMessage" />
+      <div class="i-ion-ios-arrow-down arrow" @click="jump" />
+    </template>
 
-		<article-card v-for="(item, index) in data" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
+    <article-card v-for="(item, index) in dataList" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
 
-		<template #sub>
-			<about-card />
-			<!-- <tiangou-card /> -->
-		</template>
-	</nuxt-layout>
+    <awesome-button p="!2em" @click="loadMoreAsync" v-if="!noMore" whitespace="nowrap">
+      {{ loading ? "加载中" : "加载更多" }}
+    </awesome-button>
+
+    <!-- <div h="50vh"></div> -->
+
+    <template #sub>
+      <about-card />
+      <!-- <tiangou-card /> -->
+    </template>
+  </nuxt-layout>
 </template>
 
 <style lang="less" scoped>

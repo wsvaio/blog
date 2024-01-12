@@ -118,10 +118,13 @@ model music {
 model admin {
   id       Int    @id @default(autoincrement())
 
-  name  String
+  name  String @default("管理员")
 
   username String @unique
   password String
-  
-  role     Int
+
+  role     Int @default(1)
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }

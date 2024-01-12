@@ -15,7 +15,7 @@ export default defineEventHandler(async event => {
     updateAt: true,
     ...JSON.parse(Array.isArray(query.select) ? query.select[0] : query.select || "{}"),
   };
-  if (query.page && query.limit) {
+  if (query.page && query.pageSize) {
     let page = Number(query.page) || 1;
     let pageSize = Number(query.pageSize) || 10;
 
@@ -24,14 +24,14 @@ export default defineEventHandler(async event => {
       pageSize,
       total: await db.article.count(),
       list: await db.article.findMany({
-        skip: page * pageSize - 10,
+        skip: page * pageSize - pageSize ,
         take: pageSize,
         select,
         orderBy: {
           createAt: 'desc'
         }
       }),
-      
+
     };
   } else {
     return await db.article.findMany({
