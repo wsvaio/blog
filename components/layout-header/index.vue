@@ -6,8 +6,8 @@ const { y } = $(useWindowScroll());
 const isMounted = $(useMounted());
 
 const needHide = computed(() => {
-	if (!isMounted) return true;
-	return y < (main.headerHideHiehgt || document.documentElement.clientHeight) - 48;
+  if (!isMounted) return true;
+  return y < (main.headerHideHiehgt || document.documentElement.clientHeight) - 48;
 });
 
 const headerRef = $ref<HTMLDivElement>();
@@ -15,101 +15,118 @@ const headerRef = $ref<HTMLDivElement>();
 let show = $ref(false);
 let clientWidth = $ref(0);
 useResizeObserver(
-	() => headerRef,
-	() => (clientWidth = headerRef?.clientWidth || 0)
+  () => headerRef,
+  () => (clientWidth = headerRef?.clientWidth || 0)
 );
 </script>
 
 <template>
-	<header ref="headerRef" :class="needHide && 'hide'" flex="~" items="center">
-		<nuxt-link to="/" underline="transparent" un-text="inherit 20px">WSの小屋</nuxt-link>
-		<div flex="1" />
-		<transition name="fade">
-			<nav
-				v-if="show || clientWidth >= 768"
-				lt-md="pos-fixed h-100dvh w-100dvw left-0 top-0 bg-[var(--bg-color)] !text-[rgba(0,0,0,0.9)] !text-shadow-none"
-			>
-				<ul
-					flex="~" gap="2em" list="none" justify="center"
-					items="center"
-					m="0" lt-md="flex-col items-center justify-center h-full"
-				>
-					<li
-						v-for="item in [
-							{
-								name: '首页',
-								to: '/',
-							},
-							// {
-							// 	name: '类型',
-							// 	to: '/type',
-							// },
-							// {
-							// 	name: '标签',
-							// 	to: '/tag',
-							// },
-							{
-								name: '归档',
-								to: '/article',
-							},
-							{
-								name: '留言板',
-								to: '/guestbook',
-							},
-							{
-								name: '关于',
-								to: '/about',
-							},
-						]"
-					>
-						<nuxt-link
-							hover="!text-[var(--primary-color)]"
-							un-text="inherit"
-							underline="transparent"
-							:to="item.to"
-							flex="~ items-center"
-							:style="{
-								textDecoration: $route.path == item.to ? 'underline' : '',
-								color: $route.path == item.to ? 'var(--primary-color)' : show ? 'var(--text-color)' : 'inherit',
-							}"
-							@click="show = false"
-						>
-							{{ item.name }}
-						</nuxt-link>
-					</li>
+  <header ref="headerRef" :class="needHide && 'hide'" flex="~" items="center">
+    <nuxt-link to="/" underline="transparent" un-text="inherit 20px">WSの小屋</nuxt-link>
+    <div flex="1" />
+    <transition name="fade">
+      <nav
+        v-if="show || clientWidth >= 768"
+        lt-md="pos-fixed h-100dvh w-100dvw left-0 top-0 bg-[var(--bg-color)] !text-[rgba(0,0,0,0.9)] !text-shadow-none"
+      >
+        <ul
+          flex="~"
+          gap="2em"
+          list="none"
+          justify="center"
+          items="center"
+          m="0"
+          lt-md="flex-col items-center justify-center h-full"
+        >
+          <li
+            v-for="item in [
+              {
+                icon: '🏠',
+                name: '首页',
+                to: '/',
+              },
+              // {
+              // 	name: '类型',
+              // 	to: '/type',
+              // },
+              // {
+              // 	name: '标签',
+              // 	to: '/tag',
+              // },
+              {
+                icon: '📂',
+                name: '归档',
+                to: '/article',
+              },
 
-					<li>
-						<nuxt-link
-							to="https://www.travellings.cn/go.html"
-							target="_blank"
-							rel="noopener"
-							title="开往-友链接力"
-							hover="text-[var(--primary-color)]"
-							un-text="inherit"
-							flex="~ items-center"
-							underline="transparent"
-						>
-							<!-- <img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120" /> -->
-							<div class="i-ion-md-train" />
-							<span>开往</span>
-						</nuxt-link>
-					</li>
-				</ul>
-			</nav>
-		</transition>
+              {
+                icon: '🔗',
+                name: '朋友们',
+                to: '/friend',
+              },
 
-		<div
-			v-if="clientWidth < 768"
-			:class="!show ? 'i-ion:options-outline' : 'i-material-symbols:close-rounded'"
-			text="24px"
-			z="10000"
-			cursor="pointer"
-			:style="{
-				color: show ? 'var(--text-color)' : 'inherit',
-			}"
-			@click="show = !show"
-		/>
-	</header>
+              {
+                icon: '✉',
+                name: '留言板',
+                to: '/guestbook',
+              },
+
+              {
+                icon: '📜',
+                name: '关于',
+                to: '/about',
+              },
+            ]"
+          >
+            <nuxt-link
+              hover="!text-[var(--primary-color)]"
+              un-text="inherit"
+              underline="transparent"
+              :to="item.to"
+              flex="~ items-center"
+              :style="{
+                textDecoration: $route.path == item.to ? 'underline' : '',
+                color: $route.path == item.to ? 'var(--primary-color)' : show ? 'var(--text-color)' : 'inherit',
+              }"
+              @click="show = false"
+            >
+              <span text-shadow="none">{{ item.icon }}</span>
+              <span>{{ item.name }}</span>
+            </nuxt-link>
+          </li>
+
+          <li>
+            <nuxt-link
+              to="https://www.travellings.cn/go.html"
+              target="_blank"
+              rel="noopener"
+              title="开往-友链接力"
+              hover="text-[var(--primary-color)]"
+              un-text="inherit"
+              flex="~ items-center"
+              underline="transparent"
+            >
+              <!-- <img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120" /> -->
+              <span text-shadow="none">🚆</span>
+              <span>开往</span>
+            </nuxt-link>
+          </li>
+        </ul>
+      </nav>
+    </transition>
+
+    <div
+      v-if="clientWidth < 768"
+      :class="!show ? 'i-ion:options-outline' : 'i-material-symbols:close-rounded'"
+      text="24px"
+      z="10000"
+      cursor="pointer"
+      :style="{
+        color: show ? 'var(--text-color)' : 'inherit',
+      }"
+      @click="show = !show"
+    />
+  </header>
 </template>
 
 <style lang="less" scoped>
