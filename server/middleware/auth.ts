@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 export default defineEventHandler(async event => {
   if (
-    (!["get", "options"].includes(event.method.toLowerCase()) && !event.path.startsWith("/api/admin/login")) && !(/\/api\/article\/\d+\/comment/.test(event.path)) ||
+    (!["get", "options"].includes(event.method.toLowerCase()) && !event.path.startsWith("/api/admin/login")) && !event.path.startsWith("/api/file") && !(/\/api\/article\/\d+\/comment/.test(event.path)) ||
     event.path.startsWith("/api/admin/info")
 
   ) {

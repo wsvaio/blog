@@ -43,6 +43,10 @@ const needHide = computed(() => {
 							name: '留言板',
 							to: '/guestbook',
 						},
+            {
+							name: '朋友们',
+							to: '/friend',
+						},
 						{
 							name: '关于',
 							to: '/about',

@@ -128,3 +128,16 @@ model admin {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 }
+
+model friend {
+  id       Int    @id @default(autoincrement())
+
+  name  String
+  link  String
+  avatar String?
+  descr String?
+  screenshot String?
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}

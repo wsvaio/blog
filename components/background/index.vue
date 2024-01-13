@@ -12,6 +12,10 @@ const { data, execute } = await useFetch<Record<any, any>>("/api/common/image", 
 useIntervalFn(() => {
   execute();
 }, 18000);
+
+onMounted(() => {
+  useMainStore().globalLoading = false;
+});
 </script>
 
 <template>
@@ -25,15 +29,9 @@ useIntervalFn(() => {
     }"
   />
   <client-only>
-    <img
-      :src="data?.content"
-      pos="absolute"
-      w="0"
-      h="0"
-      left="-100px"
-      @load="useMainStore().globalLoading = false"
-      @error="useMainStore().globalLoading = false"
+    <img :src="data?.content" pos="absolute" w="0" h="0" left="-100px" />
 
-    />
+    <!-- @load="useMainStore().globalLoading = false"
+      @error="useMainStore().globalLoading = false" -->
   </client-only>
 </template>

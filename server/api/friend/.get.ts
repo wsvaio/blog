@@ -8,21 +8,13 @@ export default defineEventHandler(async event => {
     return {
       page,
       pageSize,
-      total: await db.admin.count(),
-      list: await db.admin.findMany({
+      total: await db.friend.count(),
+      list: await db.friend.findMany({
         skip: page * pageSize - pageSize ,
         take: pageSize,
-        select: {
-          id: true,
-          name: true,
-          role: true,
-          username: true,
-          createAt: true,
-          updateAt: true,
-        },
       }),
     };
   } else {
-    return await db.admin.findMany();
+    return await db.friend.findMany();
   }
 });

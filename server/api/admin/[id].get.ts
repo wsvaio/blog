@@ -4,7 +4,6 @@ export default defineEventHandler(async event => {
 		where: { id },
     select: {
       id: true,
-      avatar: true,
       name: true,
       role: true,
       username: true,
