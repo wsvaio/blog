@@ -6,15 +6,15 @@ defineProps<{ bannerHeight?: string; bannerTitle: string }>();
 </script>
 
 <template>
-	<banner-view :style="{ height: bannerHeight }" :title="bannerTitle">
-		<slot name="banner" />
-	</banner-view>
+  <banner-view :style="{ height: bannerHeight }" :title="bannerTitle">
+    <slot name="banner" />
+  </banner-view>
 
-	<main-view>
-		<template v-if="$slots.sub" #sub>
-			<slot name="sub" />
-		</template>
+  <main-view>
+    <template v-if="$slots.sub" #sub>
+      <slot name="sub" />
+    </template>
 
-		<slot />
-	</main-view>
+    <slot />
+  </main-view>
 </template>

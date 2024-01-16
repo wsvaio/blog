@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { dataList, loadmoreStatus, refreshing, refreshAsync, loadMoreAsync, noMore, loading } = $(
+const { dataList, loadmoreStatus, refreshing, refreshAsync, loadMoreAsync, noMore, loading, reload } = $(
   useLoadMore(async page => {
     const result = await $fetch<any>("/api/article", {
       query: {
@@ -13,8 +13,12 @@ const { dataList, loadmoreStatus, refreshing, refreshAsync, loadMoreAsync, noMor
       total: result.total,
       page,
     };
+  }, {
+    manual: true
   })
 );
+
+await reload();
 
 const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
 const nextMessage = () => setTimeout(() => executeMessage(), 5000);
@@ -23,9 +27,9 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 
 // const theme = useThemeStore();
 const { y } = useWindowScroll({ behavior: "smooth" });
-const jump = () => {
+function jump() {
   y.value = document.documentElement.clientHeight - 48;
-};
+}
 </script>
 
 <template>
@@ -37,9 +41,14 @@ const jump = () => {
 
     <article-card v-for="(item, index) in dataList" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
 
-    <awesome-button p="!2em" @click="loadMoreAsync" v-if="!noMore" whitespace="nowrap">
+    <rgb-button
+      v-if="!noMore"
+      rounded="!4px"
+      mx="auto" whitespace="nowrap" w="max"
+      @click="loadMoreAsync"
+    >
       {{ loading ? "加载中" : "加载更多" }}
-    </awesome-button>
+    </rgb-button>
 
     <!-- <div h="50vh"></div> -->
 

@@ -7,9 +7,11 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "prisma:dev": "prisma migrate dev"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.6.2",
     "@iconify/json": "^2.2.167",
     "@nuxt/devtools": "^1.0.6",
     "@nuxtjs/eslint-module": "^4.1.0",
