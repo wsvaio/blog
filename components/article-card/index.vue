@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import IDefaultArticle from "@/assets/img/article.jpg";
 import { dateFormat } from "@wsvaio/utils";
 import { marked } from "marked";
 
@@ -18,37 +17,57 @@ const isMounted = $(useMounted());
 // });
 
 let image = $ref("");
-let textContent = $ref("");
+const textContent = $ref("");
 
 watchEffect(async () => {
-  if (!isMounted) return;
+  if (!isMounted)
+    return;
   const domparser = new DOMParser();
   const doc = domparser.parseFromString(await marked(data.content), "text/html");
   // images = [...doc.querySelectorAll("img")].map(item => item.src);
-  // image = [...doc.querySelectorAll("img")].find(item => item.src)?.src || (await $fetch<any>("/api/common/image", {
-  // 	query: useMainStore().easterEgg
-  // 		? {
-  // 			type: "dongman",
-  // 		}
-  // 		: undefined
-  // })).content;
-  image = [...doc.querySelectorAll("img")].find(item => item.src)?.src || IDefaultArticle;
-  textContent = [...doc.querySelectorAll("*")]
-    .map(item => item.textContent)
-    .join(" ")
-    .trim();
+  image
+    = [...doc.querySelectorAll("img")].find(item => item.src)?.src
+    || (
+      await $fetch<any>("/api/common/image2", {
+        query: useMainStore().easterEgg
+          ? {
+              type: "dongman",
+            }
+          : undefined,
+      })
+    ).content;
+  // image = [...doc.querySelectorAll("img")].find(item => item.src)?.src || IDefaultArticle;
+  // textContent = [...doc.querySelectorAll("*")]
+  //   .map(item => item.textContent)
+  //   .join(" ")
+  //   .trim();
 });
 </script>
 
 <template>
-  <div class="article-card" grid="~" pos="relative" overflow="hidden" bg="black" rounded="1.5" :class="[type]">
-    <img class="bgimage" :src="image" pos="absolute" inset="0" scale="[1.55]" object="cover" h="full" />
+  <div
+    class="article-card" grid="~" pos="relative" overflow="hidden"
+    bg="black" rounded="1.5" :class="[type]"
+  >
+    <img
+      class="bgimage" :src="image" pos="absolute" inset="0"
+      scale="[1.55]" object="cover" h="full"
+    />
 
     <div class="image">
-      <img :src="image" object="cover" h="full" z="10" aspect-ratio="square" />
+      <img
+        :src="image" object="cover" h="full" z="10"
+        aspect-ratio="square"
+      />
     </div>
-    <div color="white" py="48px" px="32px" z="1" flex="~ col">
-      <ul m="0" p="0" list="none" flex="~" gap=".5em" text="14px">
+    <div
+      color="white" py="48px" px="32px" z="1"
+      flex="~ col"
+    >
+      <ul
+        m="0" p="0" list="none" flex="~"
+        gap=".5em" text="14px"
+      >
         <li flex="~" gap=".5em" items="center">
           <small rounded="full" bg="[var(--primary-color)]" p=".12em">
             <div class="i-ic:round-edit-calendar" />
@@ -87,7 +106,10 @@ watchEffect(async () => {
         {{ textContent.length > 64 ? `${textContent.slice(0, 64)}……` : textContent }}
       </p>
 
-      <ul mt="auto" m="0" p="0" list="none" flex="~" gap=".5em" text="14px">
+      <ul
+        mt="auto" m="0" p="0" list="none"
+        flex="~" gap=".5em" text="14px"
+      >
         <li>
           {{ dateFormat(data.createAt) }}
         </li>

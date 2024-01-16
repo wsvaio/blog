@@ -29,9 +29,12 @@ export default <T extends { total: number; list: any[]; page: number }>(
   );
 
   const loadmoreStatus = computed(() => {
-    if (loading.value || loadingMore.value) return "loading";
-    if (data.value && data.value.total == 0) return "empty";
-    if (noMore.value) return "nomore";
+    if (loading.value || loadingMore.value)
+      return "loading";
+    if (data.value && data.value.total == 0)
+      return "empty";
+    if (noMore.value)
+      return "nomore";
     return "loadmore";
   });
 

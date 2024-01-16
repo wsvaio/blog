@@ -19,7 +19,9 @@ export default wsvaio(
   vue,
   {
     rules: {
-      'ts/consistent-type-definitions': 'off'
+      "ts/consistent-type-definitions": "off",
+      "no-undef": "off"
     }
   }
 );
+
