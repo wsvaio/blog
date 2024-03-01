@@ -12,7 +12,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",
-    "@iconify/json": "^2.2.188",
     "@nuxt/devtools": "^1.0.8",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/stylelint-module": "^5.2.0",
