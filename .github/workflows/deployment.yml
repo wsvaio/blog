@@ -22,7 +22,7 @@ jobs:
           push: true
           tags: |
             wsvaio/blog:latest
-            ${{ secrets.DOCKER_USERNAME }}/blog:${{ github.sha }}
+            wsvaio/blog:${{ github.sha }}
   deploy:
     needs: build-image
     name: deploy to cluster
