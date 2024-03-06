@@ -14,14 +14,14 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: wsvaio
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/blog:latest
+            wsvaio/blog:latest
             ${{ secrets.DOCKER_USERNAME }}/blog:${{ github.sha }}
   deploy:
     needs: build-image
