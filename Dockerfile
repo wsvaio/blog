@@ -3,10 +3,9 @@ FROM node:alpine as builder
 WORKDIR /app
 COPY . .
 
-# ARG DATABASE_URL
-# ENV DATABASE_URL=${DATABASE_URL}
-# ENV PORT 7100
-# ENV EMAIL_PASS ''
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 
 RUN npm install
 RUN npm run build
