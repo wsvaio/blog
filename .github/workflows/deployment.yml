@@ -18,9 +18,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push
         uses: docker/build-push-action@v5
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         with:
+          build-args:
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
           tags: |
             wsvaio/blog:latest
@@ -30,7 +30,6 @@ jobs:
     name: deploy to cluster
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
       - uses: steebchen/kubectl@v2.0.0
         with:
           config: ${{ secrets.KUBE_CONFIG_DATA }}
