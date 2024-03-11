@@ -16,28 +16,29 @@ export default defineEventHandler(async event => {
     ...JSON.parse(Array.isArray(query.select) ? query.select[0] : query.select || "{}"),
   };
   if (query.page && query.pageSize) {
-    let page = Number(query.page) || 1;
-    let pageSize = Number(query.pageSize) || 10;
+    const page = Number(query.page) || 1;
+    const pageSize = Number(query.pageSize) || 10;
 
     return {
       page,
       pageSize,
       total: await db.article.count(),
       list: await db.article.findMany({
-        skip: page * pageSize - pageSize ,
+        skip: page * pageSize - pageSize,
         take: pageSize,
         select,
         orderBy: {
-          createAt: 'desc'
+          updateAt: "desc"
         }
       }),
 
     };
-  } else {
+  }
+  else {
     return await db.article.findMany({
       select,
       orderBy: {
-        createAt: 'desc'
+        updateAt: "desc"
       }
     });
   }

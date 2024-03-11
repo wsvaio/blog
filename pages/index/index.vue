@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { dataList, loadmoreStatus, refreshing, refreshAsync, loadMoreAsync, noMore, loading, reload } = $(
+const { dataList, loadMoreAsync, noMore, loading, reload } = $(
   useLoadMore(async page => {
     const result = await $fetch<any>("/api/article", {
       query: {
@@ -54,6 +54,8 @@ function jump() {
 
     <template #sub>
       <about-card />
+      <hot-card />
+      <tag-card />
       <!-- <tiangou-card /> -->
     </template>
   </nuxt-layout>

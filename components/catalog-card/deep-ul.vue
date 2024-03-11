@@ -3,19 +3,19 @@
 import Self from "./deep-ul.vue";
 
 defineProps<{
-	list?: any[];
+  list?: any[];
 }>();
 </script>
 
 <template>
-	<ul v-if="list?.length">
-		<template v-for="item in list">
-			<li>
-				<span>{{ item.el.innerHTML }}</span>
-				<self :list="item.children" />
-			</li>
-		</template>
-	</ul>
+  <ul v-if="list?.length">
+    <template v-for="item in list">
+      <li>
+        <span>{{ item.el.innerHTML }}</span>
+        <self :list="item.children" />
+      </li>
+    </template>
+  </ul>
 </template>
 
 <style lang='less' scoped>

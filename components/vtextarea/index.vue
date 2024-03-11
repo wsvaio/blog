@@ -2,34 +2,36 @@
 import type { ReservedProps, TextareaHTMLAttributes } from "vue";
 
 defineProps<{
-	placeholder?: string;
-	textarea?: TextareaHTMLAttributes & ReservedProps;
+  placeholder?: string;
+  textarea?: TextareaHTMLAttributes & ReservedProps;
 }>();
 const modelValue = defineModel<string>();
 </script>
 
 <template>
-	<div class="vtextarea">
-		<textarea
-			v-model="modelValue" :placeholder="placeholder" rows="10"
-			:="textarea"
-		/>
-		<label :class="[modelValue && 'active']">{{ placeholder }}</label>
+  <div class="vtextarea">
+    <textarea
+      v-model="modelValue" :placeholder="placeholder" rows="10"
+      :="textarea"
+    />
+    <label :class="[modelValue && 'active']">
+      <slot name="placeholder" :placeholder="placeholder">{{ placeholder }}</slot>
+    </label>
 
-		<popup pos="!absolute" left="0" bottom="0" p=".5em">
-			<template #popuper>
-				<ul
-					grid="~ cols-[repeat(12,1fr)]" m="0" p=".5em"
-					gap=".25em"
-					class="card"
-					list="none" bg="[var(--bg-color)]"
-				>
-					<li v-for="item in emojis" cursor="pointer" @click="modelValue += item">{{ item }}</li>
-				</ul>
-			</template>
-			<div class="i-solar-expressionless-square-bold-duotone" />
-		</popup>
-	</div>
+    <popup pos="!absolute" left="0" bottom="0" p=".5em">
+      <template #popuper>
+        <ul
+          grid="~ cols-[repeat(12,1fr)]" m="0" p=".5em"
+          gap=".25em"
+          class="card"
+          list="none" bg="[var(--bg-color)]"
+        >
+          <li v-for="item in emojis" cursor="pointer" @click="modelValue += item">{{ item }}</li>
+        </ul>
+      </template>
+      <div class="i-solar-expressionless-square-bold-duotone" />
+    </popup>
+  </div>
 </template>
 
 <style lang="less" scoped>
