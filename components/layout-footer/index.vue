@@ -6,12 +6,12 @@ let h = $ref(0);
 let m = $ref(0);
 let s = $ref(0);
 useIntervalFn(() => {
-	const t = Math.floor((new Date().getTime() - DATE.getTime()) / 1000);
+  const t = Math.floor((new Date().getTime() - DATE.getTime()) / 1000);
 
-	d = Math.floor(t / 86400);
-	h = Math.floor((t % 86400) / 3600);
-	m = Math.floor((t % 3600) / 60);
-	s = Math.floor(t % 60);
+  d = Math.floor(t / 86400);
+  h = Math.floor((t % 86400) / 3600);
+  m = Math.floor((t % 3600) / 60);
+  s = Math.floor(t % 60);
 }, 1000);
 
 const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/wenan");
@@ -19,39 +19,82 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 </script>
 
 <template>
-	<footer
-		text="14px center" p="2em" lh="[1]" flex="~ col"
-		items="center"
-	>
-		<music-icon-lines />
+  <footer
+    text="14px center" p="2em" lh="[1]" flex="~ col"
+    items="center"
+  >
+    <music-icon-lines />
 
-		<typewriter m="1em" :content="message?.content" @finish="nextMessage" />
-		<p class="runtime">本站目前勉强运行了{{ d }}天{{ h }}时{{ m }}分{{ s }}秒</p>
+    <typewriter m="1em" :content="message?.content" @finish="nextMessage" />
+    <p class="runtime">本站目前勉强运行了{{ d }}天{{ h }}时{{ m }}分{{ s }}秒</p>
 
-		<p>
-			<nuxt-link href="https://www.travellings.cn/go.html" target="_blank" rel="noopener" title="开往-友链接力">
-				<img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120" />
-			</nuxt-link>
-		</p>
+    <p>
+      <nuxt-link href="https://www.travellings.cn/go.html" target="_blank" rel="noopener" title="开往-友链接力">
+        <img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120" />
+      </nuxt-link>
+    </p>
 
-		<div flex="~" gap=".5em">
-			<p>
-				©2023-{{ new Date().getFullYear() }} By
-				<nuxt-link un-text="[var(--text-color)]" underline="transparent" to="mailto:wsvaio@qq.com">WSVAIO</nuxt-link>
-			</p>
-			<p>|</p>
-			<p>
-				<nuxt-link
-					un-text="[var(--text-color)]"
-					underline="transparent"
-					to="https://beian.miit.gov.cn/"
-					target="_blank"
-				>
-					豫ICP备2023030609号-1
-				</nuxt-link>
-			</p>
-		</div>
-	</footer>
+    <ul
+      list="none" flex="~" gap=".25em" p="0"
+      m="0 t-.5em"
+    >
+      <li><button text="2em" border="none" class="i-logos:nuxt-icon" title="NUXT" /></li>
+      <li><button text="2em" border="none" class="i-logos:vitejs" title="VITE" /></li>
+
+      <li><button text="2em" border="none" class="i-logos:vue" title="VUE" /></li>
+      <li><button text="2em" border="none" class="i-logos:vueuse" title="VUEUSE" /></li>
+      <li><button text="2em" border="none" class="i-logos:pinia" title="PINIA" /></li>
+
+      <li><button text="2em" border="none" class="i-logos:unocss" title="UNOCSS" /></li>
+      <li><button text="2em" border="none" class="i-skill-icons:less-dark" title="LESS" /></li>
+      <li><button text="2em" border="none" class="i-logos:eslint" title="ESLINT" /></li>
+      <li><button text="2em" border="none" class="i-logos:stylelint" title="STYLELINT" /></li>
+    </ul>
+
+    <ul
+      list="none" flex="~" gap=".25em" p="0"
+      m="0 t-.5em"
+    >
+      <li><button text="2em" border="none" class="i-logos:nodejs-icon" title="NODEJS" /></li>
+      <!-- <li><button text="2em" border="none" class="i-logos:bun" title="BUNJS" /></li> -->
+      <li><button text="2em" border="none" class="i-logos:pnpm" title="PNPM" /></li>
+      <li><button text="2em" border="none" class="i-logos:typescript-icon" title="TYPESCRIPT" /></li>
+      <li><img src="https://nitro.unjs.io/icon.svg" w="2em" h="2em" title="NITRO" /></li>
+      <li><button text="2em" border="none" class="i-logos:prisma" title="PRISMA" /></li>
+      <li><button text="2em" border="none" class="i-logos:postgresql" title="POSTGRESQL" /></li>
+    </ul>
+
+    <ul
+      list="none" flex="~" gap=".25em" p="0"
+      m="0 t-.5em b-.5em"
+    >
+      <li><button text="2em" border="none" class="i-logos:git-icon" title="GIT" /></li>
+      <li><button text="2em" border="none" class="i-logos:github-icon" title="GITHUB" /></li>
+      <li><button text="2em" border="none" class="i-logos:github-actions" title="GITHUB ACTIONS" /></li>
+      <li><button text="2em" border="none" class="i-logos:docker-icon" title="DOCKER" /></li>
+      <li><button text="2em" border="none" class="i-logos:kubernetes" title="KUBERNETES" /></li>
+      <li><button text="2em" border="none" class="i-logos:nginx" title="NGINX" /></li>
+      <li><button text="2em" border="none" class="i-logos:ubuntu" title="UBUNTU" /></li>
+    </ul>
+
+    <div flex="~" gap=".5em">
+      <p>
+        ©2023-{{ new Date().getFullYear() }} By
+        <nuxt-link un-text="[var(--text-color)]" underline="transparent" to="mailto:wsvaio@qq.com">WSVAIO</nuxt-link>
+      </p>
+      <p>|</p>
+      <p>
+        <nuxt-link
+          un-text="[var(--text-color)]"
+          underline="transparent"
+          to="https://beian.miit.gov.cn/"
+          target="_blank"
+        >
+          豫ICP备2023030609号-1
+        </nuxt-link>
+      </p>
+    </div>
+  </footer>
 </template>
 
 <style lang="less" scoped>

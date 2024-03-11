@@ -3,43 +3,43 @@ import Comment from "./comment.vue";
 import CommentOn from "./comment-on.vue";
 
 interface List {
-	id: number;
-	avatar: string;
-	name: string;
-	content: string;
-	site: string;
-	comments: List[];
+  id: number;
+  avatar: string;
+  name: string;
+  content: string;
+  site: string;
+  comments: List[];
 }
 const { articleId } = defineProps<{
-	articleId: number;
-	list?: List[];
+  articleId: number;
+  list?: List[];
 }>();
 
 defineEmits<{
-	submit: [];
+  submit: [];
 }>();
 
-let commentId = $ref<number>();
+const commentId = $ref<number>();
 
 const tpId = computed(() => `#comment${commentId || "on"}`);
 </script>
 
 <template>
-	<div class="comments card">
-		<h3>Comments | {{ list?.length }}条评论</h3>
+  <div class="comments card">
+    <h3>Comments | {{ list?.length }}条评论</h3>
 
-		<div class="overflow-auto">
-			<comment v-model:comment-id="commentId" :list="list" pl="0" />
-		</div>
+    <div class="overflow-auto">
+      <comment v-model:comment-id="commentId" :list="list" pl="0" />
+    </div>
 
-		<div id="commenton" />
+    <div id="commenton" />
 
-		<client-only>
-			<teleport :to="tpId">
-				<comment-on :article-id="articleId" :comment-id="commentId" @submit="$emit('submit'), (commentId = 0)" />
-			</teleport>
-		</client-only>
-	</div>
+    <client-only>
+      <teleport :to="tpId">
+        <comment-on :article-id="articleId" :comment-id="commentId" @submit="$emit('submit'), (commentId = 0)" />
+      </teleport>
+    </client-only>
+  </div>
 </template>
 
 <style lang="less" scoped></style>

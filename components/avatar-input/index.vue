@@ -1,36 +1,41 @@
 <script setup lang="ts">
 import { saveAs } from "@wsvaio/utils";
-import IAvatar from "@/assets/img/avatar.png";
 
 const user = useUserStore();
 let modelValue = $(defineModel<string>());
 
-const { data: avatar, execute: executeAvatar } = $(
-	useLazyFetch<{ content: string }>("/api/common/pp", {
-		onResponse(data) {
-			if (data.response.status == 200) modelValue = avatar?.content || "";
-		},
-		immediate: false,
-	})
+const { execute: executeAvatar, status } = $(
+  useLazyFetch<{ content: string }>("/api/common/pp", {
+    onResponse(data) {
+      if (data.response.status == 200)
+        modelValue = data.response._data?.content || "";
+    },
+    immediate: false,
+    // server: false,
+  })
 );
 </script>
 
 <template>
-	<div class="avatar-input">
-		<img
-			:src="modelValue"
-			h="96px"
-			w="96px"
-			grid="row-span-full"
-			alt="头像"
-			@error="(modelValue = IAvatar), executeAvatar()"
-		/>
-		<div class="control">
-			<button class="i-material-symbols-light-download" title="下载" @click.prevent="modelValue && saveAs(modelValue)" />
-			<button class="i-material-symbols-light-sync" title="刷新" @click.prevent="executeAvatar()" />
-			<button class="i-material-symbols-light-reset-image" title="重置" @click.prevent="user.refreshAvatar()" />
-		</div>
-	</div>
+  <div class="avatar-input">
+    <client-only>
+      <img
+        :src="modelValue || '/error'"
+        h="96px"
+        w="96px"
+        grid="row-span-full"
+        alt="头像"
+        @error="executeAvatar()"
+      />
+    </client-only>
+
+    <loading :show="status == 'pending'" />
+    <div class="control">
+      <button class="i-material-symbols-light-download" title="下载" @click.prevent="modelValue && saveAs(modelValue)" />
+      <button class="i-material-symbols-light-sync" title="刷新" @click.prevent="executeAvatar()" />
+      <button class="i-material-symbols-light-reset-image" title="重置" @click.prevent="user.refreshAvatar()" />
+    </div>
+  </div>
 </template>
 
 <style lang="less" scoped>
