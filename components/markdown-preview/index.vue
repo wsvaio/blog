@@ -12,10 +12,10 @@ const theme = useThemeStore();
   <client-only>
     <md-preview
       v-model="modelValue"
-
       :theme="theme.type == 'dark' ? 'dark' : 'light'"
       class="card !font-sans !children-p-0"
       bg="![var(--bg-color)]"
+      editor-id="md-editor-v3"
     />
   </client-only>
 </template>

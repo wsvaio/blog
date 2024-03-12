@@ -8,17 +8,6 @@ useFetch(`/api/article/reads/${id}`);
 useSeoMeta({
   title: data.value.title,
 });
-
-const isMounted = $(useMounted());
-const showSub = $computed(() => {
-  if (!isMounted)
-    return false;
-  const doc = document.getElementById("md-editor-v3-preview");
-  if (!doc)
-    return false;
-
-  return !!resolveArticleTitles(doc).length;
-});
 </script>
 
 <template>
@@ -88,7 +77,7 @@ const showSub = $computed(() => {
     />
     <!-- </div> -->
 
-    <template v-if="showSub" #sub>
+    <template #sub>
       <catalog-card article-id="md-editor-v3-preview" />
     </template>
   </nuxt-layout>
