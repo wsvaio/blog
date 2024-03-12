@@ -28,7 +28,7 @@ export default defineEventHandler(async event => {
         take: pageSize,
         select,
         orderBy: {
-          updateAt: "desc"
+          createAt: "desc"
         }
       }),
 
@@ -38,7 +38,7 @@ export default defineEventHandler(async event => {
     return await db.article.findMany({
       select,
       orderBy: {
-        updateAt: "desc"
+        createAt: "desc"
       }
     });
   }
