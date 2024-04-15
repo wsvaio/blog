@@ -46,7 +46,7 @@ watchEffect(async () => {
 
 <template>
   <div
-    class="article-card" grid="~" pos="relative" overflow="hidden"
+    class="article-card" grid="~ rows-1" pos="relative" overflow="hidden"
     bg="black" rounded="1.5" :class="[type]"
   >
     <img
@@ -72,7 +72,7 @@ watchEffect(async () => {
           <small rounded="full" bg="[var(--primary-color)]" p=".12em">
             <div class="i-ic:round-edit-calendar" />
           </small>
-          <span>{{ dateFormat(data.updateAt) }}</span>
+          <span>{{ dateFormat(new Date(data.updateAt)) }}</span>
         </li>
 
         <li flex="~" gap=".5em" items="center" ml="auto">
@@ -111,7 +111,7 @@ watchEffect(async () => {
         flex="~" gap=".5em" text="14px"
       >
         <li>
-          {{ dateFormat(data.createAt) }}
+          {{ dateFormat(new Date(data.createAt)) }}
         </li>
         <li>|</li>
         <li>{{ data.reads }} 阅读</li>

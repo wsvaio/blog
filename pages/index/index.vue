@@ -80,17 +80,10 @@ function jump() {
     }
   }
 
-<<<<<<< HEAD
-	position: fixed;
-	bottom: 1em;
-	left: 50%;
-	transform: translateX(-50%);
-=======
   position: absolute;
   bottom: 1em;
   left: 50%;
   transform: translateX(-50%);
->>>>>>> 9abb75a (feat: 布局结构优化)
   animation: scroll-down-effect 1.5s infinite;
 	color: white;
 	font-size: 32px;

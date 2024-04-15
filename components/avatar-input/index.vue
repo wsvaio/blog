@@ -20,7 +20,7 @@ const { execute: executeAvatar, status } = $(
   <div class="avatar-input">
     <client-only>
       <img
-        :src="modelValue || '/error'"
+        :src="modelValue || ''"
         h="96px"
         w="96px"
         grid="row-span-full"

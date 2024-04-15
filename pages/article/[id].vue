@@ -19,12 +19,12 @@ useSeoMeta({
       >
         <li flex="~">
           <div class="i-material-symbols-calendar-month" />
-          <span>发表于 {{ dateFormat(data.createAt) }}</span>
+          <span>发表于 {{ dateFormat(new Date(data.createAt)) }}</span>
         </li>
         <li>|</li>
         <li flex="~">
           <div class="i-ic-twotone-update" />
-          <span>更新于 {{ dateFormat(data.updateAt) }}</span>
+          <span>更新于 {{ dateFormat(new Date(data.updateAt)) }}</span>
         </li>
         <li>|</li>
         <li flex="~">
