@@ -16,7 +16,7 @@
     "source.organizeImports": "never"
   },
   "less.lint.unknownAtRules": "ignore",
-  "npm.packageManager": "pnpm",
+  "npm.packageManager": "bun",
   "search.exclude": {
     "dist": true,
     "node_modules": true,
@@ -26,9 +26,6 @@
   "files.eol": "\n",
   "vue.complete.casing.props": "kebab",
   "vue.complete.casing.tags": "kebab",
-  "[svg]": {
-    "editor.defaultFormatter": "jock.svg"
-  },
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

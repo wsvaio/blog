@@ -1,4 +1,4 @@
-FROM node:alpine as builder
+FROM oven/bun:alpine as builder
 
 WORKDIR /app
 COPY . .
@@ -7,16 +7,16 @@ ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
 
-RUN npm install
-RUN npm run build
-RUN npx prisma migrate deploy
+RUN bun install
+RUN bun run build
+RUN bunx prisma migrate deploy
 
-FROM node:alpine as prod
+FROM oven/bun:alpine as prod
 WORKDIR /app
 
-COPY --from=builder /app/.output .output
+COPY --from=builder /app/.output .
 EXPOSE 7100
 
-CMD ["node", ".output/server/index.mjs"]
+CMD ["bun", "server/index.mjs"]
 
 
