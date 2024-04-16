@@ -55,7 +55,7 @@ useSeoMeta({
 
     <!-- <div class="card"> -->
 
-    <markdown-preview :model-value="data.content" />
+    <markdown-preview class="card" :model-value="data.content" />
 
     <!-- <article-copyright /> -->
     <article-previous-and-next :article-id="id" />

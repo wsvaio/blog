@@ -34,49 +34,6 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
       </nuxt-link>
     </p>
 
-    <ul
-      list="none" flex="~" gap=".25em" p="0"
-      m="0 t-.5em"
-    >
-      <li><button text="2em" border="none" class="i-logos:nuxt-icon" title="NUXT" /></li>
-      <li><button text="2em" border="none" class="i-logos:vitejs" title="VITE" /></li>
-
-      <li><button text="2em" border="none" class="i-logos:vue" title="VUE" /></li>
-      <li><button text="2em" border="none" class="i-logos:vueuse" title="VUEUSE" /></li>
-      <li><button text="2em" border="none" class="i-logos:pinia" title="PINIA" /></li>
-
-      <li><button text="2em" border="none" class="i-logos:unocss" title="UNOCSS" /></li>
-      <li><button text="2em" border="none" class="i-skill-icons:less-dark" title="LESS" /></li>
-      <li><button text="2em" border="none" class="i-logos:eslint" title="ESLINT" /></li>
-      <li><button text="2em" border="none" class="i-logos:stylelint" title="STYLELINT" /></li>
-    </ul>
-
-    <ul
-      list="none" flex="~" gap=".25em" p="0"
-      m="0 t-.5em"
-    >
-      <li><button text="2em" border="none" class="i-logos:nodejs-icon" title="NODEJS" /></li>
-      <!-- <li><button text="2em" border="none" class="i-logos:bun" title="BUNJS" /></li> -->
-      <li><button text="2em" border="none" class="i-logos:pnpm" title="PNPM" /></li>
-      <li><button text="2em" border="none" class="i-logos:typescript-icon" title="TYPESCRIPT" /></li>
-      <li><img src="https://nitro.unjs.io/icon.svg" w="2em" h="2em" title="NITRO" /></li>
-      <li><button text="2em" border="none" class="i-logos:prisma" title="PRISMA" /></li>
-      <li><button text="2em" border="none" class="i-logos:postgresql" title="POSTGRESQL" /></li>
-    </ul>
-
-    <ul
-      list="none" flex="~" gap=".25em" p="0"
-      m="0 t-.5em b-.5em"
-    >
-      <li><button text="2em" border="none" class="i-logos:git-icon" title="GIT" /></li>
-      <li><button text="2em" border="none" class="i-logos:github-icon" title="GITHUB" /></li>
-      <li><button text="2em" border="none" class="i-logos:github-actions" title="GITHUB ACTIONS" /></li>
-      <li><button text="2em" border="none" class="i-logos:docker-icon" title="DOCKER" /></li>
-      <li><button text="2em" border="none" class="i-logos:kubernetes" title="KUBERNETES" /></li>
-      <li><button text="2em" border="none" class="i-logos:nginx" title="NGINX" /></li>
-      <li><button text="2em" border="none" class="i-logos:ubuntu" title="UBUNTU" /></li>
-    </ul>
-
     <div flex="~" gap=".5em">
       <p>
         ©2023-{{ new Date().getFullYear() }} By

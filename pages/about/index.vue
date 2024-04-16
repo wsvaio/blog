@@ -1,74 +1,56 @@
-<script setup lang='ts'>
-const { data, refresh } = await useFetch<any>("/api/article/19");
-useFetch("/api/article/reads/19");
-useSeoMeta({
-  title: data.value.title,
+<script setup lang="ts">
+import READMD from "/README.md?raw";
+
+const { data: commits, execute } = await useLazyFetch<Record<any, any>[]>(
+  "https://api.github.com/repos/wsvaio/blog/commits?per_page=999",
+  { immediate: false }
+);
+onMounted(() => {
+  execute();
 });
+
+const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
+const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 </script>
 
 <template>
   <nuxt-layout banner-title="关于" banner-height="38.2dvh">
     <template #banner>
-      <ul
-        m="0 t-1.5em" p="0" list="none" flex="~"
-        gap=".5em"
-      >
-        <li flex="~">
-          <div class="i-material-symbols-calendar-month" />
-          <span>发表于 {{ new Date(data.createAt).toLocaleString() }}</span>
-        </li>
-        <li>|</li>
-        <li flex="~">
-          <div class="i-ic-twotone-update" />
-          <span>更新于 {{ new Date(data.updateAt).toLocaleString() }}</span>
-        </li>
-        <li>|</li>
-        <li flex="~">
-          <div class="i-carbon-category" />
-          <span>{{ data.type.name }}</span>
-        </li>
-      </ul>
-      <ul
-        m="0 t-1em" p="0" list="none" flex="~"
-        gap=".5em"
-      >
-        <li flex="~">
-          <div class="i-mdi-file-word-outline" />
-          <span>字数总计: {{ data.content.length }}</span>
-        </li>
-        <li>|</li>
-        <li flex="~">
-          <div class="i-carbon-view" />
-          <span>阅读量: {{ data.reads }}</span>
-        </li>
-        <li>|</li>
-        <li flex="~">
-          <div class="i-majesticons-comment-2-text-line" />
-          <span>评论数: {{ data.comments?.length }}</span>
-        </li>
-      </ul>
+      <typewriter m="1em" :content="message?.content" @finish="nextMessage" />
     </template>
+    <div class="card">
+      <markdown-preview bg="![transparent]" :model-value="READMD" />
+      <h2>更新日志（commit历史）</h2>
 
-    <markdown-preview :model-value="data.content" />
-    <comments
-      :list="
-        map(data?.comments, (item: any) => ({
-          ...item,
-          id: item.id,
-          avatar: item.user.avatar,
-          name: item.user.name,
-          site: item.user.site,
-          content: item.content,
-          comments: item.comments,
+      <!-- <ul m="0" p="0" lh="[1.5]">
+        <li v-for="item in commits" flex="~ justify-between">
+          <span>{{ item?.commit?.message }}</span>
+          <span>{{ dateFormat(new Date(item?.commit?.committer?.date).toLocaleString()) }}</span>
+        </li>
+      </ul> -->
 
-        }), { childrenKey: 'comments' })
-      "
-      :article-id="19"
-      @submit="refresh()"
-    />
+      <time-line
+        :data="
+          commits?.map(item => ({
+            item,
+            date: new Date(item?.commit?.committer?.date),
+            content: item?.commit?.message,
+          }))
+        "
+      >
+        <template #month="d">{{ d.month + 1 }}月（{{ d.items.length }}次更新）</template>
+
+        <template #default="{ item }">
+          <nuxt-link
+            :to="item?.html_url" target="_blank" text-inherit underline-transparent
+            hover="text-[var(--primary-color)]"
+          >
+            {{ item?.commit?.message }}
+          </nuxt-link>
+        </template>
+      </time-line>
+    </div>
   </nuxt-layout>
 </template>
 
-<style lang='less' scoped>
-
-</style>
+<style lang="less" scoped></style>

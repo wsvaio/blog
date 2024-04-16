@@ -40,7 +40,7 @@ const list = useListStore();
     </div>
     <div flex="~ col" items="center" p="t-0 2em">
       <h2 text="16px" font="normal" m="1em">WS</h2>
-      <p mt="0" text="14px">回头看，不曾走远</p>
+      <p mt="0" text="14px">记录编程旅程的点滴</p>
       <!-- <hr bg="1px solid [#e7eaf1]" w="[80%]" border="none" h="1px" /> -->
 
       <ul m="0" p="0" list="none" text="28px">
