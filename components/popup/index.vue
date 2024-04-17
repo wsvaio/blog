@@ -6,16 +6,16 @@ useEventListener($$(divRef), "mouseleave", () => show = false);
 </script>
 
 <template>
-	<div ref="divRef" class="popup">
-		<transition name="fade">
-			<div v-show="show" class="popuper">
-				<slot name="popuper" />
-			</div>
-		</transition>
-		<div class="trigger">
-			<slot />
-		</div>
-	</div>
+  <div ref="divRef" class="popup">
+    <transition name="fade">
+      <div v-show="show" class="popuper">
+        <slot name="popuper" />
+      </div>
+    </transition>
+    <div class="trigger">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <style lang='less' scoped>

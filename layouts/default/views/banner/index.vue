@@ -7,28 +7,29 @@ const main = useMainStore();
 const isMounted = $(useMounted());
 const divRef = $ref<HTMLDivElement>();
 const transY = computed(() => {
-	if (!isMounted || !divRef) return;
-	const clientHeiht = divRef.clientHeight;
-	return clientHeiht - y > 256 ? y / 2 : (clientHeiht - 256) / 2;
+  if (!isMounted || !divRef)
+    return;
+  const clientHeiht = divRef.clientHeight;
+  return clientHeiht - y > 256 ? y / 2 : (clientHeiht - 256) / 2;
 });
 
 useResizeObserver(
-	() => divRef,
-	() => (main.headerHideHiehgt = divRef?.clientHeight || 0)
+  () => divRef,
+  () => (main.headerHideHiehgt = divRef?.clientHeight || 0)
 );
 </script>
 
 <template>
-	<div
-		ref="divRef"
-		class="banner"
-		:style="{
-			transform: `translateY(${transY}px)`,
-		}"
-	>
-		<h1 text="40px" m="0">{{ title }}</h1>
-		<slot />
-	</div>
+  <div
+    ref="divRef"
+    class="banner"
+    :style="{
+      transform: `translateY(${transY}px)`,
+    }"
+  >
+    <h1 text="40px" m="0">{{ title }}</h1>
+    <slot />
+  </div>
 </template>
 
 <style lang="less" scoped>

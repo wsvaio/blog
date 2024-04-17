@@ -3,7 +3,7 @@ const { data } = await useFetch<Record<any, any>>("/api/article/hot");
 </script>
 
 <template>
-  <section class="tag-card card">
+  <section class="card tag-card">
     <header text="18px" flex="~ items-center">
       <span>🔥</span>
       <span>热门</span>

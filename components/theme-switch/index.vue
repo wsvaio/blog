@@ -3,20 +3,20 @@ const theme = useThemeStore();
 </script>
 
 <template>
-	<div
-		class="theme-switch"
-		:class="theme.type == 'dark' && 'enabled'"
-		@click="theme.type = theme.type == 'dark' ? 'light' : 'dark'"
-	>
-		<div
-			class="slider"
-			:style="{
-				left: theme.type == 'dark' ? '75%' : '25%',
-			}"
-		>
-			🌙
-		</div>
-	</div>
+  <div
+    class="theme-switch"
+    :class="theme.type == 'dark' && 'enabled'"
+    @click="theme.type = theme.type == 'dark' ? 'light' : 'dark'"
+  >
+    <div
+      class="slider"
+      :style="{
+        left: theme.type == 'dark' ? '75%' : '25%',
+      }"
+    >
+      🌙
+    </div>
+  </div>
 </template>
 
 <style lang="less" scoped>

@@ -1,17 +1,17 @@
 <script setup lang="ts"></script>
 
 <template>
-	<div class="music">
-		<span />
-		<span />
-		<span />
-		<span />
-		<span />
-		<span />
-		<span />
-		<span />
-		<span />
-	</div>
+  <div class="music">
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
+    <span />
+  </div>
 </template>
 
 <style lang="less" scoped>

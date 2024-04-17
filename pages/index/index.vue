@@ -36,7 +36,7 @@ function jump() {
   <nuxt-layout banner-title="HI THERE">
     <template #banner>
       <typewriter m="1em" :content="message?.content" @finish="nextMessage" />
-      <div class="i-ion-ios-arrow-down arrow" @click="jump" />
+      <div class="arrow i-ion-ios-arrow-down" @click="jump" />
     </template>
 
     <article-card v-for="(item, index) in dataList" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />

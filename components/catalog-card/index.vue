@@ -58,7 +58,7 @@ const sliderStyle = computed(() => {
 </script>
 
 <template>
-  <section v-if="titles?.length" class="catalog-card card" flex="~">
+  <section v-if="titles?.length" class="card catalog-card" flex="~">
     <!-- <header text="18px" mb="1em">文章目录</header> -->
     <!-- <deep-ul :list="titles" /> -->
     <!-- <div flex="~"> -->

@@ -1,3 +1,3 @@
 export default defineEventHandler(async () => {
-	return db.comment.findMany();
+  return db.comment.findMany();
 });

@@ -1,8 +1,7 @@
-import piniaPluginPersist from "@wsvaio/pinia-plugin-persist";
-import { defineNuxtPlugin } from "#app";
 import { setGlobalOptions } from "vue-request";
+import { defineNuxtPlugin } from "#app";
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin(_nuxtApp => {
   setGlobalOptions({
     pagination: {
       currentKey: "page",

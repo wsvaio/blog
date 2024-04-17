@@ -40,16 +40,16 @@ type ColorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 // 	{ index: 1, opacity: 0.98 },
 // ];
 const darkColorMap = [
-	{ index: 1, opacity: 0.15 },
-	{ index: 2, opacity: 0.25 },
-	{ index: 3, opacity: 0.3 },
-	{ index: 4, opacity: 0.45 },
-	{ index: 5, opacity: 0.65 },
-	{ index: 6, opacity: 0.85 },
-	{ index: 7, opacity: 0.9 },
-	{ index: 8, opacity: 0.95 },
-	{ index: 9, opacity: 0.97 },
-	{ index: 10, opacity: 0.98 },
+  { index: 1, opacity: 0.15 },
+  { index: 2, opacity: 0.25 },
+  { index: 3, opacity: 0.3 },
+  { index: 4, opacity: 0.45 },
+  { index: 5, opacity: 0.65 },
+  { index: 6, opacity: 0.85 },
+  { index: 7, opacity: 0.9 },
+  { index: 8, opacity: 0.95 },
+  { index: 9, opacity: 0.97 },
+  { index: 10, opacity: 0.98 },
 ];
 
 /**
@@ -59,28 +59,30 @@ const darkColorMap = [
  * @param isLight - 是否是亮颜色
  */
 function getHue(hsv: HsvColor, i: number, isLight: boolean) {
-	let hue: number;
+  let hue: number;
 
-	const hsvH = Math.round(hsv.h);
+  const hsvH = Math.round(hsv.h);
 
-	if (hsvH >= 60 && hsvH <= 240) {
-		// 冷色调
-		// 减淡变亮 色相顺时针旋转 更暖
-		// 加深变暗 色相逆时针旋转 更冷
-		hue = isLight ? hsvH - hueStep * i : hsvH + hueStep * i;
-	}
-	else {
-		// 暖色调
-		// 减淡变亮 色相逆时针旋转 更暖
-		// 加深变暗 色相顺时针旋转 更冷
-		hue = isLight ? hsvH + hueStep * i : hsvH - hueStep * i;
-	}
+  if (hsvH >= 60 && hsvH <= 240) {
+    // 冷色调
+    // 减淡变亮 色相顺时针旋转 更暖
+    // 加深变暗 色相逆时针旋转 更冷
+    hue = isLight ? hsvH - hueStep * i : hsvH + hueStep * i;
+  }
+  else {
+    // 暖色调
+    // 减淡变亮 色相逆时针旋转 更暖
+    // 加深变暗 色相顺时针旋转 更冷
+    hue = isLight ? hsvH + hueStep * i : hsvH - hueStep * i;
+  }
 
-	if (hue < 0) hue += 360;
+  if (hue < 0)
+    hue += 360;
 
-	if (hue >= 360) hue -= 360;
+  if (hue >= 360)
+    hue -= 360;
 
-	return hue;
+  return hue;
 }
 
 /**
@@ -90,22 +92,28 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
  * @param isLight - 是否是亮颜色
  */
 function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
-	// 灰色不渐变
-	if (hsv.h === 0 && hsv.s === 0) return hsv.s;
+  // 灰色不渐变
+  if (hsv.h === 0 && hsv.s === 0)
+    return hsv.s;
 
-	let saturation: number;
+  let saturation: number;
 
-	if (isLight) saturation = hsv.s - saturationStep * i;
-	else if (i === darkColorCount) saturation = hsv.s + saturationStep;
-	else saturation = hsv.s + saturationStep2 * i;
+  if (isLight)
+    saturation = hsv.s - saturationStep * i;
+  else if (i === darkColorCount)
+    saturation = hsv.s + saturationStep;
+  else saturation = hsv.s + saturationStep2 * i;
 
-	if (saturation > 100) saturation = 100;
+  if (saturation > 100)
+    saturation = 100;
 
-	if (isLight && i === lightColorCount && saturation > 10) saturation = 10;
+  if (isLight && i === lightColorCount && saturation > 10)
+    saturation = 10;
 
-	if (saturation < 6) saturation = 6;
+  if (saturation < 6)
+    saturation = 6;
 
-	return saturation;
+  return saturation;
 }
 
 /**
@@ -115,14 +123,16 @@ function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
  * @param isLight - 是否是亮颜色
  */
 function getValue(hsv: HsvColor, i: number, isLight: boolean) {
-	let value: number;
+  let value: number;
 
-	if (isLight) value = hsv.v + brightnessStep1 * i;
-	else value = hsv.v - brightnessStep2 * i;
+  if (isLight)
+    value = hsv.v + brightnessStep1 * i;
+  else value = hsv.v - brightnessStep2 * i;
 
-	if (value > 100) value = 100;
+  if (value > 100)
+    value = 100;
 
-	return value;
+  return value;
 }
 
 /**
@@ -132,49 +142,51 @@ function getValue(hsv: HsvColor, i: number, isLight: boolean) {
  * @returns 返回hex格式的颜色
  */
 export function getColorPalette(color: string, index: ColorIndex, mixColor = ""): string {
-	const transformColor = colord(color);
+  const transformColor = colord(color);
 
-	if (!transformColor.isValid()) throw new Error("invalid input color value");
+  if (!transformColor.isValid())
+    throw new Error("invalid input color value");
 
-	if (index === 6) return colord(transformColor).toHex();
+  if (index === 6)
+    return colord(transformColor).toHex();
 
-	const isLight = index < 6;
-	const hsv = transformColor.toHsv();
-	const i = isLight ? lightColorCount + 1 - index : index - lightColorCount - 1;
+  const isLight = index < 6;
+  const hsv = transformColor.toHsv();
+  const i = isLight ? lightColorCount + 1 - index : index - lightColorCount - 1;
 
-	const newHsv: HsvColor = {
-		h: getHue(hsv, i, isLight),
-		s: getSaturation(hsv, i, isLight),
-		v: getValue(hsv, i, isLight),
-	};
+  const newHsv: HsvColor = {
+    h: getHue(hsv, i, isLight),
+    s: getSaturation(hsv, i, isLight),
+    v: getValue(hsv, i, isLight),
+  };
 
-	return mixColor
-		? colord(mixColor)
-			.mix(colord(newHsv).toHex(), darkColorMap.find(item => item.index == index)?.opacity)
-			.toHex()
-		: colord(newHsv).toHex();
+  return mixColor
+    ? colord(mixColor)
+      .mix(colord(newHsv).toHex(), darkColorMap.find(item => item.index == index)?.opacity)
+      .toHex()
+    : colord(newHsv).toHex();
 }
 
 // 生成主题色
-export const generateColor = <T extends string>(colors: [T, string][], mixColor = "") => {
-	const actions = [
-		["", (color: string) => color],
-		["Suppl", (color: string) => color],
-		["Hover", (color: string) => getColorPalette(color, 5, mixColor)],
-		["Pressed", (color: string) => getColorPalette(color, 7, mixColor)],
-		["Active", (color: string) => colord(color).alpha(0.1).toHex()],
+export function generateColor<T extends string>(colors: [T, string][], mixColor = "") {
+  const actions = [
+    ["", (color: string) => color],
+    ["Suppl", (color: string) => color],
+    ["Hover", (color: string) => getColorPalette(color, 5, mixColor)],
+    ["Pressed", (color: string) => getColorPalette(color, 7, mixColor)],
+    ["Active", (color: string) => colord(color).alpha(0.1).toHex()],
 
-		["1", (color: string) => getColorPalette(color, 1, mixColor)],
-		["2", (color: string) => getColorPalette(color, 2, mixColor)],
-		["3", (color: string) => getColorPalette(color, 3, mixColor)],
-		["4", (color: string) => getColorPalette(color, 4, mixColor)],
-		["5", (color: string) => getColorPalette(color, 5, mixColor)],
-		["6", (color: string) => getColorPalette(color, 6, mixColor)],
-		["7", (color: string) => getColorPalette(color, 7, mixColor)],
-		["8", (color: string) => getColorPalette(color, 8, mixColor)],
-		["9", (color: string) => getColorPalette(color, 9, mixColor)],
-		["10", (color: string) => getColorPalette(color, 10, mixColor)],
-	] as const;
+    ["1", (color: string) => getColorPalette(color, 1, mixColor)],
+    ["2", (color: string) => getColorPalette(color, 2, mixColor)],
+    ["3", (color: string) => getColorPalette(color, 3, mixColor)],
+    ["4", (color: string) => getColorPalette(color, 4, mixColor)],
+    ["5", (color: string) => getColorPalette(color, 5, mixColor)],
+    ["6", (color: string) => getColorPalette(color, 6, mixColor)],
+    ["7", (color: string) => getColorPalette(color, 7, mixColor)],
+    ["8", (color: string) => getColorPalette(color, 8, mixColor)],
+    ["9", (color: string) => getColorPalette(color, 9, mixColor)],
+    ["10", (color: string) => getColorPalette(color, 10, mixColor)],
+  ] as const;
   type Scene =
     | ""
     | "Suppl"
@@ -192,8 +204,8 @@ export const generateColor = <T extends string>(colors: [T, string][], mixColor 
     | "9"
     | "10";
   const result = {} as {
-  	[key in `${T}${Scene}`]: string;
+    [key in `${T}${Scene}`]: string;
   };
   for (const [name, color] of colors) for (const [k, v] of actions) result[`${name}${k}`] = v(color);
   return result;
-};
+}

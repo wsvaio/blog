@@ -6,13 +6,14 @@ const { y } = $(useWindowScroll());
 const isMounted = $(useMounted());
 
 const needHide = computed(() => {
-  if (!isMounted) return true;
+  if (!isMounted)
+    return true;
   return y < (main.headerHideHiehgt || document.documentElement.clientHeight) - 48;
 });
 
 const headerRef = $ref<HTMLDivElement>();
 
-let show = $ref(false);
+const show = $ref(false);
 let clientWidth = $ref(0);
 useResizeObserver(
   () => headerRef,

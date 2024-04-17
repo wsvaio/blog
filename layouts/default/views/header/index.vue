@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { hideHeight } = defineProps<{
-	hideHeight?: number;
+  hideHeight?: number;
 }>();
 
 const { y } = $(useWindowScroll());
@@ -8,67 +8,68 @@ const { y } = $(useWindowScroll());
 const isMounted = $(useMounted());
 
 const needHide = computed(() => {
-	if (!isMounted) return;
-	return y < (hideHeight || document.documentElement.clientHeight) - 48;
+  if (!isMounted)
+    return;
+  return y < (hideHeight || document.documentElement.clientHeight) - 48;
 });
 </script>
 
 <template>
-	<header :class="needHide && 'hide'" flex="~" items="center">
-		<nuxt-link to="/" underline="transparent" un-text="inherit 20px">WSの小屋</nuxt-link>
-		<nav ml="auto">
-			<ul
-				flex="~" gap="2em" list="none" justify="center"
-				m="0"
-			>
-				<li
-					v-for="item in [
-						{
-							name: '首页',
-							to: '/',
-						},
-						{
-							name: '类型',
-							to: '/type',
-						},
-						{
-							name: '标签',
-							to: '/tag',
-						},
-						{
-							name: '归档',
-							to: '/article',
-						},
-						{
-							name: '留言板',
-							to: '/guestbook',
-						},
+  <header :class="needHide && 'hide'" flex="~" items="center">
+    <nuxt-link to="/" underline="transparent" un-text="inherit 20px">WSの小屋</nuxt-link>
+    <nav ml="auto">
+      <ul
+        flex="~" gap="2em" list="none" justify="center"
+        m="0"
+      >
+        <li
+          v-for="item in [
             {
-							name: '朋友们',
-							to: '/friend',
-						},
-						{
-							name: '关于',
-							to: '/about',
-						},
-					]"
-				>
-					<nuxt-link
-						hover="text-[var(--primary-color)]"
-						color="inherit"
-						underline="transparent"
-						:to="item.to"
-						:style="{
-							textDecoration: $route.path == item.to ? 'underline' : '',
-							color: $route.path == item.to ? 'var(--primary-color)' : '',
-						}"
-					>
-						{{ item.name }}
-					</nuxt-link>
-				</li>
-			</ul>
-		</nav>
-	</header>
+              name: '首页',
+              to: '/',
+            },
+            {
+              name: '类型',
+              to: '/type',
+            },
+            {
+              name: '标签',
+              to: '/tag',
+            },
+            {
+              name: '归档',
+              to: '/article',
+            },
+            {
+              name: '留言板',
+              to: '/guestbook',
+            },
+            {
+              name: '朋友们',
+              to: '/friend',
+            },
+            {
+              name: '关于',
+              to: '/about',
+            },
+          ]"
+        >
+          <nuxt-link
+            hover="text-[var(--primary-color)]"
+            color="inherit"
+            underline="transparent"
+            :to="item.to"
+            :style="{
+              textDecoration: $route.path == item.to ? 'underline' : '',
+              color: $route.path == item.to ? 'var(--primary-color)' : '',
+            }"
+          >
+            {{ item.name }}
+          </nuxt-link>
+        </li>
+      </ul>
+    </nav>
+  </header>
 </template>
 
 <style lang="less" scoped>

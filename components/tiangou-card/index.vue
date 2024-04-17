@@ -3,7 +3,7 @@ const { data, execute } = await useFetch<any>("/api/common/tiangou");
 </script>
 
 <template>
-  <section class="tiangou-card card">
+  <section class="card tiangou-card">
     <header text="18px" flex="~ items-center">
       <span>🐕</span>
       <span>舔狗日记</span>

@@ -6,12 +6,12 @@ let h = $ref(0);
 let m = $ref(0);
 let s = $ref(0);
 useIntervalFn(() => {
-	const t = Math.floor((new Date().getTime() - DATE.getTime()) / 1000);
+  const t = Math.floor((new Date().getTime() - DATE.getTime()) / 1000);
 
-	d = Math.floor(t / 86400);
-	h = Math.floor((t % 86400) / 3600);
-	m = Math.floor((t % 3600) / 60);
-	s = Math.floor(t % 60);
+  d = Math.floor(t / 86400);
+  h = Math.floor((t % 86400) / 3600);
+  m = Math.floor((t % 3600) / 60);
+  s = Math.floor(t % 60);
 }, 1000);
 
 const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
@@ -19,35 +19,35 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 </script>
 
 <template>
-	<footer
-		text="14px center" p="2em" lh="[1]" flex="~ col"
-		items="center"
-	>
-		<music-icon-lines />
+  <footer
+    text="14px center" p="2em" lh="[1]" flex="~ col"
+    items="center"
+  >
+    <music-icon-lines />
 
-		<typewriter m="1em" :content="message?.content" @finish="nextMessage" />
-		<p class="runtime">
-			本站目前勉强运行了{{ d }}天{{ h }}时{{ m }}分{{ s }}秒
-		</p>
+    <typewriter m="1em" :content="message?.content" @finish="nextMessage" />
+    <p class="runtime">
+      本站目前勉强运行了{{ d }}天{{ h }}时{{ m }}分{{ s }}秒
+    </p>
 
-		<div flex="~" gap=".5em">
-			<p>
-				©2023-{{ new Date().getFullYear() }} By
-				<nuxt-link un-text="[var(--text-color)]" underline="transparent" to="mailto:wsvaio@qq.com">WSVAIO</nuxt-link>
-			</p>
-			<p>|</p>
-			<p>
-				<nuxt-link
-					un-text="[var(--text-color)]"
-					underline="transparent"
-					to="https://beian.miit.gov.cn/"
-					target="_blank"
-				>
-					豫ICP备2023030609号-1
-				</nuxt-link>
-			</p>
-		</div>
-	</footer>
+    <div flex="~" gap=".5em">
+      <p>
+        ©2023-{{ new Date().getFullYear() }} By
+        <nuxt-link un-text="[var(--text-color)]" underline="transparent" to="mailto:wsvaio@qq.com">WSVAIO</nuxt-link>
+      </p>
+      <p>|</p>
+      <p>
+        <nuxt-link
+          un-text="[var(--text-color)]"
+          underline="transparent"
+          to="https://beian.miit.gov.cn/"
+          target="_blank"
+        >
+          豫ICP备2023030609号-1
+        </nuxt-link>
+      </p>
+    </div>
+  </footer>
 </template>
 
 <style lang="less" scoped>

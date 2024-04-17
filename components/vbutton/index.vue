@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-	<button class="vbutton">
-		<slot />
-	</button>
+  <button class="vbutton">
+    <slot />
+  </button>
 </template>
 
 <style lang="less" scoped>

@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   const body = await readFormData(event);
   const files = body.getAll("file") as File[];
 
@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
       await db.file.create({
         data: {
           name: file.name,
+          // eslint-disable-next-line node/prefer-global/buffer
           data: Buffer.from(await file.arrayBuffer()),
           type: file.type,
           lastModified: String(file.lastModified),

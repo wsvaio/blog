@@ -4,15 +4,15 @@ const { y } = $(useWindowScroll());
 </script>
 
 <template>
-	<div
-		class="banner"
-		:style="{
-			transform: `translateY(${y / 2}px)`,
-		}"
-	>
-		<h1 text="40px" m="0">{{ title }}</h1>
-		<slot />
-	</div>
+  <div
+    class="banner"
+    :style="{
+      transform: `translateY(${y / 2}px)`,
+    }"
+  >
+    <h1 text="40px" m="0">{{ title }}</h1>
+    <slot />
+  </div>
 </template>
 
 <style lang="less" scoped>

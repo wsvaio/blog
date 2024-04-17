@@ -2,39 +2,40 @@
 const buttonRef = $ref<HTMLButtonElement>();
 const buttonRefStyle = reactive<Record<any, any>>({});
 useEventListener($$(buttonRef), "mousemove", e => {
-	const boundingClientRect = buttonRef?.getBoundingClientRect();
-	if (!boundingClientRect || !buttonRef) return;
-	const x = e.clientX - boundingClientRect.left;
-	const y = e.clientY - boundingClientRect.top;
+  const boundingClientRect = buttonRef?.getBoundingClientRect();
+  if (!boundingClientRect || !buttonRef)
+    return;
+  const x = e.clientX - boundingClientRect.left;
+  const y = e.clientY - boundingClientRect.top;
 
-	const xc = boundingClientRect.width / 2;
-	const yc = boundingClientRect.height / 2;
+  const xc = boundingClientRect.width / 2;
+  const yc = boundingClientRect.height / 2;
 
-	const dx = x - xc;
-	const dy = y - yc;
+  const dx = x - xc;
+  const dy = y - yc;
 
-	buttonRefStyle["--rx"] = `${dy / -1}deg`;
-	buttonRefStyle["--ry"] = `${dx / 10}deg`;
+  buttonRefStyle["--rx"] = `${dy / -1}deg`;
+  buttonRefStyle["--ry"] = `${dx / 10}deg`;
 });
 useEventListener($$(buttonRef), "mouseleave", () => {
-	buttonRefStyle["--ty"] = "0";
-	buttonRefStyle["--rx"] = "0";
-	buttonRefStyle["--ry"] = "0";
+  buttonRefStyle["--ty"] = "0";
+  buttonRefStyle["--rx"] = "0";
+  buttonRefStyle["--ry"] = "0";
 });
 
 useEventListener($$(buttonRef), "mousedown", () => {
-	buttonRefStyle["--tz"] = "-25px";
+  buttonRefStyle["--tz"] = "-25px";
 });
 
 useEventListener("mouseup", () => {
-	buttonRefStyle["--tz"] = "-12px";
+  buttonRefStyle["--tz"] = "-12px";
 });
 </script>
 
 <template>
-	<button ref="buttonRef" class="awesome-button" :style="buttonRefStyle">
-		<div class="content"><slot /></div>
-	</button>
+  <button ref="buttonRef" class="awesome-button" :style="buttonRefStyle">
+    <div class="content"><slot /></div>
+  </button>
 </template>
 
 <style lang="less">

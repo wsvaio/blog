@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-const route = useRoute();
-const id = route.params.id;
+// const route = useRoute();
+// const id = route.params.id;
 
 const { data } = await useFetch<any>("/api/type");
 

@@ -2,26 +2,26 @@
 import type { InputHTMLAttributes, ReservedProps } from "vue";
 
 defineProps<{
-	placeholder?: string;
-	input?: InputHTMLAttributes & ReservedProps;
+  placeholder?: string;
+  input?: InputHTMLAttributes & ReservedProps;
 }>();
 const modelValue = defineModel<string>();
 </script>
 
 <template>
-	<div class="vinput">
-		<div class="prefix">
-			<slot name="prefix" />
-		</div>
+  <div class="vinput">
+    <div class="prefix">
+      <slot name="prefix" />
+    </div>
 
-		<div class="input">
-			<input v-model="modelValue" :placeholder="placeholder" :="input" />
-			<label :class="[modelValue && 'active']">{{ placeholder }}</label>
-		</div>
-		<div class="suffix">
-			<slot name="suffix" />
-		</div>
-	</div>
+    <div class="input">
+      <input v-model="modelValue" :placeholder="placeholder" :="input" />
+      <label :class="[modelValue && 'active']">{{ placeholder }}</label>
+    </div>
+    <div class="suffix">
+      <slot name="suffix" />
+    </div>
+  </div>
 </template>
 
 <style lang="less" scoped>
