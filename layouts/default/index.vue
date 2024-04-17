@@ -3,6 +3,8 @@ import BannerView from "./views/banner/index.vue";
 import MainView from "./views/main/index.vue";
 
 defineProps<{ bannerHeight?: string; bannerTitle: string }>();
+
+const { y } = useWindowScroll();
 </script>
 
 <template>
@@ -17,4 +19,15 @@ defineProps<{ bannerHeight?: string; bannerTitle: string }>();
 
     <slot />
   </main-view>
+  <transition name="fade">
+    <button
+      v-if="y >= 512" pos="fixed right-1em bottom-1em" z="10" border="none"
+      text="2em"
+      class="i-fxemoji:rocket"
+      p="0"
+      rotate="[-45deg]"
+      cursor="pointer"
+      @click="y = 0"
+    />
+  </transition>
 </template>
