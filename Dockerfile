@@ -1,4 +1,4 @@
-FROM node:alpine as builder
+FROM oven/bun:alpine as builder
 
 WORKDIR /app
 COPY . .
@@ -7,9 +7,9 @@ ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
 
-RUN npm install
-RUN npm run build
-RUN npx prisma migrate deploy
+RUN bun install
+RUN bun run build
+RUN bunx prisma migrate deploy
 
 FROM node:alpine as prod
 WORKDIR /app
