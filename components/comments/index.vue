@@ -25,8 +25,8 @@ const tpId = computed(() => `#comment${commentId || "on"}`);
 </script>
 
 <template>
-  <div class="comments card">
-    <h3>Comments | {{ list?.length }}条评论</h3>
+  <div class="card comments">
+    <h2>Comments | {{ list?.length }}条评论</h2>
 
     <div class="overflow-auto">
       <comment v-model:comment-id="commentId" :list="list" pl="0" />

@@ -78,7 +78,7 @@ useSeoMeta({
     <!-- </div> -->
 
     <template #sub>
-      <catalog-card article-id="md-editor-v3-preview" />
+      <catalog-card article-id="markdown-preview-preview" />
     </template>
   </nuxt-layout>
 </template>

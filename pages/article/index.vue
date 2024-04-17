@@ -6,11 +6,17 @@ const { data } = await useFetch<Record<any, any>[]>("/api/article");
 useSeoMeta({
   title: "归档",
 });
+
+const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
+const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 </script>
 
 <template>
   <nuxt-layout banner-title="归档" banner-height="38.2dvh">
-    <!-- <markdown-preview :model-value="data.content" /> -->
+    <template #banner>
+      <typewriter m="1em" :content="message?.content" @finish="nextMessage" />
+    </template>
+
     <div class="card">
       <time-line
         :data="

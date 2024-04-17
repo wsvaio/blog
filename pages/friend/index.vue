@@ -7,11 +7,16 @@ const { data } = await useFetch<any[]>("/api/friend");
 useSeoMeta({
   title: "朋友们",
 });
+
+const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
+const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 </script>
 
 <template>
   <nuxt-layout banner-title="朋友们" banner-height="38.2dvh">
-    <!-- <markdown-preview :model-value="data.content" /> -->
+    <template #banner>
+      <typewriter m="1em" :content="message?.content" @finish="nextMessage" />
+    </template>
 
     <ul
       list="none" flex="~" justify="center" gap="1em"

@@ -62,7 +62,6 @@ const sliderStyle = computed(() => {
     <!-- <header text="18px" mb="1em">文章目录</header> -->
     <!-- <deep-ul :list="titles" /> -->
     <!-- <div flex="~"> -->
-
     <ul
       m="0" p="0" list="none" bg="[var(--primary-color4)]"
       w="2px" pos="relative"

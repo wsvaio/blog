@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import READMD from "/README.md?raw";
 
+const { data, refresh } = await useFetch<any>("/api/article/19");
 const { data: commits, execute } = await useLazyFetch<Record<any, any>[]>(
   "https://api.github.com/repos/wsvaio/blog/commits?per_page=999",
   { immediate: false }
@@ -18,17 +19,11 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
     <template #banner>
       <typewriter m="1em" :content="message?.content" @finish="nextMessage" />
     </template>
+
+    <markdown-preview class="card" :model-value="READMD" />
+
     <div class="card">
-      <markdown-preview bg="![transparent]" :model-value="READMD" />
-      <h2>更新日志（commit历史）</h2>
-
-      <!-- <ul m="0" p="0" lh="[1.5]">
-        <li v-for="item in commits" flex="~ justify-between">
-          <span>{{ item?.commit?.message }}</span>
-          <span>{{ dateFormat(new Date(item?.commit?.committer?.date).toLocaleString()) }}</span>
-        </li>
-      </ul> -->
-
+      <h2>更新日志 | {{ commits?.length }}次更新</h2>
       <time-line
         :data="
           commits?.map(item => ({
@@ -50,6 +45,23 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
         </template>
       </time-line>
     </div>
+
+    <comments
+      :list="
+        map(data?.comments, (item: any) => ({
+          ...item,
+          id: item.id,
+          avatar: item.user.avatar,
+          name: item.user.name,
+          site: item.user.site,
+          content: item.content,
+          comments: item.comments,
+
+        }), { childrenKey: 'comments' })
+      "
+      :article-id="19"
+      @submit="refresh()"
+    />
   </nuxt-layout>
 </template>
 
