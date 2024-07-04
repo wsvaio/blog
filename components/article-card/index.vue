@@ -28,7 +28,7 @@ watchEffect(async () => {
   image
     = [...doc.querySelectorAll("img")].find(item => item.src)?.src
     || (
-      await $fetch<any>("/api/common/image2", {
+      await $fetch<any>("/api/common/image", {
         query: useMainStore().easterEgg
           ? {
               type: "dongman",

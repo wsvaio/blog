@@ -13,7 +13,9 @@
   },
   "dependencies": {
     "@types/ua-parser-js": "^0.7.39",
+    "@wsvaio/api": "^2.0.0-12",
     "@wsvaio/utils": "^1.0.22",
+    "crypto-es": "^2.1.0",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.11",
     "ua-parser-js": "^1.0.37",
@@ -47,7 +49,6 @@
     "pinia": "^2.1.7",
     "prisma": "^5.10.2",
     "stylelint": "^16.2.1",
-    "typed": "10.0.0-beta.2",
     "unocss": "^0.58.5",
     "vue": "3.4.21",
     "vue-router": "^4.3.0"

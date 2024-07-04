@@ -18,7 +18,7 @@ export default defineNuxtPlugin(() => {
         ret = Math.random() * window.innerHeight;
         break;
       case "s":
-        ret = Math.random();
+        ret = Math.random() * 40;
         break;
       case "r":
         ret = Math.random() * 6;
@@ -77,9 +77,10 @@ export default defineNuxtPlugin(() => {
     draw(cxt: CanvasRenderingContext2D) {
       cxt.save();
       // let xc = 40 * this.s / 4;
+
       cxt.translate(this.x, this.y);
       cxt.rotate(this.r);
-      cxt.drawImage(img, 0, 0, 40 * this.s, 40 * this.s);
+      cxt.drawImage(img, -this.s / 2, -this.s / 2, this.s, this.s);
       cxt.restore();
     }
 
@@ -87,19 +88,20 @@ export default defineNuxtPlugin(() => {
       this.x = this.fn.x(this.x, this.y);
       this.y = this.fn.y(this.y, this.y);
       this.r = this.fn.r(this.r);
-      if (this.x > window.innerWidth || this.x < 0 || this.y > window.innerHeight || this.y < 0) {
-        this.r = getRandom("fnr");
+      if (this.x > window.innerWidth + this.s / 2 || this.x < -this.s / 2 || this.y > window.innerHeight + this.s / 2) {
         if (Math.random() > 0.4) {
           this.x = getRandom("x");
-          this.y = 0;
           this.s = getRandom("s");
           this.r = getRandom("r");
+
+          this.y = -this.s / 2;
         }
         else {
-          this.x = window.innerWidth;
           this.y = getRandom("y");
           this.s = getRandom("s");
           this.r = getRandom("r");
+
+          this.x = window.innerWidth + this.s / 2;
         }
       }
     }
@@ -139,7 +141,8 @@ export default defineNuxtPlugin(() => {
     document.getElementsByTagName("body")[0].appendChild(canvas);
     const cxt = canvas.getContext("2d")!;
     const sakuraList = new SakuraList();
-    for (let i = 0; i < 50; i++) {
+
+    for (let i = 0; i < Math.floor((window.innerWidth * window.innerHeight) / 51840); i++) {
       const randomX = getRandom("x");
       const randomY = getRandom("y");
       const randomR = getRandom("r");

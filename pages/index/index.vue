@@ -39,7 +39,7 @@ function jump() {
       <div class="arrow i-ion-ios-arrow-down" @click="jump" />
     </template>
 
-    <article-card v-for="(item, index) in dataList" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
+    <article-card v-for="(item, index) in dataList" :key="item.id" :data="item" :type="index % 2 == 0 ? 'left' : 'right'" />
 
     <rgb-button
       v-if="!noMore"

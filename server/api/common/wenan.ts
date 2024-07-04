@@ -4,6 +4,6 @@ export default defineEventHandler(async () => {
 
   return {
     raw: data,
-    content: data.data.text,
+    content: data?.data?.text,
   };
 });

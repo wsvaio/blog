@@ -6,6 +6,8 @@
 .cache
 dist
 
+bun.lockb
+
 # Node dependencies
 
 node_modules
