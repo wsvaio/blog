@@ -20,7 +20,7 @@ useSeoMeta({
         <li>|</li>
         <li flex="~">
           <div class="i-ic-twotone-update" />
-          <span>更新于 {{ new Date(data.updateAt).toLocaleString() }}</span>
+          <span>更新于 {{ new Date(data.coreUpdateAt).toLocaleString() }}</span>
         </li>
         <li>|</li>
         <li flex="~">

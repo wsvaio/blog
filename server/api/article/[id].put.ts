@@ -29,6 +29,7 @@ export default defineEventHandler(async event => {
             },
           }
         : undefined,
+      coreUpdateAt: new Date(),
     },
     where: { id },
   });

@@ -24,7 +24,7 @@ useSeoMeta({
         <li>|</li>
         <li flex="~">
           <div class="i-ic-twotone-update" />
-          <span>更新于 {{ dateFormat(new Date(data.updateAt)) }}</span>
+          <span>更新于 {{ dateFormat(new Date(data.coreUpdateAt)) }}</span>
         </li>
         <li>|</li>
         <li flex="~">

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IArticle from "@/assets/img/article.webp";
+
 const { data, execute } = await useFetch<Record<any, any>>("/api/common/image", {
   query: computed(() =>
     useMainStore().easterEgg
@@ -19,6 +21,16 @@ onMounted(() => {
 </script>
 
 <template>
+  <!-- 打底图 -->
+  <div
+    pos="fixed left-0 top-0"
+    w="full"
+    h="100dvh"
+    :style="{
+      background: `url(${IArticle}) center / cover fixed`,
+    }"
+  />
+
   <div
     pos="fixed left-0 top-0"
     w="full"
@@ -28,13 +40,4 @@ onMounted(() => {
       transition: 'all 16s steps(16) 1s',
     }"
   />
-  <client-only>
-    <img
-      :src="data?.content" pos="absolute" w="0" h="0"
-      left="-100px"
-    />
-
-    <!-- @load="useMainStore().globalLoading = false"
-      @error="useMainStore().globalLoading = false" -->
-  </client-only>
 </template>

@@ -1,5 +1,6 @@
 export default defineEventHandler(async event => {
   const query = getQuery(event);
+  Object.keys(db.article.fields);
   const select = {
     _count: true,
     comments: true,
@@ -13,8 +14,11 @@ export default defineEventHandler(async event => {
     type: true,
     typeId: true,
     updateAt: true,
+    coreUpdateAt: true,
+
     ...JSON.parse(Array.isArray(query.select) ? query.select[0] : query.select || "{}"),
   };
+
   if (query.page && query.pageSize) {
     const page = Number(query.page) || 1;
     const pageSize = Number(query.pageSize) || 10;

@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import nodemailer from "nodemailer";
 
 export const db = new PrismaClient();
+
 export const transporter = nodemailer.createTransport({
   service: "qq",
   secure: true,

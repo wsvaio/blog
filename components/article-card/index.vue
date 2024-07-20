@@ -72,7 +72,7 @@ watchEffect(async () => {
           <small rounded="full" bg="[var(--primary-color)]" p=".12em">
             <div class="i-ic:round-edit-calendar" />
           </small>
-          <span>{{ dateFormat(new Date(data.updateAt)) }}</span>
+          <span>{{ dateFormat(new Date(data.coreUpdateAt)) }}</span>
         </li>
 
         <li flex="~" gap=".5em" items="center" ml="auto">
