@@ -35,13 +35,24 @@ export default defineNuxtConfig({
           type: "text/css",
           href: "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css",
         },
+
+        {
+          rel: "stylesheet",
+          type: "text/css",
+          href: "/pio/static/pio.css",
+        },
       ],
       script: [
         // { src: "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js", type: "text/javascript" },
-        { src: "https://apii.ctose.cn/live2d/Source-One/default/autoload.js", type: "text/javascript" },
+        // { src: "https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js", type: "text/javascript" },
+        // { src: "https://apii.ctose.cn/live2d/Source-One/default/autoload.js", type: "text/javascript" },
         { src: "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js", type: "text/javascript" },
 
+        { src: "/pio/static/l2d.js", type: "text/javascript" },
+        { src: "/pio/static/pio.js", type: "text/javascript" },
+
       ],
+
     },
 
     // PageTransitionEvent: { name: "page", mode: "out-in" },

@@ -24,7 +24,7 @@ const tree = computed(() => {
       return {
         month,
         items: list.filter(sub => sub.year === year && sub.month === month),
-        days: [...new Set(list.filter(item => item.month === month).map(item => item.day))].map(day => ({
+        days: [...new Set(list.filter(item => item.year === year && item.month === month).map(item => item.day))].map(day => ({
           day,
           items: list.filter(sub => sub.year === year && sub.month === month && sub.day === day),
         }))
@@ -83,7 +83,7 @@ const tree = computed(() => {
               shadow="md"
             />
           </div>
-          <slot :="ssub.items?.[0]">{{ ssub.items?.[0].content }}</slot>
+          <slot :="ssub.items?.[0] || {}">{{ ssub.items?.[0]?.content }}</slot>
         </li>
 
         <template v-for="sssub in ssub.items?.slice(1)">

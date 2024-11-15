@@ -14,8 +14,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          registry: registry.wsvaio.site
-          username: admin
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: cloudws
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -24,8 +24,8 @@ jobs:
             DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
           tags: |
-            registry.wsvaio.site/wsvaio/blog:latest
-            registry.wsvaio.site/wsvaio/blog:${{ github.sha }}
+            registry.cn-hangzhou.aliyuncs.com/wsvaio/blog:latest
+            registry.cn-hangzhou.aliyuncs.com/wsvaio/blog:${{ github.sha }}
   deploy:
     needs: build-image
     name: deploy to cluster

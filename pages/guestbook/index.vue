@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-const { data, refresh } = await useFetch<any>("/api/article/16");
-useFetch("/api/article/reads/16");
+const { data, refresh } = await useFetch<any>("/api/article/66");
+useFetch("/api/article/reads/67");
 useSeoMeta({
   title: data.value.title,
 });

@@ -26,7 +26,7 @@ onMounted(() => {
   <div id="aplayer" ref="divRef" :class="[]" />
 </template>
 
-<style lang="less">
+<!-- <style lang="less">
 #aplayer {
 	transform: translateX(0%);
 	transition: transform .3s;
@@ -39,4 +39,4 @@ onMounted(() => {
 		transform: translateX(0%);
 	}
 }
-</style>
+</style> -->

@@ -3,6 +3,7 @@
 <template>
   <article min="h-100dvh" font="!sans" flex="~ col">
     <!-- <isbuilding /> -->
+    <pio />
     <music />
     <background />
     <nuxt-loading-indicator />

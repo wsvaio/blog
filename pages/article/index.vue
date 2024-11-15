@@ -28,7 +28,7 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
         "
       >
         <template #month="d">
-          {{ d.month + 1 }}月（{{ d.items.length }}篇文章）
+          {{ d.month + 1 }}月（{{ d.items?.length }}篇文章）
         </template>
         <template #default="{ item }">
           <nuxt-link :to="`/article/${item?.id}`" text-inherit underline-transparent hover="text-[var(--primary-color)]">

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import READMD from "/README.md?raw";
 
-const { data, refresh } = await useFetch<any>("/api/article/19");
+const { data, refresh } = await useFetch<any>("/api/article/67");
 const { data: commits, execute } = await useLazyFetch<Record<any, any>[]>(
   "https://api.github.com/repos/wsvaio/blog/commits?per_page=999",
   { immediate: false }
