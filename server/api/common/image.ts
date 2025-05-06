@@ -21,7 +21,8 @@ export default defineEventHandler(async event => {
       // content: url,
       // content: `https://v2.api-m.com/api/wallpaper?return=302&key=${Math.random()}`
       // content: `https://www.dmoe.cc/random.php?key=${Math.random()}`,
-      content: `https://t.mwm.moe/fj?key=${Math.random()}`
+      // content: `https://t.mwm.moe/fj?key=${Math.random()}`
+      content: `https://api.mmp.cc/api/pcwallpaper?category=landscape&type=jpg&key=${Math.random()}`
     };
   }
 
