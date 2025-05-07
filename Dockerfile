@@ -1,4 +1,4 @@
-FROM node:alpine as builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 COPY . .
@@ -6,12 +6,15 @@ COPY . .
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
+RUN apk add --no-cache \
+  openssl
+
 RUN npm install
 RUN npx prisma migrate deploy
 RUN npm run build
 
 
-FROM node:alpine as prod
+FROM node:22-alpine AS prod
 WORKDIR /app
 
 COPY --from=builder /app/.output .
