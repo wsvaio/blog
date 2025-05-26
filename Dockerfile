@@ -1,4 +1,4 @@
-FROM node:lts-slim AS builder
+FROM node:lts AS builder
 
 WORKDIR /app
 COPY . .
@@ -15,7 +15,7 @@ RUN npx prisma migrate deploy
 RUN npm run build
 
 
-FROM node:lts-slim AS prod
+FROM node:lts AS prod
 WORKDIR /app
 
 COPY --from=builder /app/.output .
