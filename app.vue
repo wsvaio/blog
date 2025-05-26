@@ -1,8 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useMainStore from "@/stores/useMainStore";
+</script>
 
 <template>
   <article min="h-100dvh" font="!sans" flex="~ col">
     <!-- <isbuilding /> -->
+    <vite-pwa-manifest />
+
     <pio />
     <music />
     <background />

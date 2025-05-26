@@ -16,10 +16,15 @@ export default defineNuxtConfig({
   vue: {
     // defineModel: true,
     propsDestructure: true,
-
   },
+  imports: {
+    addons: {
+      vueTemplate: true,
 
+    }
+  },
   app: {
+
     head: {
       title: "WSの小屋",
       meta: [
@@ -30,8 +35,8 @@ export default defineNuxtConfig({
         },
         {
           name: "baidu-site-verification",
-          content: "codeva-DJiKiEnZit"
-        }
+          content: "codeva-DJiKiEnZit",
+        },
       ],
       link: [
         {
@@ -54,9 +59,7 @@ export default defineNuxtConfig({
 
         { src: "/pio/static/l2d.js", type: "text/javascript" },
         { src: "/pio/static/pio.js", type: "text/javascript" },
-
       ],
-
     },
 
     // PageTransitionEvent: { name: "page", mode: "out-in" },
@@ -69,18 +72,50 @@ export default defineNuxtConfig({
     // 	name: "page",
     // 	mode: "out-in" // 默认值
     // },
-
   },
 
   css: ["~/assets/css/main.less"],
 
-  modules: ["@unocss/nuxt", "@vueuse/nuxt", "@pinia/nuxt"],
+  modules: [
+    "@unocss/nuxt",
+    "@vueuse/nuxt",
+    "@pinia/nuxt",
+    "@nuxtjs/robots",
+    "@nuxtjs/sitemap",
+    "nuxt-seo-utils",
+    "@vite-pwa/nuxt",
+  ],
   // modules: ["@nuxtjs/stylelint-module", "@nuxtjs/eslint-module", "@unocss/nuxt", "@vueuse/nuxt", "@pinia/nuxt"],
 
   nitro: {
     imports: {
       dirs: ["~/server/utils"],
     },
+  },
+
+  pwa: {
+    manifest: {
+      name: "WSの小屋",
+      // lang: "cn",
+      short_name: "WSの小屋",
+      description:
+        "你就像天外来物一样求之不得！",
+      theme_color: "#ffffff",
+      background_color: "#ffffff",
+      display: "standalone",
+      orientation: "portrait",
+      start_url: "/",
+      icons: [
+        {
+          src: "/favicon.ico",
+          type: "image/ico",
+        },
+      ],
+    },
+  },
+  site: {
+    url: "https://wsvaio.site",
+    name: "WSの小屋",
   },
 
   // experimental: {

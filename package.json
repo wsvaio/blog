@@ -12,12 +12,16 @@
     "prisma:deploy": "prisma migrate deploy"
   },
   "dependencies": {
+    "@nuxtjs/robots": "^5.2.10",
+    "@nuxtjs/sitemap": "^7.3.0",
     "@types/ua-parser-js": "^0.7.39",
+    "@vite-pwa/nuxt": "^1.0.1",
     "@wsvaio/api": "2.0.0-12",
     "@wsvaio/utils": "^1.0.22",
     "crypto-es": "^2.1.0",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.16",
+    "nuxt-seo-utils": "^7.0.12",
     "ua-parser-js": "^1.0.39",
     "vue-request": "^2.0.4"
   },
