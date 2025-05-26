@@ -28,6 +28,10 @@ export default defineNuxtConfig({
           name: "description",
           content: "你就像天外来物一样求之不得！",
         },
+        {
+          name: "baidu-site-verification",
+          content: "codeva-DJiKiEnZit"
+        }
       ],
       link: [
         {
