@@ -61,7 +61,7 @@ onMounted(() => {
       w="full"
       h="100dvh"
       :style="{
-        background: `url(${data?.content || IArticle}) center / cover fixed`,
+        background: `url(${data?.content || IArticle}) center / cover`,
       }"
     />
   </transition>
