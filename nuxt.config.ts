@@ -82,7 +82,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/robots",
     "@nuxtjs/sitemap",
-    "nuxt-seo-utils",
+
     "@vite-pwa/nuxt",
   ],
   // modules: ["@nuxtjs/stylelint-module", "@nuxtjs/eslint-module", "@unocss/nuxt", "@vueuse/nuxt", "@pinia/nuxt"],
