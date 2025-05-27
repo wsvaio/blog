@@ -11,12 +11,15 @@ import {
 
 export default defineConfig({
   presets: [presetUno({ dark: "class" }), presetAttributify(), presetIcons(), presetWebFonts({
-    provider: "bunny", // 默认提供者
+    provider: "google", // 默认提供者
     fonts: {
       // 这些将扩展默认主题
 
       // 自定义的
-      sans: "ZCOOL XiaoWei",
+      sans: "ZCOOL KuaiLe",
+      // sans: "Zhi Mang Xing",
+      // sans: "Ma Shan Zheng",
+      // sans: "ZCOOL XiaoWei",
 
     }
 
