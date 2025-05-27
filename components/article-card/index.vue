@@ -15,8 +15,20 @@ const isMounted = $(useMounted());
 // 	if (bgImage?.value?.imgurl) return bgImage?.value?.imgurl;
 // 	executeBgImage();
 // });
+const id = useId();
+const { data: defaultImage } = useFetch(`/api/common/image?id=${id}`, {
+  query: useMainStore().easterEgg
+    ? {
+        type: "dongman",
+      }
+    : undefined,
+  // immediate: false,
+});
+// onMounted(() => {
+//   executeDefaultImage();
+// });
 
-let image = $ref("");
+let image = $ref<string>();
 const textContent = $ref("");
 
 watchEffect(async () => {
@@ -25,17 +37,8 @@ watchEffect(async () => {
   const domparser = new DOMParser();
   const doc = domparser.parseFromString(await marked(data.content), "text/html");
   // images = [...doc.querySelectorAll("img")].map(item => item.src);
-  image
-    = [...doc.querySelectorAll("img")].find(item => item.src)?.src
-    || (
-      await $fetch<any>("/api/common/image", {
-        query: useMainStore().easterEgg
-          ? {
-              type: "dongman",
-            }
-          : undefined,
-      })
-    ).content;
+  image = [...doc.querySelectorAll("img")].find(item => item.src)?.src;
+
   // image = [...doc.querySelectorAll("img")].find(item => item.src)?.src || IDefaultArticle;
   // textContent = [...doc.querySelectorAll("*")]
   //   .map(item => item.textContent)
@@ -50,13 +53,13 @@ watchEffect(async () => {
     bg="black" rounded="1.5" :class="[type]"
   >
     <img
-      class="bgimage" :src="image" pos="absolute" inset="0"
+      class="bgimage" :src="image || defaultImage?.content" pos="absolute" inset="0"
       scale="[1.55]" object="cover" h="full"
     />
 
     <div class="image">
       <img
-        :src="image" object="cover" h="full" z="10"
+        :src="image || defaultImage?.content" object="cover" h="full" z="10"
         aspect-ratio="square"
       />
     </div>
