@@ -258,3 +258,17 @@ export const emojis = [
   "💭",
   "💤",
 ];
+
+/**
+ * 预加载图片并返回Promise
+ * @param url 图片URL
+ * @returns Promise<HTMLImageElement> 加载完成的图片对象
+ */
+export function preloadImage(url: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = url;
+    img.onload = () => resolve(img);
+    img.onerror = err => reject(err);
+  });
+}
