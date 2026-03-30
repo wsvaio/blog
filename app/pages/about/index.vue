@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import READMD from "/README.md?raw";
+import READMD from "../../../README.md?raw";
 
 const { data, refresh } = await useFetch<any>("/api/article/67");
 const { data: commits, execute } = await useLazyFetch<Record<any, any>[]>(
