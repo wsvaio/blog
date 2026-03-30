@@ -1,6 +1,6 @@
 ## 关于我
 
-<img width="128" height="128" src="https://wsvaio.site/avatar.jpg" alt="wsvaio" title="wsvaio">
+<img width="128" height="128" src="https://wsvaio.cn/avatar.jpg" alt="wsvaio" title="wsvaio">
 
 ### WS
 
@@ -17,6 +17,7 @@
 ### 相关技术
 
 想要完全独立搭建一个网站，只需要三步：
+
 1. 设计
 2. 开发
 3. 部署

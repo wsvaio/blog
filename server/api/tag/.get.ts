@@ -14,12 +14,11 @@ export default defineEventHandler(async event => {
         take: pageSize,
       }),
     };
-  }
-  else {
+  } else {
     return await db.tag.findMany({
       include: {
         _count: true,
-      }
+      },
     });
   }
 });

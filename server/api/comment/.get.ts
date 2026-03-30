@@ -20,8 +20,7 @@ export default defineEventHandler(async event => {
         },
       }),
     };
-  }
-  else {
+  } else {
     return await db.comment.findMany({
       include: {
         _count: true,

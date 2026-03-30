@@ -22,8 +22,8 @@ export default defineEventHandler(async event => {
           data: undefined,
         }
       : new File([f.data], f.name, {
-        type: f.type,
-        lastModified: +f.lastModified,
-      });
+          type: f.type,
+          lastModified: +f.lastModified,
+        });
   }
 });

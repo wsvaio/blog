@@ -1,14 +1,18 @@
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
+import process from "node:process";
 import nodemailer from "nodemailer";
 
-export const db = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+export const db = new PrismaClient({ adapter });
 
 export const transporter = nodemailer.createTransport({
   service: "qq",
   secure: true,
   auth: {
     user: "wsvaio@qq.com",
-    pass: import.meta.env.EMAIL_PASS,
+
+    pass: process.env.EMAIL_PASS,
   },
 });
 

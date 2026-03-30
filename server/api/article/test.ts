@@ -3,6 +3,6 @@ export default defineEventHandler(async () => {
     select: {
       id: false,
       content: true,
-    }
+    },
   });
 });

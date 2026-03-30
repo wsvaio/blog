@@ -32,18 +32,16 @@ export default defineEventHandler(async event => {
         take: pageSize,
         select,
         orderBy: {
-          createAt: "desc"
-        }
+          createAt: "desc",
+        },
       }),
-
     };
-  }
-  else {
+  } else {
     return await db.article.findMany({
       select,
       orderBy: {
-        createAt: "desc"
-      }
+        createAt: "desc",
+      },
     });
   }
 });

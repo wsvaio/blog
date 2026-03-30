@@ -14,8 +14,7 @@ export default defineEventHandler(async event => {
         take: pageSize,
       }),
     };
-  }
-  else {
+  } else {
     return await db.friend.findMany();
   }
 });

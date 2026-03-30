@@ -1,5 +1,5 @@
-export default defineEventHandler(async event => {
-  const query = getQuery(event);
+export default defineEventHandler(async _event => {
+  // const query = getQuery(event);
 
   // const url = await fetch("http://115.231.5.254:8100?random&url").then(data => data.text());
   // const url = await fetch("http://localhost:3000?random&url").then(data => data.text());
@@ -27,17 +27,17 @@ export default defineEventHandler(async event => {
 
   // }
 
-  let url = `https://api.mmp.cc/api/pcwallpaper?category=landscape&type=jpg&key=${Math.random()}`;
-  if (query.type == "dongman") {
-    url = `https://www.dmoe.cc/random.php?key=${Math.random()}`;
-  }
+  // let url = `https://api.mmp.cc/api/pcwallpaper?category=landscape&type=jpg&key=${Math.random()}`;
+  // if (query.type == "dongman") {
+  //   url = `https://www.dmoe.cc/random.php?key=${Math.random()}`;
+  // }
+  let url = `https://www.dmoe.cc/random.php?key=${Math.random()}`;
   url = await fetch(url, {
     redirect: "manual",
   }).then(response => {
     if (response.status === 301 || response.status === 302) {
       return response.headers.get("Location")!;
-    }
-    else {
+    } else {
       return url;
     }
   });

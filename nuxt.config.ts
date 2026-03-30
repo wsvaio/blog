@@ -20,11 +20,9 @@ export default defineNuxtConfig({
   imports: {
     addons: {
       vueTemplate: true,
-
-    }
+    },
   },
   app: {
-
     head: {
       title: "WSの小屋",
       meta: [
@@ -76,30 +74,21 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.less"],
 
-  modules: [
-    "@unocss/nuxt",
-    "@vueuse/nuxt",
-    "@pinia/nuxt",
-    "@nuxtjs/robots",
-    "@nuxtjs/sitemap",
-
-    "@vite-pwa/nuxt",
-  ],
+  modules: ["@unocss/nuxt", "@vueuse/nuxt", "@pinia/nuxt", "@nuxtjs/robots", "@nuxtjs/sitemap", "@vite-pwa/nuxt"],
   // modules: ["@nuxtjs/stylelint-module", "@nuxtjs/eslint-module", "@unocss/nuxt", "@vueuse/nuxt", "@pinia/nuxt"],
 
-  nitro: {
-    imports: {
-      dirs: ["~/server/utils"],
-    },
-  },
+  // nitro: {
+  //   imports: {
+  //     dirs: ["~/server/utils"],
+  //   },
+  // },
 
   pwa: {
     manifest: {
       name: "WSの小屋",
       // lang: "cn",
       short_name: "WSの小屋",
-      description:
-        "你就像天外来物一样求之不得！",
+      description: "你就像天外来物一样求之不得！",
       theme_color: "#ffffff",
       background_color: "#ffffff",
       display: "standalone",
@@ -114,8 +103,15 @@ export default defineNuxtConfig({
     },
   },
   site: {
-    url: "https://wsvaio.site",
+    url: "https://wsvaio.cn",
     name: "WSの小屋",
+  },
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        types: ["@vue-macros/reactivity-transform/macros-global"],
+      },
+    },
   },
 
   // experimental: {

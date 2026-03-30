@@ -28,7 +28,4 @@ logs
 # .env.*
 # !.env.
 
-.stylelintcache
-
-
 pnpm-lock.yaml

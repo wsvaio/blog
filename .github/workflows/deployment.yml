@@ -20,8 +20,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          build-args:
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
+          build-args: DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
           tags: |
             registry.cn-hangzhou.aliyuncs.com/wsvaio/blog:latest

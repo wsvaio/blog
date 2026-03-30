@@ -8,7 +8,7 @@ export default defineEventHandler(async event => {
       comments: {
         include: {
           user: true,
-        }
+        },
       },
       tags: true,
       type: true,

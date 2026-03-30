@@ -3,6 +3,5 @@ export default defineEventHandler(async event => {
 
   return db.article.delete({
     where: { id },
-
   });
 });

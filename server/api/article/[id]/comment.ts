@@ -1,5 +1,5 @@
 import { marked } from "marked";
-import UAParser from "ua-parser-js";
+import { UAParser } from "ua-parser-js";
 
 export default defineEventHandler(async event => {
   const body = await readBody(event);
@@ -36,15 +36,11 @@ export default defineEventHandler(async event => {
   };
 
   const verifyErrors: Error[] = [];
-  if (!body.name)
-    verifyErrors.push(new Error("请输入昵称"));
-  if (!body.email)
-    verifyErrors.push(new Error("请输入邮箱"));
-  if (!body.content)
-    verifyErrors.push(new Error("请输入评论"));
+  if (!body.name) verifyErrors.push(new Error("请输入昵称"));
+  if (!body.email) verifyErrors.push(new Error("请输入邮箱"));
+  if (!body.content) verifyErrors.push(new Error("请输入评论"));
 
-  if (verifyErrors.length)
-    return new Error(`${verifyErrors.map(e => e.message).join("，")}。`);
+  if (verifyErrors.length) return new Error(`${verifyErrors.map(e => e.message).join("，")}。`);
 
   const user = await db.user.upsert({
     create: {
@@ -52,14 +48,14 @@ export default defineEventHandler(async event => {
       email: body.email,
       name: body.name,
       site: body.site,
-      acceptEmails: body.acceptEmails
+      acceptEmails: body.acceptEmails,
     },
     update: {
       avatar: body.avatar,
       email: body.email,
       name: body.name,
       site: body.site,
-      acceptEmails: body.acceptEmails
+      acceptEmails: body.acceptEmails,
     },
     where: {
       email: body.email,
@@ -68,8 +64,8 @@ export default defineEventHandler(async event => {
 
   const article = await db.article.findUnique({
     where: {
-      id
-    }
+      id,
+    },
   });
 
   let result: any;
@@ -83,7 +79,7 @@ export default defineEventHandler(async event => {
       },
     });
     await transporter.sendMail({
-      from: "\"WSの小屋\" wsvaio@qq.com",
+      from: '"WSの小屋" wsvaio@qq.com',
       to: "wsvaio@qq.com",
       subject: `“${user.name}”同学评论了您的文章“${article?.title}”`,
       text: result.content,
@@ -91,14 +87,13 @@ export default defineEventHandler(async event => {
 					<p>${user.name}：</p>
 					${marked(result!.content)}
 					<address>
-						<a href="https://wsvaio.site/article/${id}?commentId=${result.id}">查看原文</a>
+						<a href="https://wsvaio.cn/article/${id}?commentId=${result.id}">查看原文</a>
 					</address>
 				`,
     });
-  }
-  else {
+  } else {
     result ||= await transporter.sendMail({
-      from: "\"WSの小屋\" wsvaio@qq.com",
+      from: '"WSの小屋" wsvaio@qq.com',
       to: "wsvaio@qq.com",
       subject: `“${user.name}”同学以悄悄话的形式评论了您的文章“${article?.title}”`,
       text: body.content,
@@ -106,7 +101,7 @@ export default defineEventHandler(async event => {
 				<p>${user.name}：</p>
 				${marked(body.content)}
 				<address>
-					<a href="https://wsvaio.site/article/${id}">查看原文</a>
+					<a href="https://wsvaio.cn/article/${id}">查看原文</a>
 					<a href="mailto:${user.email}">回复ta</a>
 				</address>
 			`,

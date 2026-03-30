@@ -7,6 +7,5 @@ export default defineEventHandler(async event => {
     province: data.data.PROVINCE_CN,
     city: data.data.CITY_CN,
     isp: data.data.ISP_CN,
-
   };
 });

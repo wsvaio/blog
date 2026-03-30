@@ -1,89 +1,67 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider      = "prisma-client-js"
-  // binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
   binaryTargets = ["native", "linux-musl"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model article {
-  id      Int    @id @default(autoincrement())
-  title   String @unique
-  content String @default("")
-
-  comments comment[]
-  tags     tag[]
-  type     type      @relation(fields: [typeId], references: [id])
-
-  reads Int @default(0) // 阅读次数
-  likes Int @default(0) // 点赞次数
-
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-
-  coreUpdateAt DateTime @default(now())
-
-  typeId Int
+  id           Int       @id @default(autoincrement())
+  title        String    @unique
+  content      String    @default("")
+  createAt     DateTime  @default(now())
+  updateAt     DateTime  @updatedAt
+  typeId       Int
+  likes        Int       @default(0)
+  reads        Int       @default(0)
+  coreUpdateAt DateTime  @default(now())
+  type         type      @relation(fields: [typeId], references: [id])
+  comments     comment[]
+  tags         tag[]     @relation("articleTotag")
 }
 
-
 model comment {
-  id      Int    @id @default(autoincrement())
-  content String @default("")
-
-  user   user @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-
-  commentId Int?
-
-  comment  comment?  @relation("comment", fields: [commentId], references: [id], onDelete: Cascade)
-  comments comment[] @relation("comment")
-
-  from Json @default("{}")
-
-  article   article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  id        Int       @id @default(autoincrement())
+  content   String    @default("")
+  createAt  DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
   articleId Int
+  userId    Int
+  commentId Int?
+  from      Json      @default("{}")
+  article   article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  comment   comment?  @relation("comment", fields: [commentId], references: [id], onDelete: Cascade)
+  comments  comment[] @relation("comment")
+  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model user {
-  id           Int     @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   avatar       String
   name         String
-  email        String  @unique
+  email        String    @unique
+  createAt     DateTime  @default(now())
+  updateAt     DateTime  @updatedAt
+  site         String    @default("")
   acceptEmails Boolean
-  site         String  @default("")
-
-  createAt DateTime  @default(now())
-  updateAt DateTime  @updatedAt
-  comments comment[]
+  comments     comment[]
 }
 
 model tag {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-
-  articles article[]
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  articles article[] @relation("articleTotag")
 }
 
 model type {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
   articles article[]
 }
 
@@ -96,52 +74,42 @@ model file {
   data         Bytes
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
-
-  musics      music[] @relation("musicFile")
-  musicCovers music[] @relation("musicCover")
-  musicLrcs   music[] @relation("musicLrc")
+  musicCovers  music[]  @relation("musicCover")
+  musics       music[]  @relation("musicFile")
+  musicLrcs    music[]  @relation("musicLrc")
 }
 
 model music {
-  id     Int    @id @default(autoincrement())
-  name   String
-  artist String
-
-  file  file @relation("musicFile", fields: [fileId], references: [id])
-  cover file @relation("musicCover", fields: [coverId], references: [id])
-  lrc   file @relation("musicLrc", fields: [lrcId], references: [id])
-
-  fileId  Int
-  coverId Int
-  lrcId   Int
-
+  id       Int      @id @default(autoincrement())
+  name     String
+  artist   String
+  coverId  Int
+  fileId   Int
+  lrcId    Int
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
+  cover    file     @relation("musicCover", fields: [coverId], references: [id])
+  file     file     @relation("musicFile", fields: [fileId], references: [id])
+  lrc      file     @relation("musicLrc", fields: [lrcId], references: [id])
 }
 
 model admin {
-  id       Int    @id @default(autoincrement())
-
-  name  String @default("管理员")
-
-  username String @unique
+  id       Int      @id @default(autoincrement())
+  username String   @unique
   password String
-
-  role     Int @default(1)
-
+  role     Int      @default(1)
+  name     String   @default("管理员")
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 }
 
 model friend {
-  id       Int    @id @default(autoincrement())
-
-  name  String
-  link  String
-  avatar String?
-  descr String?
+  id         Int      @id @default(autoincrement())
+  name       String
+  link       String
+  avatar     String?
+  descr      String?
   screenshot String?
-
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  createAt   DateTime @default(now())
+  updateAt   DateTime @updatedAt
 }

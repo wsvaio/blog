@@ -17,6 +17,5 @@ export default eventHandler(event => {
   const sha1 = createHash("sha1");
   sha1.update(tmpStr);
 
-  if (sha1.digest("hex") === signature)
-    return echostr;
+  if (sha1.digest("hex") === signature) return echostr;
 });

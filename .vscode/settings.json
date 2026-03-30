@@ -1,34 +1,15 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.acceptSuggestionOnCommitCharacter": false,
-  "editor.suggest.snippetsPreventQuickSuggestions": false,
-  "editor.quickSuggestions": {
-    "other": "on",
-    "comments": "on",
-    "strings": "on"
-  },
-  "stylelint.enable": true,
-  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass", "html"],
-  "eslint.experimental.useFlatConfig": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit",
-    "source.organizeImports": "never"
+    // "source.fixAll": "explicit",
+    // "source.addMissingImports.ts": "explicit",
+    // "source.organizeImports": "explicit",
+    // "source.sortImports": "explicit",
+    "source.fixAll.oxc": "explicit"
   },
-  "less.lint.unknownAtRules": "ignore",
-  "npm.packageManager": "bun",
-  "search.exclude": {
-    "dist": true,
-    "node_modules": true,
-    "CHANGELOG.md": true,
-    "pnpm-lock.yaml": true
-  },
-  "files.eol": "\n",
-  "vue.complete.casing.props": "kebab",
-  "vue.complete.casing.tags": "kebab",
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.inlineSuggest.showToolbar": "always"
-
+  "oxc.typeAware": true,
+  "editor.formatOnSave": false,
+  "oxc.enable": true,
+  "oxc.enable.oxfmt": true,
+  "oxc.enable.oxlint": true,
+  "editor.defaultFormatter": "oxc.oxc-vscode"
 }

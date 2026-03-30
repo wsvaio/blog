@@ -1,5 +1,0 @@
-{
-  "root": true,
-  "extends": ["@wsvaio/stylelint-config"],
-  "ignoreFiles": ["node_modules", "public", "dist", "normalize.css", "* copy*"]
-}

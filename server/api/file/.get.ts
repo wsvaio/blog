@@ -24,8 +24,7 @@ export default defineEventHandler(async event => {
         },
       }),
     };
-  }
-  else {
+  } else {
     return await db.file.findMany({
       select: {
         id: true,

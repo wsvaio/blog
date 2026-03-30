@@ -6,12 +6,10 @@ export default defineEventHandler(async event => {
       title: body.title,
       content: body.content,
       tags: {
-        connectOrCreate: body?.tags.map(
-          (item: { id: number; name: string }) => ({
-            create: { name: item.name },
-            where: { name: item.name },
-          })
-        ),
+        connectOrCreate: body?.tags.map((item: { id: number; name: string }) => ({
+          create: { name: item.name },
+          where: { name: item.name },
+        })),
       },
       type: {
         connectOrCreate: {
@@ -22,7 +20,6 @@ export default defineEventHandler(async event => {
             name: body?.type?.name,
           },
         },
-
       },
     },
     where: { id },
