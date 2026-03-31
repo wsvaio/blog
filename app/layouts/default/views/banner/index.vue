@@ -53,7 +53,7 @@ useResizeObserver(
   height: 100dvh;
   min-height: 256px;
   padding: 2em;
-  transition: all 0.1s;
+  // transition: all 0.1s;
   animation: enter 0.3s;
   background: var(--background-primary);
   color: white;

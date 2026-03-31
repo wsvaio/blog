@@ -29,3 +29,6 @@ logs
 # !.env.
 
 pnpm-lock.yaml
+
+.agents
+.qoder

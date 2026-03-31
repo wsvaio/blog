@@ -38,7 +38,7 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
           to="https://beian.miit.gov.cn/"
           target="_blank"
         >
-          豫ICP备2023030609号-1
+          豫ICP备2026005290号-1
         </nuxt-link>
       </p>
     </div>

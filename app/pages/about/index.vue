@@ -2,13 +2,13 @@
 import READMD from "../../../README.md?raw";
 
 const { data, refresh } = await useFetch<any>("/api/article/67");
-const { data: commits, execute } = await useLazyFetch<Record<any, any>[]>(
-  "https://api.github.com/repos/wsvaio/blog/commits?per_page=999",
-  { immediate: false }
-);
-onMounted(() => {
-  execute();
-});
+// const { data: commits, execute } = await useLazyFetch<Record<any, any>[]>(
+//   "https://api.github.com/repos/wsvaio/blog/commits?per_page=999",
+//   { immediate: false }
+// );
+// onMounted(() => {
+//   execute();
+// });
 
 const { data: message, execute: executeMessage } = await useFetch<any>("/api/common/message");
 const nextMessage = () => setTimeout(() => executeMessage(), 5000);
@@ -22,7 +22,7 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
 
     <markdown-preview class="card" :model-value="READMD" />
 
-    <div class="card">
+    <!-- <div class="card">
       <h2>更新日志 | {{ commits?.length }}次更新</h2>
       <time-line
         :data="
@@ -47,7 +47,7 @@ const nextMessage = () => setTimeout(() => executeMessage(), 5000);
           </nuxt-link>
         </template>
       </time-line>
-    </div>
+    </div> -->
 
     <comments
       :list="
