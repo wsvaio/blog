@@ -3,15 +3,15 @@ import {
   defineConfig,
   presetAttributify,
   presetIcons,
-  presetUno,
   presetWebFonts,
+  presetWind3,
   transformerDirectives,
   transformerVariantGroup,
 } from "unocss";
 
 export default defineConfig({
   presets: [
-    presetUno({ dark: "class" }),
+    presetWind3({ dark: "class" }),
     presetAttributify(),
     presetIcons(),
     presetWebFonts({

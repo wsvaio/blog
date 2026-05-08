@@ -8,10 +8,11 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "oxlint",
-    "lint:fix": "oxlint --fix",
-    "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check"
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
+    "fmt": "vp fmt",
+    "fmt:check": "vp fmt --check",
+    "prepare": "vp config"
   },
   "dependencies": {
     "@wsvaio/utils": "^1.0.22",
@@ -43,13 +44,12 @@
     "@wsvaio/pinia-plugin-persist": "^1.0.5",
     "less": "^4.6.4",
     "nuxt": "^4.4.4",
-    "oxfmt": "^0.48.0",
-    "oxlint": "^1.63.0",
-    "oxlint-tsgolint": "^0.22.1",
     "pinia": "^3.0.4",
     "prisma": "^7.8.0",
     "unocss": "^66.6.8",
     "vue": "3.5.34",
-    "vue-router": "^5.0.6"
-  }
+    "vue-router": "^5.0.6",
+    "vite-plus": "catalog:"
+  },
+  "packageManager": "pnpm@11.0.8"
 }
