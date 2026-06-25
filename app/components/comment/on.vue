@@ -11,7 +11,7 @@ const emit = defineEmits<{
 }>();
 
 const user = useUserStore();
-
+const message = useMessage();
 const form = reactive({
   content: "",
   whispers: false,
@@ -42,6 +42,7 @@ const { execute, error, pending } = useAsyncData(async () => {
   emit("submit");
   form.content = "";
   form.notARobot = false;
+  message.success('评论成功，请等待审核')
 
   return result;
 });

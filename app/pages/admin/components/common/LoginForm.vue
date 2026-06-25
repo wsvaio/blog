@@ -48,6 +48,9 @@ const { mutateAsync: handleLogin } = useMutation({
 
       <div class="login-form__spacer" />
 
+      <input v-model="userStore.persist" type="checkbox" />
+      <span>保留信息</span>
+
       <UiButton class="login-form__submit" :disabled="loading">
         {{ loading ? "登录中..." : "登录" }}
       </UiButton>

@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import AdminArticleList from "./components/article-list/index.vue";
+import AdminCommentList from "./components/comment-list/index.vue";
 
 definePageMeta({
   layout: "admin",
 });
 
 useSeoMeta({
-  title: "文章管理",
+  title: "评论管理",
 });
 </script>
 
 <template>
-  <section class="admin-articles-page">
-    <header class="admin-articles-page__header">
+  <section class="admin-comments-page">
+    <header class="admin-comments-page__header">
       <div>
-        <p class="admin-articles-page__eyebrow">Articles</p>
-        <h1 class="admin-articles-page__title">文章管理</h1>
-        <p class="admin-articles-page__desc">查看已发布文章，支持搜索、分页和跳转预览。</p>
+        <p class="admin-comments-page__eyebrow">Comments</p>
+        <h1 class="admin-comments-page__title">评论管理</h1>
+        <p class="admin-comments-page__desc">管理博客评论，支持搜索、审核和删除。</p>
       </div>
     </header>
 
-    <div class="admin-articles-page__card">
+    <div class="admin-comments-page__card">
       <ClientOnly>
-        <AdminArticleList />
+        <AdminCommentList />
         <template #fallback>
-          <p class="admin-articles-page__loading">文章列表加载中...</p>
+          <p class="admin-comments-page__loading">评论列表加载中...</p>
         </template>
       </ClientOnly>
     </div>
@@ -32,15 +32,11 @@ useSeoMeta({
 </template>
 
 <style scoped lang="less">
-// .admin-articles-page {
-//   max-width: 1200px;
-// }
-
-.admin-articles-page__header {
+.admin-comments-page__header {
   margin-bottom: 1.25rem;
 }
 
-.admin-articles-page__eyebrow {
+.admin-comments-page__eyebrow {
   margin: 0 0 0.35rem;
   color: var(--primary-color);
   font-size: 0.75rem;
@@ -48,18 +44,18 @@ useSeoMeta({
   text-transform: uppercase;
 }
 
-.admin-articles-page__title {
+.admin-comments-page__title {
   margin: 0;
   font-size: 2rem;
 }
 
-.admin-articles-page__desc {
+.admin-comments-page__desc {
   margin: 0.5rem 0 0;
   color: var(--text-color2, var(--text-color));
   line-height: 1.8;
 }
 
-.admin-articles-page__card {
+.admin-comments-page__card {
   padding: 1.5rem;
   border: 1px solid var(--border-color7, var(--border-color));
   border-radius: 18px;
@@ -67,13 +63,13 @@ useSeoMeta({
   box-shadow: 0 12px 30px rgb(0 0 0 / 8%);
 }
 
-.admin-articles-page__loading {
+.admin-comments-page__loading {
   margin: 0;
   color: var(--text-color3, var(--text-color));
 }
 
 @media (max-width: 640px) {
-  .admin-articles-page__card {
+  .admin-comments-page__card {
     padding: 1rem;
   }
 }

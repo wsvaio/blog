@@ -29,27 +29,24 @@ export default defineStore("user", {
     },
   },
   getters: {},
-  persist: [
-    {
-      includes: ["persist", "token"],
-    },
-    {
-      excludes: ["persist", "token"],
-      setter(key, value) {
-        console.log(key, value, "asdjlfjasldfjlasdkjflasjdkf");
-        if (this.persist) {
-          localStorage.setItem(key, JSON.stringify(value));
-          sessionStorage.removeItem(key);
+  persist: {
+    storage: {
+      setItem(key, value) {
+        const state = JSON.parse(value);
+        if (state.persist) {
+          localStorage.setItem(key, value);
         } else {
-          sessionStorage.setItem(key, JSON.stringify(value));
-          localStorage.removeItem(key);
+          localStorage.setItem(
+            key,
+            JSON.stringify({
+              persist: state.persist,
+            }),
+          );
         }
       },
-      getter(key) {
-        console.log(key, "asdjlfjasldfjlasdkjflasjdkf");
-        if (this.persist) return JSON.parse(localStorage.getItem(key) || "null");
-        else return JSON.parse(sessionStorage.getItem(key) || "null");
+      getItem(key) {
+        return localStorage.getItem(key);
       },
     },
-  ],
+  },
 });

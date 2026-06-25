@@ -196,6 +196,7 @@ async function deleteType(item: TypeItem) {
         <button type="submit">搜索</button>
         <button type="button" :disabled="!keyword && !keywordInput" @click="resetSearch">重置</button>
       </form>
+      <ui-button class="type-list__create" @click="openCreateModal">新增分类</ui-button>
       <button class="type-list__refresh" type="button" :disabled="pending" @click="refetch()">
         {{ pending ? "刷新中..." : "刷新" }}
       </button>
@@ -313,6 +314,7 @@ async function deleteType(item: TypeItem) {
 }
 
 .type-list__search button,
+.type-list__create,
 .type-list__refresh {
   padding: 0.55rem 0.9rem;
   border: 1px solid var(--border-color7, var(--border-color));

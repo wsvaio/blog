@@ -1,6 +1,39 @@
 <script setup lang="ts">
+const { typeId } = defineProps<{
+  typeId?: number | string;
+}>();
+
 const list = useListStore();
-const bgImg = randomImageUrl()
+const bgImg = randomImageUrl();
+
+const normalizedTypeId = computed(() => {
+  const id = Number(typeId);
+  return Number.isInteger(id) && id > 0 ? id : undefined;
+});
+const scopedQuery = computed(() =>
+  normalizedTypeId.value ? { typeId: normalizedTypeId.value } : undefined,
+);
+
+const { data: scopedArticles } = await useFetch("/api/article", {
+  query: scopedQuery,
+  key: `article-about-articles-${normalizedTypeId.value ?? "all"}`,
+  immediate: !!normalizedTypeId.value,
+  default: () => [],
+});
+const { data: scopedTags } = await useFetch("/api/tag", {
+  query: scopedQuery,
+  key: `article-about-tags-${normalizedTypeId.value ?? "all"}`,
+  immediate: !!normalizedTypeId.value,
+  default: () => [],
+});
+
+const articleCount = computed(() =>
+  normalizedTypeId.value ? (scopedArticles.value ?? []).length : list.$articles().length,
+);
+const tagCount = computed(() =>
+  normalizedTypeId.value ? (scopedTags.value ?? []).length : list.$tags().length,
+);
+const typeCount = computed(() => (normalizedTypeId.value ? 1 : list.$types().length));
 </script>
 
 <template>
@@ -31,17 +64,17 @@ const bgImg = randomImageUrl()
 
       <ul flex="~" justify="between" m="0" p="0" list="none" w="full" items="center">
         <li flex="~ col" items="center">
-          <span>{{ list.$articles().length }}</span>
+          <span>{{ articleCount }}</span>
           <span>文章</span>
         </li>
         <li>|</li>
         <li flex="~ col" items="center">
-          <span>{{ list.$tags().length }}</span>
+          <span>{{ tagCount }}</span>
           <span>标签</span>
         </li>
         <li>|</li>
         <li flex="~ col" items="center">
-          <span>{{ list.$types().length }}</span>
+          <span>{{ typeCount }}</span>
           <span>分类</span>
         </li>
       </ul>

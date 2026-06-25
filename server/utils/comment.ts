@@ -1,9 +1,9 @@
-import { and, eq, isNull, sql } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { createError, getHeader, getRequestIP } from "h3";
 import { createHash } from "node:crypto";
 import * as v from "valibot";
 import db from "~~/server/db";
-import { articleStats, comment } from "~~/server/db/schema";
+import { comment } from "~~/server/db/schema";
 
 export const CommentBodySchema = v.object({
   content: v.pipe(
@@ -105,20 +105,39 @@ export async function createComment(params: {
       content: body.content,
       ipHash,
       userAgent,
-      status: "approved",
+      status: "pending",
     })
     .returning();
 
-  await db
-    .insert(articleStats)
-    .values({ articleId, commentCount: 1, updated_at: new Date() })
-    .onConflictDoUpdate({
-      target: articleStats.articleId,
-      set: {
-        commentCount: sql`${articleStats.commentCount} + 1`,
-        updated_at: new Date(),
-      },
+  try {
+    const article = await db.query.article.findFirst({
+      where: { id: articleId },
     });
+
+    // 通知博客管理员 审核
+    await transporter.sendMail({
+      from: '"Blog" <wsvaio@qq.com>',
+      to: "wsvaio@qq.com",
+      subject: "博客有新评论",
+      html: `<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2>博客收到了新评论</h2>
+          <p><strong>评论人：</strong>${body.name}</p>
+          <p><strong>评论内容：</strong></p>
+          <blockquote style="background: #f5f5f5; padding: 10px; border-radius: 8px;">
+            ${body.content}
+          </blockquote>
+          <p><strong>文章：</strong>${article?.title || "未知文章"}</p>
+          <p>
+            <a href="${process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000"}/article/${articleId}"
+               style="display: inline-block; padding: 10px 20px; background: #0070f3; color: white; text-decoration: none; border-radius: 6px;">
+              查看评论
+            </a>
+          </p>
+        </div>`,
+    });
+  } catch (err) {
+    console.error("邮件发送失败：", err);
+  }
 
   return data;
 }

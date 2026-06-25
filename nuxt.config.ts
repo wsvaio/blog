@@ -40,16 +40,6 @@ export default defineNuxtConfig({
   vite: {
     vue: {},
     plugins: [ReactivityTransform()],
-    optimizeDeps: {
-      include: [
-        "@wsvaio/utils",
-        "@wsvaio/pinia-plugin-persist",
-        "colord",
-        "colord/plugins/mix",
-        "colord/plugins/names",
-        "markdown-exit",
-      ],
-    },
   },
   vue: {
     // defineModel: true,
@@ -119,6 +109,7 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "@vite-pwa/nuxt",
     "@pinia/colada-nuxt",
+    "pinia-plugin-persistedstate/nuxt",
   ],
   nitro: {
     // imports: {

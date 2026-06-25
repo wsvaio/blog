@@ -25,9 +25,9 @@ useSeoMeta({
 </template>
 
 <style scoped lang="less">
-.admin-page {
-  max-width: 960px;
-}
+// .admin-page {
+//   max-width: 960px;
+// }
 
 .admin-page__header {
   margin-bottom: 1.25rem;

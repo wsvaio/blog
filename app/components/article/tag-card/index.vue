@@ -1,5 +1,19 @@
 <script setup lang="ts">
-const { data } = await useFetch<Record<any, any>>("/api/tag");
+const { typeId } = defineProps<{
+  typeId?: number | string;
+}>();
+
+const normalizedTypeId = computed(() => {
+  const id = Number(typeId);
+  return Number.isInteger(id) && id > 0 ? id : undefined;
+});
+const { data } = await useFetch<Record<any, any>[]>("/api/tag", {
+  query: computed(() =>
+    normalizedTypeId.value ? { typeId: normalizedTypeId.value } : undefined,
+  ),
+  key: `article-tags-${normalizedTypeId.value ?? "all"}`,
+  default: () => [],
+});
 </script>
 
 <template>

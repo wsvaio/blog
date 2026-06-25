@@ -3,9 +3,24 @@ import UserPanel from "../../pages/admin/components/common/UserPanel.vue";
 const user = useUserStore()
 const navItems = [
   {
+    label: "写文章",
+    to: "/admin",
+    icon: "i-carbon:edit",
+  },
+  {
     label: "文章管理",
     to: "/admin/articles",
     icon: "i-carbon:list-boxes",
+  },
+  {
+    label: "评论管理",
+    to: "/admin/comments",
+    icon: "i-carbon:chat",
+  },
+  {
+    label: "用户管理",
+    to: "/admin/users",
+    icon: "i-carbon:user",
   },
   {
     label: "分类管理",
@@ -43,7 +58,6 @@ const navItems = [
       </div>
 
       <div class="admin-layout__aside-bottom">
-        {{ user.$state }}
         <UserPanel />
       </div>
     </aside>

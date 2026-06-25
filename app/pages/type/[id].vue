@@ -34,64 +34,54 @@ const isEmpty = computed(
   () => !isLoading && !!data?.pages && dataList.value.length === 0,
 );
 const singleArticleId = computed(() => dataList.value[0]?.id);
+const currentTypeId = computed(() => {
+  const id = route.params.id;
+  return Array.isArray(id) ? id[0] : id;
+});
 const { data: article, refetch: refetchArticle } = useQuery({
   query: async () =>
     await $fetch(`/api/article/${singleArticleId.value}` as "/api/article/:id"),
   key: () => [`/api/article/${singleArticleId.value}`],
   enabled: () => !!singleArticleId.value,
 });
+
+let quote = $ref(randomQuote())
+const handleFinish = () => {
+  setTimeout(() => quote = randomQuote(), 2000)
+}
 </script>
 
 <template>
-  <nuxt-layout
-    name="default"
-    :banner-title="type?.name"
-    banner-height="38.2dvh"
-    :show-aside="dataList?.length !== 1"
-  >
+  <nuxt-layout name="default" :banner-title="type?.name" banner-height="38.2dvh">
     <template #banner>
-      <div class="type-banner mt-4">
-        <!-- <span v-if="type?.icon" class="type-banner__icon">{{ type.icon }}</span> -->
-        <p class="type-banner__desc">{{ type?.description }}</p>
-        <p class="type-banner__count">共 {{ totalArticles }} 篇文章</p>
-      </div>
+      <ui-typewriter m="1em" :content="quote" @finish="handleFinish" />
     </template>
 
     <template v-if="dataList?.length !== 1">
       <article-empty v-if="isEmpty" />
 
-      <article-article-card
-        v-for="(item, index) in dataList"
-        :key="item.id"
-        :data="item"
-        :type="index % 2 == 0 ? 'left' : 'right'"
-      />
+      <article-article-card v-for="(item, index) in dataList" :key="item.id" :data="item"
+        :type="index % 2 == 0 ? 'left' : 'right'" />
 
-      <ui-rgb-button
-        v-if="hasNextPage"
-        rounded="!4px"
-        mx="auto"
-        whitespace="nowrap"
-        w="max"
-        @click="loadNextPage"
-      >
+      <ui-rgb-button v-if="hasNextPage" rounded="!4px" mx="auto" whitespace="nowrap" w="max" @click="loadNextPage">
         {{ isLoading ? "加载中" : "加载更多" }}
       </ui-rgb-button>
     </template>
     <template v-else-if="singleArticleId">
       <markdown-preview class="card" :content="article?.content" />
       <article-previous-and-next :article-id="singleArticleId" />
-      <article-commons
-        :article-id="singleArticleId"
-        :comment-count="article?.stats?.commentCount"
-        @submit="refetchArticle()"
-      />
+      <article-commons :article-id="singleArticleId" :comment-count="article?.stats?.commentCount"
+        @submit="refetchArticle()" />
     </template>
 
     <template #aside>
-      <article-about-card />
-      <article-hot-card />
-      <article-tag-card />
+      <template v-if="dataList?.length !== 1">
+        <article-type-card :type-id="currentTypeId" />
+        <article-hot-card :type-id="currentTypeId" />
+        <article-tag-card :type-id="currentTypeId" />
+      </template>
+      <article-catalog-card v-else-if="article?.content" article-id="markdown-preview"></article-catalog-card>
+
     </template>
   </nuxt-layout>
 </template>

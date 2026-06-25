@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import AdminArticleForm from "../article-form/index.vue";
 import AdminBadge from "../common/AdminBadge.vue";
 import AdminDataTable from "../common/AdminDataTable.vue";
 import AdminModal from "../common/AdminModal.vue";
 import AdminPagination from "../common/AdminPagination.vue";
 import ArticleEditForm from "./ArticleEditForm.vue";
+
+interface ArticleListExpose {
+  refresh: () => Promise<unknown>;
+}
 
 interface ArticleType {
   id: number;
@@ -60,6 +65,7 @@ let page = $ref(1);
 let keyword = $ref("");
 let keywordInput = $ref("");
 let editingArticleId = $ref<number | null>(null);
+let createModalOpen = $ref(false);
 let editForm = $ref<ArticleEditorValue>(emptyEditorValue());
 let loadingArticle = $ref(false);
 let savingArticle = $ref(false);
@@ -96,6 +102,19 @@ const articles = $computed(() => data?.list || []);
 const total = $computed(() => data?.total || 0);
 const pageCount = $computed(() => Math.max(1, Math.ceil(total / pageSize)));
 const editModalOpen = $computed(() => editingArticleId !== null);
+
+function openCreateModal() {
+  createModalOpen = true;
+}
+
+function closeCreateModal() {
+  createModalOpen = false;
+}
+
+async function handleArticleCreated() {
+  closeCreateModal();
+  await refetch();
+}
 
 function searchArticles() {
   keyword = keywordInput.trim();
@@ -222,19 +241,14 @@ defineExpose({ refresh: refetch });
         <button type="submit">搜索</button>
         <button type="button" :disabled="!keyword && !keywordInput" @click="resetSearch">重置</button>
       </form>
+      <ui-button class="article-list__create" @click="openCreateModal">新增文章</ui-button>
       <button class="article-list__refresh" type="button" :disabled="pending" @click="refetch()">
         {{ pending ? "刷新中..." : "刷新" }}
       </button>
     </div>
 
-    <AdminDataTable
-      :empty="!articles.length"
-      :error="error"
-      :loading="pending"
-      :column-count="6"
-      empty-text="暂无文章"
-      min-width="860px"
-    >
+    <AdminDataTable :empty="!articles.length" :error="error" :loading="pending" :column-count="6" empty-text="暂无文章"
+      min-width="860px">
       <template #head>
         <tr>
           <th>标题</th>
@@ -274,18 +288,10 @@ defineExpose({ refresh: refetch });
         <td>
           <div class="article-list__actions">
             <NuxtLink class="article-list__link" :to="`/article/${item.id}`">查看</NuxtLink>
-            <a
-              class="article-list__link"
-              href="#"
-              :aria-disabled="loadingArticle || savingArticle"
-              @click.prevent="openEditModal(item)"
-            >编辑</a>
-            <a
-              class="article-list__link article-list__link--danger"
-              href="#"
-              :aria-disabled="deletingArticleId === item.id"
-              @click.prevent="deleteArticle(item)"
-            >
+            <a class="article-list__link" href="#" :aria-disabled="loadingArticle || savingArticle"
+              @click.prevent="openEditModal(item)">编辑</a>
+            <a class="article-list__link article-list__link--danger" href="#"
+              :aria-disabled="deletingArticleId === item.id" @click.prevent="deleteArticle(item)">
               {{ deletingArticleId === item.id ? "删除中" : "删除" }}
             </a>
           </div>
@@ -293,27 +299,18 @@ defineExpose({ refresh: refetch });
       </tr>
     </AdminDataTable>
 
-    <AdminPagination
-      :page="page"
-      :page-count="pageCount"
-      :total="total"
-      :page-size="pageSize"
-      :loading="pending"
-      @previous="previousPage"
-      @next="nextPage"
-    />
+    <AdminPagination :page="page" :page-count="pageCount" :total="total" :page-size="pageSize" :loading="pending"
+      @previous="previousPage" @next="nextPage" />
+
+    <AdminModal :open="createModalOpen" title="新增文章" width="860px" @close="closeCreateModal">
+      <AdminArticleForm :redirect-after-created="false" submit-text="新增文章" submitting-text="新增中..."
+        @created="handleArticleCreated" />
+    </AdminModal>
 
     <AdminModal :open="editModalOpen" title="编辑文章" width="860px" @close="closeEditModal">
       <p v-if="loadingArticle" class="article-list__loading-detail">文章详情加载中...</p>
-      <ArticleEditForm
-        v-else
-        v-model="editForm"
-        :types="types"
-        :tags="tags"
-        :submitting="savingArticle"
-        @submit="saveArticle"
-        @cancel="closeEditModal"
-      />
+      <ArticleEditForm v-else v-model="editForm" :types="types" :tags="tags" :submitting="savingArticle"
+        @submit="saveArticle" @cancel="closeEditModal" />
     </AdminModal>
   </section>
 </template>
@@ -359,6 +356,7 @@ defineExpose({ refresh: refetch });
 }
 
 .article-list__search button,
+.article-list__create,
 .article-list__refresh {
   padding: 0.55rem 0.9rem;
   border: 1px solid var(--border-color7, var(--border-color));

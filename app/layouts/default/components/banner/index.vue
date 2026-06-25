@@ -6,10 +6,12 @@ const main = useMainStore();
 
 const isMounted = $(useMounted());
 const divRef = $ref<HTMLDivElement>();
-const transY = computed(() => {
+let transY = $ref(0)
+watch(() => [isMounted, divRef], async () => {
   if (!isMounted || !divRef) return;
+  await nextTick()
   const clientHeiht = divRef.clientHeight;
-  return clientHeiht - y > 256 ? y / 2 : (clientHeiht - 256) / 2;
+  transY = clientHeiht - y > 256 ? y / 2 : (clientHeiht - 256) / 2;
 });
 
 
@@ -20,13 +22,9 @@ useResizeObserver(
 </script>
 
 <template>
-  <div
-    ref="divRef"
-    class="banner"
-    :style="{
-      transform: `translateY(${transY}px)`,
-    }"
-  >
+  <div ref="divRef" class="banner" :style="{
+    transform: `translateY(${transY}px)`,
+  }">
     <h1 text="40px" m="0">{{ title }}</h1>
     <slot />
   </div>
@@ -64,6 +62,7 @@ useResizeObserver(
 
   h1 {
     @keyframes text-jump {
+
       0%,
       25% {
         text-shadow: 2px 5px 2px #f00;

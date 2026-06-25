@@ -14,7 +14,7 @@ definePageMeta({
 
 const { data, loadNextPage, hasNextPage, isLoading } = $(useInfiniteQuery({
   key: ['/api/article/page'],
-  query: async () => (await $fetch('/api/article/page', { query: { page: 1, pageSize: 10 } })),
+  query: async ({ pageParam }) => (await $fetch('/api/article/page', { query: { page: pageParam, pageSize: 10 } })),
   getNextPageParam: (lastPage, allPages) => allPages.flatMap(item => item.list).length >= lastPage.total ? null : lastPage.page + 1,
   initialPageParam: 1,
 }))

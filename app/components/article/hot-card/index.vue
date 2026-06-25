@@ -1,5 +1,19 @@
 <script setup lang="ts">
-const { data } = await useFetch("/api/article/hot");
+const { typeId } = defineProps<{
+  typeId?: number | string;
+}>();
+
+const normalizedTypeId = computed(() => {
+  const id = Number(typeId);
+  return Number.isInteger(id) && id > 0 ? id : undefined;
+});
+const { data } = await useFetch("/api/article/hot", {
+  query: computed(() =>
+    normalizedTypeId.value ? { typeId: normalizedTypeId.value } : undefined,
+  ),
+  key: `article-hot-${normalizedTypeId.value ?? "all"}`,
+  default: () => [],
+});
 </script>
 
 <template>
