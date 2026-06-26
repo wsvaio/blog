@@ -1,21 +1,24 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
+const { randomImageUrl } = useWallpaper();
+const mainStore = useMainStore()
+let imgUrl = $ref(randomImageUrl());
 
-let imgUrl = $ref(randomImageUrl())
-
-const { resume } = useIntervalFn(() => {
-  imgUrl = randomImageUrl()
+const { resume, pause } = useIntervalFn(() => {
+  imgUrl = randomImageUrl();
 }, 16000, { immediate: false })
+
+// 监听轮播开关
+watch(() => mainStore.autoRotate, (val) => {
+  if (val) resume();
+  else pause();
+}, { immediate: true })
+
 
 onMounted(async () => {
   await preloadImage(imgUrl)
-  // await sleep(1000)
-  // let _imgUrl = randomImageUrl()
-  // await preloadImage(_imgUrl)
-  // imgUrl = _imgUrl
   imgUrl = randomImageUrl()
-  resume()
 })
 
 </script>

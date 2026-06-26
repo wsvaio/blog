@@ -7,8 +7,8 @@ const { data = {}, type = "left" } = defineProps<{
   type: "left" | "right" | "full";
 }>();
 
-
-const imgUrl = $ref(randomImageUrl());
+const isError = ref(false);
+const imgUrl = computed(() => isError.value ? defaultImage : useWallpaper().randomImageUrl());
 
 const md = createMarkdownExit();
 const isMounted = $(useMounted());
@@ -29,12 +29,11 @@ watchEffect(async () => {
 
 <template>
   <div class="article-card" grid="~ rows-1" pos="relative" overflow="hidden" bg="black" rounded="1.5" :class="[type]">
-    <img class="bgimage" :src="imgUrl || defaultImage" pos="absolute" inset="0" scale="[1.55]" object="cover" h="full"
-      @error="imgUrl = defaultImage" />
+    <img class="bgimage" :src="imgUrl" pos="absolute" inset="0" scale="[1.55]" object="cover" h="full"
+      @error="isError = true" />
 
     <div class="image">
-      <img :src="imgUrl || defaultImage" object="cover" h="full" z="10" aspect-ratio="square"
-        @error="imgUrl = defaultImage" />
+      <img :src="imgUrl" object="cover" h="full" z="10" aspect-ratio="square" @error="isError = true" />
     </div>
     <div color="white" py="48px" px="32px" z="1" flex="~ col">
       <ul m="0" p="0" list="none" flex="~" gap=".5em" text="14px">

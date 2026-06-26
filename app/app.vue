@@ -53,17 +53,17 @@ useHead({
     },
   ],
 });
-const user = useUserStore()
 </script>
 
 <template>
-  <widget-isbuilding />
+  <!-- <widget-isbuilding /> -->
   <vite-pwa-manifest />
 
   <widget-pio />
   <!-- <widget-music /> -->
   <layout-background />
   <nuxt-loading-indicator />
+  <widget-fab-menu />
 
   <!-- <LayoutHeader /> -->
 

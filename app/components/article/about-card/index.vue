@@ -4,7 +4,7 @@ const { typeId } = defineProps<{
 }>();
 
 const list = useListStore();
-const bgImg = randomImageUrl();
+const bgImg = computed(() => useWallpaper().randomImageUrl());
 
 const normalizedTypeId = computed(() => {
   const id = Number(typeId);

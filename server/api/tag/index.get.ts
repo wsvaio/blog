@@ -1,4 +1,4 @@
-import { and, desc, getColumns, inArray, isNull, sql } from "drizzle-orm";
+import { and, desc, eq, getColumns, isNull, sql } from "drizzle-orm";
 import * as v from "valibot";
 import db from "~~/server/db";
 import { article, articleToTag, tag } from "~~/server/db/schema";
@@ -34,42 +34,58 @@ defineRouteMeta({
 export default defineEventHandler(async (event) => {
   const query = await getValidatedQuery(event, data => v.parse(TagQuerySchema, data));
   const conditions = [isNull(tag.deleted_at)];
-  const articleTypeFilter = query.typeId
-    ? sql`AND ${article.typeId} = ${query.typeId}`
-    : sql``;
 
+  // 如果传了 typeId，只返回有该分类文章的标签
   if (query.typeId) {
     conditions.push(
-      inArray(
-        tag.id,
-        sql`(SELECT ${articleToTag.tagId}
-            FROM ${articleToTag}
-            JOIN ${article} ON ${article.id} = ${articleToTag.articleId}
-            WHERE ${article.typeId} = ${query.typeId}
-              AND ${article.deleted_at} IS NULL)`,
-      ),
+      sql`EXISTS (
+        SELECT 1 FROM "article_to_tag"
+        JOIN "article" ON "article"."id" = "article_to_tag"."article_id"
+        WHERE "article_to_tag"."tag_id" = "tag"."id"
+          AND "article"."type_id" = ${query.typeId}
+          AND "article"."deleted_at" IS NULL
+      )`,
     );
   }
 
+  // 先查标签列表
   const list = await db
     .select({
       ...getColumns(tag),
-      articles: sql<{ id: number }[]>`
-        COALESCE(
-          (
-            SELECT json_agg(json_build_object('id', ${article.id}))
-            FROM ${articleToTag}
-            JOIN ${article} ON ${article.id} = ${articleToTag.articleId}
-            WHERE ${articleToTag.tagId} = ${tag.id}
-              AND ${article.deleted_at} IS NULL
-              ${articleTypeFilter}
-          ),
-          '[]'::json
-        )
-      `,
     })
     .from(tag)
     .where(and(...conditions))
     .orderBy(desc(tag.created_at));
-  return list;
+
+  // 再查文章-标签关联
+  const articleQuery = db
+    .select({
+      tagId: articleToTag.tagId,
+      articleId: articleToTag.articleId,
+    })
+    .from(articleToTag)
+    .innerJoin(article, eq(article.id, articleToTag.articleId))
+    .where(
+      and(
+        isNull(article.deleted_at),
+        query.typeId ? eq(article.typeId, query.typeId) : undefined,
+      ),
+    );
+
+  const articleTags = await articleQuery;
+
+  // 按 tagId 分组
+  const articleMap = new Map<number, { id: number }[]>();
+  for (const at of articleTags) {
+    if (!articleMap.has(at.tagId)) {
+      articleMap.set(at.tagId, []);
+    }
+    articleMap.get(at.tagId)!.push({ id: at.articleId });
+  }
+
+  // 合并
+  return list.map(t => ({
+    ...t,
+    articles: articleMap.get(t.id) || [],
+  }));
 });

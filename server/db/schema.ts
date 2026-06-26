@@ -1,20 +1,20 @@
 import {
-  boolean,
-  integer,
-  jsonb,
-  pgEnum,
-  pgTable,
-  primaryKey,
-  serial,
-  text,
-  timestamp,
+    boolean,
+    integer,
+    jsonb,
+    pgEnum,
+    pgTable,
+    primaryKey,
+    serial,
+    text,
+    timestamp,
 } from "drizzle-orm/pg-core";
 
 const primaryId = () => serial().primaryKey();
 const createdAt = () => timestamp().defaultNow().notNull();
 const timestamps = () => ({
   created_at: createdAt(),
-  updated_at: timestamp(),
+  updated_at: timestamp().defaultNow(),
   deleted_at: timestamp(),
 });
 

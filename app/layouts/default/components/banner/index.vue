@@ -5,15 +5,16 @@ const { y } = $(useWindowScroll());
 const main = useMainStore();
 
 const isMounted = $(useMounted());
+const isActived = $(useActived());
+
 const divRef = $ref<HTMLDivElement>();
 let transY = $ref(0)
-watch(() => [isMounted, divRef], async () => {
-  if (!isMounted || !divRef) return;
+watch(() => [isMounted, isActived, divRef, y], async () => {
+  if (!isMounted || !divRef || !isActived) return;
   await nextTick()
   const clientHeiht = divRef.clientHeight;
   transY = clientHeiht - y > 256 ? y / 2 : (clientHeiht - 256) / 2;
 });
-
 
 useResizeObserver(
   () => divRef,

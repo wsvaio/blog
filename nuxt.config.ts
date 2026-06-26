@@ -166,7 +166,7 @@ export default defineNuxtConfig({
       compilerOptions: {
         types: ["@vue-macros/reactivity-transform/macros-global"],
       },
-      include: ["scripts/**/*.ts"],
+      include: ["../scripts/*.ts"],
     },
   },
   // experimental: {

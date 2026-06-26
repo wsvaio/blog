@@ -29,7 +29,7 @@ const { data: typeList } = useFetch('/api/type')
     <transition name="fade">
       <nav v-if="show || clientWidth >= 768"
         lt-md="pos-fixed h-100dvh w-100dvw left-0 top-0 bg-[var(--bg-color)] !text-[rgba(0,0,0,0.9)] !text-shadow-none">
-        <ul flex="~" gap="2em" list="none" justify="center" items="center" m="0"
+        <ul flex="~" gap="2em" list="none" justify="center" items="center" m="0" p="0"
           lt-md="flex-col items-center justify-center h-full">
           <li v-for="item in [
             {
@@ -73,6 +73,12 @@ const { data: typeList } = useFetch('/api/type')
             //   name: '关于',
             //   to: '/about',
             // },
+
+            {
+              icon: '🚆',
+              name: '开往',
+              to: 'https://www.travellings.cn/go.html',
+            },
           ]">
             <nuxt-link hover="!text-[var(--primary-color)]" un-text="inherit" underline="transparent" :to="item.to"
               flex="~ items-center" :style="{
@@ -84,22 +90,28 @@ const { data: typeList } = useFetch('/api/type')
             </nuxt-link>
           </li>
 
-          <li>
+          <!-- <li>
             <nuxt-link to="https://www.travellings.cn/go.html" target="_blank" rel="noopener" title="开往-友链接力"
-              hover="text-[var(--primary-color)]" un-text="inherit" flex="~ items-center" underline="transparent">
-              <!-- <img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120" /> -->
+              hover="text-[var(--primary-color)]" un-text="inherit" flex="~ items-center" underline="transparent"
+              :style="{
+                color: show ? 'var(--text-color)' : 'inherit',
+              }">
+              <img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120" />
               <span text-shadow="none">🚆</span>
               <span>开往</span>
             </nuxt-link>
-          </li>
+          </li> -->
         </ul>
       </nav>
     </transition>
 
-    <div v-if="clientWidth < 768" :class="!show ? 'i-ion:options-outline' : 'i-material-symbols:close-rounded'"
+    <!-- <div v-if="clientWidth < 768" :class="!show ? 'i-ion:options-outline' : 'i-material-symbols:close-rounded'"
       text="24px" z="10000" cursor="pointer" :style="{
         color: show ? 'var(--text-color)' : 'inherit',
-      }" @click="show = !show" />
+      }" @click="show = !show" /> -->
+    <ui-menu-button v-if="clientWidth < 768" :class="[show && 'active']" text="24px" z="10000" cursor="pointer" :style="{
+      color: show ? 'var(--text-color)' : 'inherit',
+    }" @click="show = !show" />
   </header>
 </template>
 

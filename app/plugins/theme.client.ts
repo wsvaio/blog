@@ -1,12 +1,16 @@
 import { defineNuxtPlugin } from "#app";
 
 export default defineNuxtPlugin(() => {
-  // 检测系统主题偏好
-  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-  document.documentElement.setAttribute("data-theme", mediaQuery.matches ? "dark" : "light");
+  // useTheme (useColorMode) 初始化时会自动设置 data-theme 属性
+  // 这里仅确保 composable 被调用一次进行初始化
+  const { theme } = useTheme();
 
-  // 系统主题变化时同步（仅当用户没手动切换时）
-  mediaQuery.addEventListener("change", (e) => {
-    document.documentElement.setAttribute("data-theme", e.matches ? "dark" : "light");
+  // 确保在客户端挂载时同步主题
+  onMounted(() => {
+    if (!theme.value) {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      theme.value = mediaQuery.matches ? "dark" : "light";
+    }
   });
 });
+

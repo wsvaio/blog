@@ -383,5 +383,3 @@ export const famousQuotes = [
 export const randomQuote = () => famousQuotes[Math.floor(Math.random() * famousQuotes.length)];
 
 export { default as defaultAvatarUrl } from "@/assets/img/article.jpg";
-
-export const randomImageUrl = () => `https://www.dmoe.cc/random.php?key=${Math.random()}`;

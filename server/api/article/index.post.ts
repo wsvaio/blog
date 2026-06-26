@@ -91,6 +91,7 @@ export default defineEventHandler(async (event) => {
         title: body.title,
         content: body.content,
         typeId: body.typeId,
+        updated_at: new Date(),
       })
       .returning();
 

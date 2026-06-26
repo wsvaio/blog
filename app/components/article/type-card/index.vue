@@ -3,7 +3,7 @@ const { typeId } = defineProps<{
   typeId?: number | string;
 }>();
 
-const bgImg = randomImageUrl();
+const bgImg = useWallpaper().randomImageUrl();
 
 const normalizedTypeId = computed(() => {
   const id = Number(typeId);

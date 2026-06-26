@@ -44,6 +44,8 @@ export default defineEventHandler(async _event => {
   //   url = `https://www.dmoe.cc/random.php?key=${Math.random()}`;
   // }
   let url = `https://www.dmoe.cc/random.php?key=${Math.random()}`;
+  // let url = `https://api.bimg.cc/random?key=${Math.random()}`;
+
   url = await fetch(url, {
     redirect: "manual",
   }).then(response => {

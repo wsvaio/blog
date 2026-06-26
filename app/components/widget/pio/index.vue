@@ -1,5 +1,10 @@
 <script setup lang="ts">
+
 declare const Paul_Pio: any;
+
+const main = useMainStore();
+const containerRef = $ref<HTMLDivElement>();
+
 onMounted(() => {
   const _pio = new Paul_Pio({
     mode: "fixed",
@@ -20,7 +25,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="pio-container left" transform="translate-y-15px">
+  <div
+    ref="containerRef"
+    v-show="main.pioVisible"
+    class="pio-container left"
+    transform="translate-y-15px"
+  >
     <div class="pio-action" />
     <canvas id="pio" width="350" height="350" />
   </div>

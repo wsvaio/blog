@@ -1,11 +1,27 @@
 import { defineStore } from "pinia";
 
-export default defineStore("main", {
-  state: () => ({
-    headerHideHiehgt: 0,
-    easterEgg: false,
-    globalLoading: true,
-  }),
-  actions: {},
-  getters: {},
-});
+export const useMainStore = defineStore(
+  "main",
+  () => {
+    const headerHideHiehgt = ref(0);
+    const globalLoading = ref(true);
+    const pioVisible = ref(true);
+    const wallpaperType = ref("landscape");
+    const autoRotate = ref(true);
+
+
+    return {
+      headerHideHiehgt,
+      globalLoading,
+
+      pioVisible,
+      wallpaperType,
+      autoRotate,
+    };
+  },
+  {
+    persist: true,
+  },
+);
+
+export default useMainStore;
