@@ -70,22 +70,26 @@ export default defineEventHandler(async (event) => {
 
   // 6. 生成一个独一无二的文件名（避免重名覆盖）
   // 这里使用时间戳 + 原始文件名，你也可以使用 UUID 等库
-  const timestamp = Date.now();
+  // const timestamp = Date.now();
   // 处理文件名，移除路径，只保留基础名
-  const safeOriginalName = file.filename.replace(/^.*[\\/]/, "");
-  const uniqueFileName = `${timestamp}-${safeOriginalName}`;
+  // const safeOriginalName = file.filename.replace(/^.*[\\/]/, "");
+  // const uniqueFileName = `${timestamp}-${safeOriginalName}`;
+  const uniqueFileName = crypto.randomUUID();
 
   // 7. 保存文件到存储驱动
   // setItemRaw 用于保存二进制数据 (Buffer)
   await storage.setItemRaw(uniqueFileName, file.data);
 
-  const inserted = await db.insert(fileTable).values({
-    path: `/uploads/${uniqueFileName}`,
-    filename: uniqueFileName,
-    mimeType: file.type,
-    extension: file.filename.split(".")[1],
-    size: file.data.length,
-  }).returning();
+  const inserted = await db
+    .insert(fileTable)
+    .values({
+      path: `/uploads/${uniqueFileName}`,
+      filename: uniqueFileName,
+      mimeType: file.type,
+      extension: file.filename.split(".")[1],
+      size: file.data.length,
+    })
+    .returning();
 
   const data = Array.isArray(inserted) ? inserted[0] : inserted;
 

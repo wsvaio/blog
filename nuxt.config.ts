@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import ReactivityTransform from "@vue-macros/reactivity-transform/vite";
+import { resolve } from "node:path";
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ignore: [
@@ -117,6 +118,7 @@ export default defineNuxtConfig({
     // },
     experimental: {
       openAPI: true,
+      tasks: true,
     },
     openAPI: {
       production: "runtime",
@@ -137,7 +139,17 @@ export default defineNuxtConfig({
         base: "./public/uploads",
       },
     },
+    publicAssets: [
+      {
+        baseURL: "/uploads",
+        dir: resolve("./public/uploads"),
+      },
+    ],
+    scheduledTasks: {
+      '0 3 * * *': 'cleanup'
+    }
   },
+
   pwa: {
     manifest: {
       name: "WSの小屋",

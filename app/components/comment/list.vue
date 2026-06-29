@@ -1,6 +1,5 @@
 <!-- eslint-disable import/no-self-import -->
 <script setup lang="ts">
-import { dateFormat } from "@wsvaio/utils";
 import { createMarkdownExit } from "markdown-exit";
 import Self from "./list.vue";
 
@@ -51,7 +50,7 @@ defineExpose({
         {{ item.id == commentId ? "取消" : "回复" }}
       </a>
       <small self="end">
-        <span>发布于 {{ dateFormat(new Date(item.created_at)) }}</span>
+        <span>发布于 {{ dateFormat(item.created_at) }}</span>
         <!-- <span>（</span> -->
         <!-- <span>🥁</span> -->
         <!-- <div class="i-icon-park-browser" /> -->

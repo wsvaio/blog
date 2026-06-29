@@ -1,5 +1,5 @@
 export default defineNitroPlugin(async () => {
-  console.log("🚀 Server Plugin: Initializing...");
+  // console.log("🚀 Server Plugin: Initializing...");
 
   // // ---------------------------------------------------------
   // // 1. 获取运行时配置 (Runtime Config)
@@ -68,4 +68,26 @@ export default defineNitroPlugin(async () => {
   // }
 
   // console.log("✅ Server Plugin: Initialization complete.");
+
+  console.log(`
+
+ 　　　┏┓　　　┏┓
+ 　　┏┛┻━━━┛┻┓
+ 　　┃　　　　　　　 ┃
+ 　　┃　　　━　　　 ┃
+ 　　┃　┳┛　┗┳　┃
+ 　　┃　　　　　　　 ┃
+ 　　┃　　　┻　　　 ┃
+ 　　┃　　　　　　　 ┃
+ 　　┗━┓　　　┏━┛Codes are far away from bugs with the animal protecting
+ 　　　　┃　　　┃    神兽保佑,代码无bug
+ 　　　　┃　　　┃
+ 　　　　┃　　　┗━━━┓
+ 　　　　┃　　　　　 ┣┓
+ 　　　　┃　　　　 ┏┛
+ 　　　　┗┓┓┏━┳┓┏┛
+ 　　　　　┃┫┫　┃┫┫
+ 　　　　　┗┻┛　┗┻┛
+
+`);
 });

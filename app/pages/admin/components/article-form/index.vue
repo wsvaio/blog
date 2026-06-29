@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { compressPicture } from '@wsvaio/utils';
+
 interface ArticleType {
   id: number;
   name: string;
@@ -46,13 +48,67 @@ let typeId = $ref("");
 let selectedTagIds = $ref<number[]>([]);
 let submitting = $ref(false);
 
-const canSubmit = $computed(() => title.trim() && content.trim() && Number(typeId) > 0 && !submitting);
+const contentRef = $ref<HTMLTextAreaElement>();
+
+let pastingImage = $ref(false);
+let pastedImages = $ref<string[]>([]);
+
+const canSubmit = $computed(() => title.trim() && content.trim() && Number(typeId) > 0 && !submitting && !pastingImage);
 
 function resetForm() {
   title = "";
   content = "";
   typeId = "";
   selectedTagIds = [];
+}
+
+async function handlePaste(event: ClipboardEvent) {
+  const items = event.clipboardData?.items;
+  if (!items) return;
+
+  let imageFile: File | null = null;
+  for (const item of items) {
+    if (item.type.startsWith("image/")) {
+      imageFile = item.getAsFile();
+      break;
+    }
+  }
+  if (!imageFile) return;
+  const compressFile = await compressPicture(imageFile, { width: 1280, height: 720, quality: 0.5 });
+  imageFile = imageFile.size < compressFile.size ? imageFile : compressFile;
+  event.preventDefault();
+  pastingImage = true;
+  message.info("正在上传粘贴板图片...");
+
+  try {
+    const formData = new FormData();
+    formData.append("file", imageFile);
+
+
+    const uploaded = await $fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    }) as { path: string; filename: string };
+
+    const imgMarkdown = `![](${uploaded.path})`;
+    const textarea = contentRef;
+    if (textarea) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      content = content.slice(0, start) + imgMarkdown + content.slice(end);
+      nextTick(() => {
+        const pos = start + imgMarkdown.length;
+        textarea.setSelectionRange(pos, pos);
+        textarea.focus();
+      });
+    }
+    pastedImages.push(uploaded.path);
+    message.success("图片已粘贴到正文");
+  } catch {
+    message.danger("图片上传失败");
+  } finally {
+    pastingImage = false;
+  }
 }
 
 async function submitArticle() {
@@ -118,7 +174,13 @@ async function submitArticle() {
 
       <label class="article-form__field article-form__field--full">
         <span>正文</span>
-        <textarea v-model="content" rows="14" placeholder="支持 Markdown，先从这里开始写吧。" />
+        <textarea ref="contentRef" v-model="content" rows="14" placeholder="支持 Markdown，支持粘贴图片。" @paste="handlePaste" />
+        <div v-if="pastedImages.length" class="article-form__previews">
+          <div v-for="(img, idx) in pastedImages" :key="img" class="article-form__preview">
+            <img :src="img" alt="粘贴图片预览" :title="img" />
+            <button type="button" class="article-form__preview-remove" @click="pastedImages.splice(idx, 1)">✕</button>
+          </div>
+        </div>
       </label>
     </div>
 
@@ -149,7 +211,7 @@ async function submitArticle() {
   flex-direction: column;
   gap: 0.45rem;
 
-  > span {
+  >span {
     color: var(--text-color1, var(--text-color));
     font-size: 0.9rem;
   }
@@ -281,6 +343,54 @@ async function submitArticle() {
   border-color: var(--primary-color);
   background: var(--primary-color);
   color: white;
+}
+
+.article-form__previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.article-form__preview {
+  position: relative;
+  width: 100px;
+  height: 72px;
+  overflow: hidden;
+  border: 1px solid var(--border-color7, var(--border-color));
+  border-radius: 8px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.article-form__preview-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+
+  .article-form__preview:hover & {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 640px) {

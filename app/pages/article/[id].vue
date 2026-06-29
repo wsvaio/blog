@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { dateFormat } from '@wsvaio/utils';
-
 definePageMeta({
   layout: false
 })
@@ -17,7 +15,7 @@ const { data, execute } = useFetch(`/api/article/${route.params.id}` as '/api/ar
       <ul m="0 t-1.5em" p="0" list="none" flex="~" gap=".5em">
         <li flex="~">
           <div class="i-material-symbols-calendar-month" />
-          <span>发表于 {{ dateFormat(data?.created_at) }}</span>
+          <span>发表于 {{ dateFormat(data?.created_at!) }}</span>
         </li>
         <template v-if="data?.updated_at">
           <li>|</li>

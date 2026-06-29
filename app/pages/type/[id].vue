@@ -54,7 +54,9 @@ const handleFinish = () => {
 <template>
   <nuxt-layout name="default" :banner-title="type?.name" banner-height="38.2dvh">
     <template #banner>
-      <ui-typewriter m="1em" :content="quote" @finish="handleFinish" />
+      <client-only>
+        <ui-typewriter m="1em" :content="quote" @finish="handleFinish" />
+      </client-only>
     </template>
 
     <template v-if="dataList?.length !== 1">

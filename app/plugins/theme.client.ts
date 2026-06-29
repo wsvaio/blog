@@ -6,11 +6,9 @@ export default defineNuxtPlugin(() => {
   const { theme } = useTheme();
 
   // 确保在客户端挂载时同步主题
-  onMounted(() => {
-    if (!theme.value) {
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      theme.value = mediaQuery.matches ? "dark" : "light";
-    }
-  });
+  // onMounted(() => {
+  if (!theme.value) {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    theme.value = mediaQuery.matches ? "dark" : "light";
+  }
 });
-

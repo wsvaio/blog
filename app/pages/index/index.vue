@@ -36,7 +36,9 @@ const handleFinish = () => {
 <template>
   <nuxt-layout name="default" banner-title="HI THERE">
     <template #banner>
-      <ui-typewriter m="1em" :content="quote" @finish="handleFinish" />
+      <client-only>
+        <ui-typewriter m="1em" :content="quote" @finish="handleFinish" />
+      </client-only>
       <div class="arrow i-ion-ios-arrow-down" @click="jump" />
     </template>
 

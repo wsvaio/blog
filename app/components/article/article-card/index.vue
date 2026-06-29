@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import defaultImage from "@/assets/img/occupy.jpg?url";
-import { dateFormat } from "@wsvaio/utils";
 import { createMarkdownExit } from "markdown-exit";
 const { data = {}, type = "left" } = defineProps<{
   data: Record<any, any>;
@@ -29,11 +28,15 @@ watchEffect(async () => {
 
 <template>
   <div class="article-card" grid="~ rows-1" pos="relative" overflow="hidden" bg="black" rounded="1.5" :class="[type]">
-    <img class="bgimage" :src="imgUrl" pos="absolute" inset="0" scale="[1.55]" object="cover" h="full"
-      @error="isError = true" />
+    <client-only>
+      <img class="bgimage" :src="imgUrl" pos="absolute" inset="0" scale="[1.55]" object="cover" h="full"
+        @error="isError = true" />
+    </client-only>
 
     <div class="image">
-      <img :src="imgUrl" object="cover" h="full" z="10" aspect-ratio="square" @error="isError = true" />
+      <client-only>
+        <img :src="imgUrl" object="cover" h="full" z="10" aspect-ratio="square" @error="isError = true" />
+      </client-only>
     </div>
     <div color="white" py="48px" px="32px" z="1" flex="~ col">
       <ul m="0" p="0" list="none" flex="~" gap=".5em" text="14px">
@@ -41,7 +44,7 @@ watchEffect(async () => {
           <small rounded="full" bg="[var(--primary-color)]" p=".12em">
             <div class="i-ic:round-edit-calendar" />
           </small>
-          <span>{{ dateFormat(new Date(data.updated_at)) }}</span>
+          <span>{{ dateFormat(data.updated_at) }}</span>
         </li>
 
         <li flex="~" gap=".5em" items="center" ml="auto">
@@ -73,7 +76,7 @@ watchEffect(async () => {
 
       <ul mt="auto" m="0" p="0" list="none" flex="~" gap=".5em" text="14px">
         <li>
-          {{ dateFormat(new Date(data.created_at)) }}
+          {{ dateFormat(data.created_at) }}
         </li>
         <li>|</li>
         <li>{{ data.reads }} 阅读</li>
