@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { sleep } from "@wsvaio/utils";
 import { onMounted } from "vue";
 
 const { randomImageUrl } = useWallpaper();
@@ -13,12 +14,20 @@ const { resume, pause } = useIntervalFn(() => {
 watch(() => mainStore.autoRotate, (val) => {
   if (val) resume();
   else pause();
-}, { immediate: true })
+})
 
+
+const preload = async () => {
+  await preloadImage(imgUrl)
+  const nextImgUrl = randomImageUrl();
+  await preloadImage(nextImgUrl)
+  imgUrl = nextImgUrl
+}
 
 onMounted(async () => {
-  await preloadImage(imgUrl)
-  imgUrl = randomImageUrl()
+  await Promise.race([preload()?.catch(() => { }), sleep(3000)])
+  if (mainStore.autoRotate) resume();
+  mainStore.globalLoading = false
 })
 
 </script>

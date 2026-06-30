@@ -7,7 +7,12 @@ const { data = {}, type = "left" } = defineProps<{
 }>();
 
 const isError = ref(false);
-const imgUrl = computed(() => isError.value ? defaultImage : useWallpaper().randomImageUrl());
+const wallpaper = useWallpaper();
+
+const imgUrl = computed(() => {
+  if (isError.value) return defaultImage;
+  return wallpaper.randomImageUrl(data.id);
+});
 
 const md = createMarkdownExit();
 const isMounted = $(useMounted());
@@ -28,15 +33,10 @@ watchEffect(async () => {
 
 <template>
   <div class="article-card" grid="~ rows-1" pos="relative" overflow="hidden" bg="black" rounded="1.5" :class="[type]">
-    <client-only>
-      <img class="bgimage" :src="imgUrl" pos="absolute" inset="0" scale="[1.55]" object="cover" h="full"
-        @error="isError = true" />
-    </client-only>
+    <img class="bgimage" :src="imgUrl" pos="absolute" inset="0" scale="[1.55]" object="cover" h="full" loading="lazy" />
 
     <div class="image">
-      <client-only>
-        <img :src="imgUrl" object="cover" h="full" z="10" aspect-ratio="square" @error="isError = true" />
-      </client-only>
+      <img :src="imgUrl" loading="lazy" object="cover" h="full" z="10" aspect-ratio="square" @error="isError = true" />
     </div>
     <div color="white" py="48px" px="32px" z="1" flex="~ col">
       <ul m="0" p="0" list="none" flex="~" gap=".5em" text="14px">

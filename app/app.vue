@@ -67,9 +67,9 @@ useHead({
 
   <!-- <LayoutHeader /> -->
 
-  <!-- <transition name="fade">
-      <layout-global-loading v-show="useMainStore().globalLoading" />
-    </transition> -->
+  <transition name="fade">
+    <layout-global-loading v-show="useMainStore().globalLoading" />
+  </transition>
 
 
   <nuxt-layout>

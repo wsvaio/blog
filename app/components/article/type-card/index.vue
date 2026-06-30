@@ -3,7 +3,7 @@ const { typeId } = defineProps<{
   typeId?: number | string;
 }>();
 
-const bgImg = useWallpaper().randomImageUrl();
+const bgImg = useWallpaper().randomImageUrl('type-card');
 
 const normalizedTypeId = computed(() => {
   const id = Number(typeId);
@@ -53,6 +53,7 @@ const tagCount = computed(() => (scopedTags.value ?? []).length);
           maskImage: 'linear-gradient(black 61.8%, transparent)',
           '-webkit-mask-image': 'linear-gradient(black 61.8%, transparent)',
         }"
+        loading="lazy"
       />
       <div
         text="36px"

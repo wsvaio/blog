@@ -9,7 +9,6 @@ export const useMainStore = defineStore(
     const wallpaperType = ref("landscape");
     const autoRotate = ref(true);
 
-
     return {
       headerHideHiehgt,
       globalLoading,
@@ -20,7 +19,9 @@ export const useMainStore = defineStore(
     };
   },
   {
-    persist: true,
+    persist: {
+      omit: ["globalLoading"],
+    },
   },
 );
 

@@ -1,4 +1,3 @@
-
 export type WallpaperType = "anime" | "landscape";
 
 const WALLPAPER_APIS: Record<string, string> = {
@@ -21,7 +20,8 @@ export const useWallpaper = () => {
     mainStore.autoRotate = !mainStore.autoRotate;
   };
 
-  const randomImageUrl = () => `${WALLPAPER_APIS[mainStore.wallpaperType]}?key=${Math.random()}`;
+  const randomImageUrl = (key?: number | string) =>
+    `${WALLPAPER_APIS[mainStore.wallpaperType]}?key=${key || Math.random()}`;
 
   return {
     randomImageUrl,

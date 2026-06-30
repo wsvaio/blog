@@ -4,7 +4,7 @@ const { typeId } = defineProps<{
 }>();
 
 const list = useListStore();
-const bgImg = computed(() => useWallpaper().randomImageUrl());
+const bgImg = computed(() => useWallpaper().randomImageUrl('about-card'));
 
 const normalizedTypeId = computed(() => {
   const id = Number(typeId);
@@ -43,7 +43,7 @@ const typeCount = computed(() => (normalizedTypeId.value ? 1 : list.$types().len
         <img :src="bgImg" w="full" h="full" pos="absolute" inset="0" aspect-ratio="square" object="cover" z="1" :style="{
           'maskImage': 'linear-gradient(black 61.8%, transparent)',
           '-webkit-mask-image': 'linear-gradient(black 61.8%, transparent)',
-        }" />
+        }" loading="lazy" />
       </client-only>
       <img src="@/assets/img/avatar.png" w="75px" h="75px" rounded="full" shadow="[0_1px_4px_rgba(100,110,120,.53)]"
         box="border" z="2" />
