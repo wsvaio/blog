@@ -33,7 +33,7 @@ const totalArticles = computed(() => data?.pages?.[0]?.total ?? 0);
 const isEmpty = computed(
   () => !isLoading && !!data?.pages && dataList.value.length === 0,
 );
-const singleArticleId = computed(() => dataList.value[0]?.id);
+const singleArticleId = computed(() => dataList?.value?.length === 1 ? dataList.value[0]?.id : undefined);
 const currentTypeId = computed(() => {
   const id = route.params.id;
   return Array.isArray(id) ? id[0] : id;
@@ -45,6 +45,13 @@ const { data: article, refetch: refetchArticle } = useQuery({
   enabled: () => !!singleArticleId.value,
 });
 
+useQuery({
+  query: async () =>
+    await $fetch(`/api/article/${singleArticleId.value}/stats/view` as "/api/article/:id/stats/view", { method: "post" }),
+  key: () => [`/api/article/${singleArticleId.value}/stats/view`],
+  enabled: () => !!singleArticleId.value,
+});
+
 let quote = $ref(randomQuote())
 const handleFinish = () => {
   setTimeout(() => quote = randomQuote(), 2000)
@@ -52,9 +59,48 @@ const handleFinish = () => {
 </script>
 
 <template>
-  <nuxt-layout name="default" :banner-title="type?.name" banner-height="38.2dvh">
+  <nuxt-layout name="default" :banner-title="article?.title || type?.name" banner-height="38.2dvh">
     <template #banner>
-      <client-only>
+
+
+      <template v-if="singleArticleId">
+        <ul m="0 t-1.5em" p="0" list="none" flex="~" gap=".5em">
+          <li flex="~">
+            <div class="i-material-symbols-calendar-month" />
+            <span>发表于 {{ dateFormat(article?.created_at!) }}</span>
+          </li>
+          <template v-if="article?.updated_at">
+            <li>|</li>
+            <li flex="~">
+              <div class="i-ic-twotone-update" />
+              <span>更新于 {{ dateFormat(article?.updated_at) }}</span>
+            </li>
+          </template>
+          <li>|</li>
+          <li flex="~">
+            <div class="i-carbon-category" />
+            <span>{{ article?.type?.name || '' }}</span>
+          </li>
+        </ul>
+        <ul m="0 t-1em" p="0" list="none" flex="~" gap=".5em">
+          <li flex="~">
+            <div class="i-mdi-file-word-outline" />
+            <span>字数总计: {{ article?.content?.length || 0 }}</span>
+          </li>
+          <li>|</li>
+          <li flex="~">
+            <div class="i-carbon-view" />
+            <span>阅读量: {{ article?.stats?.viewCount }}</span>
+          </li>
+          <li>|</li>
+          <li flex="~">
+            <div class="i-majesticons-comment-2-text-line" />
+            <span>评论数: {{ article?.stats?.commentCount }}</span>
+          </li>
+        </ul>
+      </template>
+
+      <client-only v-else>
         <ui-typewriter m="1em" :content="quote" @finish="handleFinish" />
       </client-only>
     </template>

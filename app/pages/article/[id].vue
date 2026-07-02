@@ -7,6 +7,10 @@ const route = useRoute();
 const articleId = computed(() => Number(route.params.id));
 
 const { data, execute } = useFetch(`/api/article/${route.params.id}` as '/api/article/:id')
+const { execute: executeView } = useFetch(`/api/article/${route.params.id}/stats/view`, { method: 'post', immediate: false })
+onMounted(() => {
+  executeView()
+})
 </script>
 
 <template>

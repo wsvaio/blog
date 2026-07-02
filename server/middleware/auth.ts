@@ -12,6 +12,8 @@ export default defineEventHandler(async (event) => {
     "/api/comment/:id/comment",
     "/api/user/upsert",
     "/api/file",
+
+    "/api/article/:id/stats/view"
   ];
   // GET 请求和公开路由不需要认证
   if (event.method === "GET" || publicRoutes.some(route => {

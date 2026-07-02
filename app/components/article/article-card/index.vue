@@ -79,9 +79,9 @@ watchEffect(async () => {
           {{ dateFormat(data.created_at) }}
         </li>
         <li>|</li>
-        <li>{{ data.reads }} 阅读</li>
+        <li>{{ data.stats?.viewCount }} 阅读</li>
         <li>|</li>
-        <li>{{ data._count?.comment }} 评论</li>
+        <li>{{ data.stats?.commentCount }} 评论</li>
         <li>|</li>
         <li>{{ data.content.length }} 字数</li>
       </ul>

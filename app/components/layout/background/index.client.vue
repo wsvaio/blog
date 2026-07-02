@@ -25,7 +25,7 @@ const preload = async () => {
 }
 
 onMounted(async () => {
-  await Promise.race([preload()?.catch(() => { }), sleep(3000)])
+  await Promise.race([preload()?.catch(() => { }), sleep(1000)])
   if (mainStore.autoRotate) resume();
   mainStore.globalLoading = false
 })
