@@ -19,7 +19,7 @@
 
 
 
-FROM oven/bun:1.3-alpine AS build
+FROM oven/bun:canary-alpine AS build
 
 WORKDIR /app
 COPY . .
@@ -28,7 +28,7 @@ RUN bun install
 RUN bun run build
 
 
-FROM oven/bun:1.3-alpine AS prod
+FROM oven/bun:canary-alpine AS prod
 WORKDIR /app
 
 COPY --from=build /app/.output .

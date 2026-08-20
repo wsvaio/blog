@@ -21,6 +21,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
+          platforms: linux/amd64
+          provenance: false
+          sbom: false
           tags: |
             registry.cn-hangzhou.aliyuncs.com/wsvaio/blog:latest
             registry.cn-hangzhou.aliyuncs.com/wsvaio/blog:${{ github.sha }}
