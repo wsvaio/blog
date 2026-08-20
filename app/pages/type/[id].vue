@@ -18,9 +18,9 @@ const {
   isLoading,
 } = $(useInfiniteQuery({
   key: () => ["/api/article/page", String(route.params.id)],
-  query: async () =>
+  query: async ({ pageParam }) =>
     await $fetch("/api/article/page", {
-      query: { page: 1, pageSize: 10, typeId: route.params.id },
+      query: { page: pageParam, pageSize: 10, typeId: route.params.id },
     }),
   getNextPageParam: (lastPage, allPages) =>
     allPages.flatMap((item) => item.list).length >= lastPage.total
