@@ -72,3 +72,17 @@ Every `server/api/*.ts` follows this pattern:
 - **Styling**: UnoCSS (`presetUno`, `presetAttributify`, `presetIcons`, `presetWebFonts`) + Less. Dark mode via `class` strategy.
 - **No response wrapper on APIs**: The `$fetch` plugin (`app/plugins/api-error.client.ts`) auto-injects the JWT token on every request and surfaces errors via `useMessage` toasts.
 - **Nitro openAPI**: Auto-generated at `/_openapi.json` (enabled in `nuxt.config.ts`).
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues for `wsvaio/blog`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Triage uses the five canonical labels with their default names. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Domain documentation uses a single-context layout. See `docs/agents/domain.md`.
